@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.javabobo.supergit.models.GitRepository
 
 
-@Database(entities = [GitRepository::class], version = 1)
+//@Database(entities = [GitRepository::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract val gitRepoDao: GitRepoDao
 }
