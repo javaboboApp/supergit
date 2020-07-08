@@ -1,9 +1,9 @@
-package com.javabobo.supergit.models
+package com.javabobo.supergit.network
 
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Permissions (
+data class GitPermissions (
 
     val admin : Boolean,
     val push : Boolean,

@@ -5,4 +5,5 @@
     <string name="title_user">User</string>
     <string name="title_add">Add</string>
     <string name="title_favourites">Favourites</string>
+    <string name="search_new_user_account">Search New User Git Account</string>
 </resources>

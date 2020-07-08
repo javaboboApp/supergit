@@ -1,5 +1,6 @@
 package com.javabobo.supergit.di
 
+import com.bridge.androidtechnicaltest.persistence.GitRepoDao
 import com.google.firebase.auth.FirebaseAuth
 import com.javabobo.reddit.persistence.DatabaseFactory
 import com.javabobo.supergit.network.GitRetrofitInstance
@@ -9,13 +10,13 @@ import com.javabobo.supergit.repositories.IAuthGitRepository
 import com.javabobo.supergit.repositories.ISearchGitRepo
 import com.javabobo.supergit.repositories.SearchGitRepoRepository
 import com.javabobo.supergit.ui.auth.LoginGithubViewModel
+import com.javabobo.supergit.ui.user.UserViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 
 val databaseModule = module {
-    single { DatabaseFactory.getDBInstance(get()) }
-
+    factory{ DatabaseFactory.getDBInstance(get()) }
 
 }
 
@@ -28,10 +29,11 @@ val networkModule = module {
 }
 val repositoriesModule = module {
     single<IAuthGitRepository> { AuthGitRepository(get()) }
-    single<ISearchGitRepo> { SearchGitRepoRepository(get()) }
+    single<ISearchGitRepo> { SearchGitRepoRepository(get(),get()) }
 
 }
 val viewModelModule = module {
     viewModel { LoginGithubViewModel(get())  }
+    viewModel { UserViewModel(get()) }
 
 }

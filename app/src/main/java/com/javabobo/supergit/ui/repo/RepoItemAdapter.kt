@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 import com.javabobo.supergit.R
-import com.javabobo.supergit.models.User
+import com.javabobo.supergit.models.GitUser
 
 class RepoItemAdapter(val listener: Listener) :
     RecyclerView.Adapter<RepoItemAdapter.ItemViewHolder>() {
-    var list: List<User> = listOf()
+    var list: List<GitUser> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -42,8 +42,8 @@ class RepoItemAdapter(val listener: Listener) :
     }
 
     interface Listener {
-        fun remove(user: User, position: Int)
-        fun onClickItem(user: User)
+        fun remove(user: GitUser, position: Int)
+        fun onClickItem(user: GitUser)
 
     }
 
@@ -52,7 +52,7 @@ class RepoItemAdapter(val listener: Listener) :
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(user: User, listener: Listener) = with(itemView) {
+        fun bind(user: GitUser, listener: Listener) = with(itemView) {
 //            title_textview.text =post.title
 //            create_date_textview.text = getDate(post.timestamp)
 //            setOnClickListener {

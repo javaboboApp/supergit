@@ -5,13 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-
 import com.javabobo.supergit.R
 import com.javabobo.supergit.models.GitUser
-import kotlinx.android.synthetic.main.item_adapter_user.view.*
+import kotlinx.android.synthetic.main.fragment_user.view.*
+import kotlinx.android.synthetic.main.item_search_user.view.*
 
-class UserItemAdapter(val listener: UserItemsListener) :
-    RecyclerView.Adapter<UserItemAdapter.ItemViewHolder>() {
+class SearchUserAdapter (private val listener: SearchUserAdapter.SearchUserListener): RecyclerView.Adapter<SearchUserAdapter.ItemViewHolder>() {
+
     var list: List<GitUser> = listOf()
         set(value) {
             field = value
@@ -20,27 +20,17 @@ class UserItemAdapter(val listener: UserItemsListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_adapter_user, parent, false)
+            .inflate(R.layout.item_search_user, parent, false)
         return ItemViewHolder(
             view
         )
-    }
-
-    fun remove(position: Int) {
-        listener.remove(list[position],position)
-    }
-
-    fun removeAt(position: Int){
-        list.toMutableList().removeAt(position)
-        notifyItemRemoved(position)
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    interface UserItemsListener {
-        fun remove(user: GitUser, position: Int)
+    interface SearchUserListener {
         fun onClickItem(user: GitUser)
 
     }
@@ -49,14 +39,12 @@ class UserItemAdapter(val listener: UserItemsListener) :
         holder.bind(user = list[position], listener = listener)
     }
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(user: GitUser, listener: UserItemsListener) = with(itemView) {
-
-            username_textview.text= user.name
-            Glide.with(context).load(user.photo)
-                .into(logo_imageview)
-
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        fun bind(user: GitUser, listener: SearchUserAdapter.SearchUserListener) = with(itemView) {
+            search_bar_username_textView.text = user.name
+            Glide.with(context).load(user.photo).into(search_bar_imageView)
         }
     }
+
 
 }

@@ -1,9 +1,10 @@
-package com.javabobo.supergit.models
-
+package com.javabobo.supergit.network
+import android.net.Uri
+import com.javabobo.supergit.models.GitUser
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Owner (
+data class UserTransfer (
 
     val login : String,
     val id : Int,
@@ -22,5 +23,10 @@ data class Owner (
     val events_url : String,
     val received_events_url : String,
     val type : String,
-    val site_admin : Boolean
+    val site_admin : Boolean,
+    val score : Int?
 )
+
+fun UserTransfer.asDomainModel(): GitUser {
+    return GitUser(login, Uri.parse(avatar_url))
+}

@@ -1,8 +1,10 @@
 package com.javabobo.supergit.models
 
-import androidx.room.Entity
 
-@Entity
-class GitRepository() {
 
-}
+class GitRepository(
+    val name: String,
+    val full_name: String,
+    val private: Boolean,
+    val owner: GitUser
+)

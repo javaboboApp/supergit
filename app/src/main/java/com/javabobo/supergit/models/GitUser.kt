@@ -2,5 +2,5 @@ package com.javabobo.supergit.models
 
 import android.net.Uri
 
-class User(name: String?, photo: Uri?) {
+class GitUser(val name: String?, val photo: Uri?) {
 }

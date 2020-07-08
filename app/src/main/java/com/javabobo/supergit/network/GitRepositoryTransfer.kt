@@ -1,6 +1,6 @@
-package com.javabobo.supergit.models
+package com.javabobo.supergit.network
 
-import com.squareup.moshi.Json
+import com.javabobo.supergit.models.GitRepository
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -11,7 +11,7 @@ data class GitRepositoryTransfer (
     val name : String,
     val full_name : String,
     val private : Boolean,
-    val owner : Owner,
+    val owner : UserTransfer,
     val html_url : String,
     val description : String,
     val fork : Boolean,
@@ -79,5 +79,16 @@ data class GitRepositoryTransfer (
     val open_issues : Int,
     val watchers : Int,
     val default_branch : String,
-    val permissions : Permissions
+    val permissions : GitPermissions
 )
+
+fun List<GitRepositoryTransfer>.asDomainModel(): List<GitRepository>{
+   return  map {
+       GitRepository(
+           name = it.name,
+           full_name = it.full_name,
+           owner = it.owner.asDomainModel(),
+           private = it.private
+       )
+    }
+}

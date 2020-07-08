@@ -3,24 +3,23 @@ package com.javabobo.supergit.repositories
 import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthProvider
-import com.javabobo.supergit.models.User
+import com.javabobo.supergit.models.GitUser
 import com.javabobo.supergit.utils.Event
 import com.javabobo.supergit.utils.Resource
 
 
 interface IAuthGitRepository {
-    fun login(activity: Activity): LiveData<Resource<User>>
+    fun login(activity: Activity): LiveData<Resource<GitUser>>
 }
 
 private const val TAG = "AuthRepository"
 
 class AuthGitRepository(val firebaseAuth: FirebaseAuth) : IAuthGitRepository {
-    override fun login(activity: Activity): LiveData<Resource<User>> {
-        val result = MutableLiveData<Resource<User>>()
+    override fun login(activity: Activity): LiveData<Resource<GitUser>> {
+        val result = MutableLiveData<Resource<GitUser>>()
         val provider = OAuthProvider.newBuilder("github.com")
         result.value = Resource.loading(null)
 
@@ -44,7 +43,7 @@ class AuthGitRepository(val firebaseAuth: FirebaseAuth) : IAuthGitRepository {
                 // The OAuth access token can also be retrieved:
                 // authResult.getCredential().getAccessToken().
                 val user =
-                    User(name = authResult.user?.displayName, photo = authResult.user?.photoUrl)
+                    GitUser(name = authResult.user?.displayName, photo = authResult.user?.photoUrl)
                 result.value = Resource.success(Event(user))
                 firebaseAuth.signOut()
             }
