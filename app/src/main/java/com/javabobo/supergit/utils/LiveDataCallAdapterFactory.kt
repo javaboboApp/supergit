@@ -19,7 +19,7 @@ package com.bridge.androidtechnicaltest.utils
 
 import androidx.annotation.NonNull
 import androidx.lifecycle.LiveData
-import com.bridge.androidtechnicaltest.network.response.ApiResponse
+import com.javabobo.supergit.network.ApiResponse
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType

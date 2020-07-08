@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/mobile_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_users">
 
+
+    <fragment
+        android:id="@+id/navigation_users"
+        android:name="com.javabobo.supergit.ui.user.UserFragment"
+        android:label="UserFragment" />
+    <fragment
+        android:id="@+id/navigation_favourites"
+        android:name="com.javabobo.supergit.ui.repo.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/navigation_add"
+        android:name="com.javabobo.supergit.ui.auth.LoginGithubFragment"
+        android:label="fragment_login_github"
+        tools:layout="@layout/fragment_login_github" />
 </navigation>

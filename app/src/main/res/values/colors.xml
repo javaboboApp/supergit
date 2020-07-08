@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#ECECEC</color>
     <color name="colorAccent">#9A9A9A</color>
     <color name="textColorActionBar">#000</color>
@@ -11,4 +11,6 @@
 
 
     <color name="blue_link">#0366d6</color>
+
+
 </resources>
