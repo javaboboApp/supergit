@@ -24,6 +24,10 @@ class RepoItemAdapter(val listener: Listener) :
         )
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
+
     fun remove(position: Int) {
         listener.remove(list[position],position)
     }

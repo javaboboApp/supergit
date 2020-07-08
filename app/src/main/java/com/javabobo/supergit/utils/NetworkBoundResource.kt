@@ -5,8 +5,10 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.javabobo.supergit.AppExecutors
-import com.javabobo.supergit.utils.Resource.Status
-import com.javabobo.supergit.utils.Resource.Status.*
+import com.javabobo.supergit.network.ApiEmptyResponse
+import com.javabobo.supergit.network.ApiErrorResponse
+import com.javabobo.supergit.network.ApiResponse
+import com.javabobo.supergit.network.ApiSuccessResponse
 
 
 // CacheObject: Type for the Resource data. (database cache)
@@ -59,8 +61,8 @@ abstract class NetworkBoundResource<CacheObject, RequestObject>
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
-            when (response.status) {
-                 SUCCESS -> {
+            when (response) {
+                is ApiSuccessResponse -> {
                     appExecutors.diskIO().execute {
                         saveCallResult(processResponse(response))
                         appExecutors.mainThread().execute {
@@ -73,11 +75,18 @@ abstract class NetworkBoundResource<CacheObject, RequestObject>
                         }
                     }
                 }
-
-               ERROR -> {
+                is ApiEmptyResponse -> {
+                    appExecutors.mainThread().execute {
+                        // reload from disk whatever we had
+                        result.addSource(loadFromDb()) { newData ->
+                            setValue(Resource.success(Event.dataEvent(newData)))
+                        }
+                    }
+                }
+                is ApiErrorResponse -> {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        setValue(Resource.error(response.message, Event.dataEvent(newData)))
+                        setValue(Resource.error(response.errorMessage, Event.dataEvent(newData)))
                     }
                 }
             }
@@ -89,10 +98,10 @@ abstract class NetworkBoundResource<CacheObject, RequestObject>
     fun asLiveData() = result as LiveData<Resource<CacheObject>>
 
     @WorkerThread
-    protected open fun processResponse(response: Resource<RequestObject>) = response.data!!.peekContent()
+    protected open fun processResponse(response: ApiSuccessResponse<RequestObject>) = response.body
 
     @WorkerThread
-    protected abstract fun saveCallResult(item:  RequestObject)
+    protected abstract fun saveCallResult(item: RequestObject)
 
     @MainThread
     protected abstract fun shouldFetch(data: CacheObject?): Boolean
@@ -101,5 +110,5 @@ abstract class NetworkBoundResource<CacheObject, RequestObject>
     protected abstract fun loadFromDb(): LiveData<CacheObject>
 
     @MainThread
-    protected abstract fun createCall(): LiveData<Resource<RequestObject>>
+    protected abstract fun createCall(): LiveData<ApiResponse<RequestObject>>
 }

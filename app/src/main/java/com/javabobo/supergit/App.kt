@@ -1,14 +1,14 @@
 package com.javabobo.supergit
 
 import android.app.Application
-import com.javabobo.supergit.di.databaseModule
-import com.javabobo.supergit.di.repositoriesModule
-import com.javabobo.supergit.di.viewModelModule
+import com.javabobo.supergit.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class App : Application() {
-private val appComponent = mutableListOf(databaseModule,repositoriesModule,viewModelModule)
+private val appComponent = mutableListOf(databaseModule, networkModule,repositoriesModule,
+    firebaseModule,viewModelModule)
+
     override fun onCreate() {
         super.onCreate()
         // start Koin!
