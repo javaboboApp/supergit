@@ -12,5 +12,8 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_github_image)
         supportActionBar?.title = ""
 
+
+
+
     }
 }
