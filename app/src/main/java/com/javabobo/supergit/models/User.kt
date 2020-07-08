@@ -1,4 +1,6 @@
 package com.javabobo.supergit.models
 
-class User {
+import android.net.Uri
+
+class User(name: String?, photo: Uri?) {
 }
