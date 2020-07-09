@@ -1,7 +1,9 @@
-package com.javabobo.supergit.network
+package com.theappexperts.supergit.network
 
-import com.javabobo.supergit.models.GitRepository
+
+
 import com.squareup.moshi.JsonClass
+import com.theappexperts.supergit.models.GitRepository
 
 @JsonClass(generateAdapter = true)
 data class GitRepositoryTransfer (

@@ -1,16 +1,15 @@
-package com.javabobo.supergit.ui.user
+package com.theappexperts.supergit.ui.user
 
+import com.theappexperts.supergit.models.GitUser
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.javabobo.supergit.R
-import com.javabobo.supergit.models.GitUser
-import kotlinx.android.synthetic.main.fragment_user.view.*
+import com.theappexperts.supergit.R
 import kotlinx.android.synthetic.main.item_search_user.view.*
 
-class SearchUserAdapter (private val listener: SearchUserAdapter.SearchUserListener): RecyclerView.Adapter<SearchUserAdapter.ItemViewHolder>() {
+class SearchUserAdapter (private val listener: SearchUserListener): RecyclerView.Adapter<SearchUserAdapter.ItemViewHolder>() {
 
     var list: List<GitUser> = listOf()
         set(value) {

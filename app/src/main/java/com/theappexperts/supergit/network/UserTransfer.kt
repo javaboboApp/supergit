@@ -1,6 +1,6 @@
-package com.javabobo.supergit.network
+package com.theappexperts.supergit.network
+import com.theappexperts.supergit.models.GitUser
 import android.net.Uri
-import com.javabobo.supergit.models.GitUser
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)

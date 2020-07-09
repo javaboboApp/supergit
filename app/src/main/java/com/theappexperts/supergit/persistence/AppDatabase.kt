@@ -1,5 +1,6 @@
-package com.bridge.androidtechnicaltest.persistence
+package com.theappexperts.supergit.persistence
 
+import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.theappexperts.supergit.models.GitRepository
 import com.theappexperts.supergit.persistence.DBGitRepository

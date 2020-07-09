@@ -1,6 +1,5 @@
-package com.javabobo.supergit.network
+package com.theappexperts.supergit.network
 
-import com.javabobo.supergit.network.UserTransfer
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

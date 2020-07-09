@@ -1,12 +1,12 @@
 package com.theappexperts.supergit.ui.repo
 
+import com.theappexperts.supergit.models.GitUser
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 import com.theappexperts.supergit.R
-import com.theappexperts.supergit.models.User
 
 class RepoItemAdapter(val listener: Listener) :
     RecyclerView.Adapter<RepoItemAdapter.ItemViewHolder>() {

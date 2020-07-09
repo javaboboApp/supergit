@@ -1,10 +1,7 @@
-package com.bridge.androidtechnicaltest.persistence
+package com.theappexperts.supergit.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.javabobo.supergit.models.GitUser
-import com.javabobo.supergit.persistence.DBGitRepository
-import com.javabobo.supergit.persistence.DBUser
 
 @Dao
 interface GitRepoDao {

@@ -1,8 +1,8 @@
-package com.javabobo.supergit.persistence
+package com.theappexperts.supergit.persistence
 
+import com.theappexperts.supergit.models.GitUser
 import android.net.Uri
 import androidx.room.*
-import com.javabobo.supergit.models.GitUser
 
 @Entity(foreignKeys = [ForeignKey(entity = DBUser::class,
     parentColumns = arrayOf("username"),
@@ -11,7 +11,7 @@ import com.javabobo.supergit.models.GitUser
 )
 data class DBGitRepository (
     @PrimaryKey(autoGenerate = true)
-    val id : Long?,
+    val id : Long =0 ,
     val full_name : String = "",
     @ColumnInfo(name = "owner_name")
     val ownerName : String,

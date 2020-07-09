@@ -1,5 +1,6 @@
 package com.theappexperts.supergit.ui.user
 
+import com.theappexperts.supergit.models.GitUser
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 import com.theappexperts.supergit.R
-import com.theappexperts.supergit.models.User
 import kotlinx.android.synthetic.main.item_adapter_user.view.*
 
 class UserItemAdapter(val listener: UserItemsListener) :

@@ -1,15 +1,15 @@
 package com.theappexperts.supergit.ui.user
 
+import com.theappexperts.supergit.models.GitUser
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.theappexperts.supergit.R
 import androidx.lifecycle.Observer
-import com.javabobo.supergit.models.GitUser
-import com.javabobo.supergit.network.asDomainModel
+import com.theappexperts.supergit.network.asDomainModel
 import kotlinx.android.synthetic.main.fragment_user.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

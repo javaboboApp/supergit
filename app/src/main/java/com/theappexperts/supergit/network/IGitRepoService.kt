@@ -1,9 +1,8 @@
 package com.theappexperts.supergit.network
 
 import androidx.lifecycle.LiveData
-import com.theappexperts.supergit.models.GitRepositoryTransfer
-import com.theappexperts.supergit.utils.GET_REPOSITORIES_ENDPOINT
-import com.javabobo.supergit.utils.SEARCH_USER_ENDPOINT
+
+import com.theappexperts.supergit.utils.SEARCH_USER_ENDPOINT
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path

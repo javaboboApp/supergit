@@ -1,8 +1,7 @@
-package com.theappexperts.reddit.persistence
+package com.theappexperts.supergit.persistence
 
 import android.content.Context
 import androidx.room.Room
-import com.bridge.androidtechnicaltest.persistence.AppDatabase
 
 object DatabaseFactory  {
 
