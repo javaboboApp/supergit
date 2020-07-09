@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/navigation_users"
-        android:name="com.appexperts.supergit.ui.user.UserFragment"
+        android:name="com.theappexperts.supergit.ui.user.UserFragment"
         android:label="UserFragment" >
 
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_favourites"
-        android:name="com.appexperts.supergit.ui.repo.FavoritesFragment"
+        android:name="com.theappexperts.supergit.ui.repo.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_add"
-        android:name="com.appexperts.supergit.ui.auth.AddUserRepositoryGithubFragment"
+        android:name="com.theappexperts.supergit.ui.auth.AddUserRepositoryGithubFragment"
         android:label="fragment_login_github"
         tools:layout="@layout/fragment_add_user_repository" />
 </navigation>
