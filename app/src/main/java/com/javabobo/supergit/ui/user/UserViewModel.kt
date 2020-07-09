@@ -19,25 +19,15 @@ class UserViewModel(private val searchGitRepo: ISearchGitRepo) : ViewModel() {
 
     private val uiScope = CoroutineScope(Dispatchers.Main + Job())
 
-    private var searchUserAPIResponseLiveData: LiveData<ApiResponse<SearchGitUsersContainer>> =
-        MutableLiveData()
-
-    val errorDuringSearchingLiveData: LiveData<Boolean> =
-        Transformations.map(searchUserAPIResponseLiveData) { it is ApiErrorResponse  }
-
- val userSearchResponseLiveData: LiveData<List<GitUser>> =
-  Transformations.map(searchUserAPIResponseLiveData) {
-   if(  it is ApiSuccessResponse){
-    it.body.users.map { userTransfer -> userTransfer.asDomainModel()  }
-   } else  {
-    arrayListOf<GitUser>()
-   }
-  }
+   val searchUserAPIResponseLiveData: LiveData<SearchGitUsersContainer> =
+        searchGitRepo.getSearchUserLiveData()
 
 
     fun searchUser(userName: String) {
         Log.i(TAG, "searchUser: ")
-        searchUserAPIResponseLiveData = searchGitRepo.searchUser(userName)
+        uiScope.launch {
+            searchGitRepo.searchUser(userName)
+        }
     }
 
 
