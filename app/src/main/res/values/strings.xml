@@ -11,4 +11,5 @@
     <string name="user_not_found">User Not Found</string>
     <string name="or">Or</string>
     <string name="type_an_username">Type an Username...</string>
+    <string name="error_msg_to_get_current_user">Something was wrong :(</string>
 </resources>

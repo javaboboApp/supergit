@@ -2,31 +2,32 @@ package com.theappexperts.supergit.repositories
 
 import com.theappexperts.supergit.models.GitUser
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.theappexperts.supergit.models.asDbMoodel
 import com.theappexperts.supergit.AppExecutors
+import com.theappexperts.supergit.mappers.asDbMoodel
+import com.theappexperts.supergit.mappers.asDomainModel
+import com.theappexperts.supergit.mappers.asListUserTransfer
 import com.theappexperts.supergit.models.GitRepository
-import com.theappexperts.supergit.network.ApiResponse
-import com.theappexperts.supergit.network.GitRepositoryTransfer
-import com.theappexperts.supergit.network.IGitRepoService
+import com.theappexperts.supergit.network.*
 import com.theappexperts.supergit.utils.Resource
-import com.theappexperts.supergit.network.SearchGitUsersContainer
 import com.theappexperts.supergit.persistence.AppDatabase
-import com.theappexperts.supergit.persistence.asDomainModel
+import com.theappexperts.supergit.utils.ERROR_INSERTING
+import com.theappexperts.supergit.utils.Event
 import com.theappexperts.supergit.utils.NetworkBoundResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
+import java.lang.Exception
 
 private const val TAG = "SearchGitRepoRepository"
 
 interface ISearchGitRepo {
     fun searchRepositories(user: String): LiveData<Resource<List<GitRepositoryTransfer>>>
-    suspend fun searchUser(userName: String)
-    fun getSearchUserLiveData(): LiveData<SearchGitUsersContainer>
-    fun getCurrentUsersLiveData(): LiveData<List<GitUser>>
-    fun insertUser(user: GitUser)
+    fun searchUser(userName: String): LiveData<Resource<List<GitUser>>>
+    fun getCurrentUsers(): LiveData<Resource<List<GitUser>>>
+    fun insertUser(user: GitUser): LiveData<Resource<GitUser>>
 }
 
 class SearchGitRepoRepository(
@@ -34,59 +35,90 @@ class SearchGitRepoRepository(
     private val database: AppDatabase
 ) : ISearchGitRepo {
 
-    override fun getCurrentUsersLiveData(): LiveData<List<GitUser>> {
-        return Transformations.map(database.gitRepoDao.getLocalUsers()) {
-            it.asDomainModel()
+    override fun getCurrentUsers(): LiveData<Resource<List<GitUser>>> {
+        val result = MediatorLiveData<Resource<List<GitUser>>>()
+        result.value = Resource.loading(null)
+        val localUser = database.gitRepoDao.getLocalUsers()
+        result.addSource(localUser){
+            result.removeSource(localUser)
+            result.value = Resource.success(Event(it.asDomainModel()))
         }
+
+        return result
+
+
     }
 
-    private val searchUserLiveData = MutableLiveData<SearchGitUsersContainer>()
-    override fun getSearchUserLiveData(): LiveData<SearchGitUsersContainer> {
+
+    override fun insertUser(user: GitUser): LiveData<Resource<GitUser>> {
+        val result = MutableLiveData<Resource<GitUser>>()
+        result.value = Resource.loading(null)
+        AppExecutors.instance?.diskIO()?.execute {
+            try {
+                val valueReturned = database.gitRepoDao.insertUser(user.asDbMoodel())
+                if (valueReturned == -1L) {
+                    result.postValue(Resource.error(ERROR_INSERTING, null))
+                    return@execute
+                }
+                result.postValue(Resource.success(Event(user)))
+            } catch (exception: Exception) {
+                result.postValue(Resource.error(exception.message, null))
+            }
+        }
+
+        return result
+
+    }
+
+    override fun searchUser(userName: String): LiveData<Resource<List<GitUser>>> {
+        val searchUserLiveData = MediatorLiveData<Resource<List<GitUser>>>()
+        searchUserLiveData.value = Resource.loading(null)
+
+        searchUserLiveData.addSource(gitRepoService.searchUser(userName)) {
+            searchUserLiveData.removeSource(searchUserLiveData)
+            when (it) {
+                is ApiSuccessResponse -> {
+                    searchUserLiveData.value = Resource.success(Event(it.body.asListUserTransfer()))
+                }
+                is ApiErrorResponse -> {
+                    searchUserLiveData.value = Resource.error(it.errorMessage, null)
+                }
+                is ApiEmptyResponse -> {
+                    searchUserLiveData.value = Resource.success(Event(listOf()))
+                }
+            }
+        }
+
+
         return searchUserLiveData
     }
 
-    override fun insertUser(user: GitUser) {
-        database.gitRepoDao.insertUser(user.asDbMoodel())
-    }
 
-    override suspend fun searchUser(userName: String){
-        withContext(Dispatchers.IO) {
-            try {
-                var getSearchUser = gitRepoService.searchUser(userName)
-                val userResult = getSearchUser.await()
-                searchUserLiveData.postValue(userResult)
-            } catch (e: IOException) {
+    override fun searchRepositories(userName: String): LiveData<Resource<List<GitRepositoryTransfer>>> {
+
+        object : NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(
+            AppExecutors.instance!!
+        ) {
+            override fun saveCallResult(item: List<GitRepositoryTransfer>) {
+                TODO("Not yet implemented")
+            }
+
+            override fun shouldFetch(data: List<GitRepository>?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun loadFromDb(): LiveData<List<GitRepository>> {
+                TODO("Not yet implemented")
 
             }
-        }
-    }
 
-
-        override fun searchRepositories(userName: String): LiveData<Resource<List<GitRepositoryTransfer>>> {
-
-            object : NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(
-                AppExecutors.instance!!
-            ) {
-                override fun saveCallResult(item: List<GitRepositoryTransfer>) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun shouldFetch(data: List<GitRepository>?): Boolean {
-                    TODO("Not yet implemented")
-                }
-
-                override fun loadFromDb(): LiveData<List<GitRepository>> {
-                    TODO("Not yet implemented")
-
-                }
-
-                override fun createCall(): LiveData<ApiResponse<List<GitRepositoryTransfer>>> {
-                    TODO("Not yet implemented")
-                }
+            override fun createCall(): LiveData<ApiResponse<List<GitRepositoryTransfer>>> {
+                TODO("Not yet implemented")
             }
-            TODO("Not yet implemented")
         }
-
-
+        TODO("Not yet implemented")
     }
+
+
+}
 

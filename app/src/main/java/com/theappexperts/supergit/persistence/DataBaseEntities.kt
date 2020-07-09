@@ -29,10 +29,3 @@ data class DBUser (
 )
 
 
-fun List<DBUser>.asDomainModel() : List<GitUser>{
-    return map {
-        GitUser(
-        name = it.username, photo = Uri.parse(it.avatar_url)
-        )
-    }
-}

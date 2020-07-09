@@ -1,5 +1,6 @@
 package com.theappexperts.supergit.network
 
+import androidx.lifecycle.Transformations.map
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -11,3 +12,6 @@ data class SearchGitUsersContainer (
     @Json(name = "items")
     val users : List<UserTransfer>
 )
+
+
+

@@ -11,5 +11,5 @@ interface GitRepoDao {
     @Query("SELECT * FROM DBUser")
     fun getLocalUsers():LiveData<List<DBUser>>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(user: DBUser)
+    fun insertUser(user: DBUser): Long
 }

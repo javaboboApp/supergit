@@ -12,6 +12,6 @@ interface IGitRepoService {
 //    @GET(GET_REPOSITORIES_ENDPOINT)
 //    fun getRepositories(@Path("user_name") userName : String) : LiveData<ApiResponse<List<GitRepositoryTransfer>>>
     @GET(SEARCH_USER_ENDPOINT)
-    fun searchUser(@Query("q") userName: String): Deferred<SearchGitUsersContainer>
+    fun searchUser(@Query("q") userName: String): LiveData<ApiResponse<SearchGitUsersContainer>>
 
 }

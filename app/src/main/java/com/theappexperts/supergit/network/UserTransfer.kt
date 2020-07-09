@@ -27,10 +27,3 @@ data class UserTransfer (
     val score : Int?
 )
 
-fun UserTransfer.asDomainModel(): GitUser {
-    return GitUser(login, Uri.parse(avatar_url))
-}
-
-fun List<UserTransfer>.asDomainModel(): List<GitUser> {
-    return map { it.asDomainModel() }
-}
