@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.javabobo.supergit", appContext.packageName)
+        assertEquals("com.theappexperts.supergit", appContext.packageName)
     }
 }
