@@ -18,6 +18,9 @@ class AddUserRepositoryGithubViewModel(private val authGitRepository: IAuthGitRe
     fun login(activity: Activity) : LiveData<Resource<GitUser>>{
         return authGitRepository.login(activity)
     }
+    fun insertUser(user: GitUser): LiveData<Resource<GitUser>> {
+        return searchGitRepo.insertUser(user)
+    }
 
 
     private val _searchUser = MutableLiveData<String>()

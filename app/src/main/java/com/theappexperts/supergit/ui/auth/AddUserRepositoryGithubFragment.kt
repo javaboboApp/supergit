@@ -8,11 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.theappexperts.supergit.R
 import com.theappexperts.supergit.models.GitUser
 import com.theappexperts.supergit.ui.user.SearchUserAdapter
 import com.theappexperts.supergit.ui.user.UserItemAdapter
+import com.theappexperts.supergit.utils.ERROR_INSERTING
 import com.theappexperts.supergit.utils.Resource
+import com.theappexperts.supergit.utils.Resource.Status
+import com.theappexperts.supergit.utils.Resource.Status.*
 import com.theappexperts.supergit.utils.getQueryTextChangeStateFlow.getQueryTextChangeStateFlow
 import kotlinx.android.synthetic.main.fragment_add_user_repository.*
 import kotlinx.android.synthetic.main.fragment_user.*
@@ -29,9 +33,30 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(), UserItemAdapter.User
     private val searchUserAdapter: SearchUserAdapter =
         SearchUserAdapter(object : SearchUserAdapter.SearchUserListener {
             override fun onClickItem(user: GitUser) {
+                addUserRepositoryGithubViewModel.insertUser(user)
+                    .observe(viewLifecycleOwner, Observer { result ->
+                        when (result.status) {
+                            SUCCESS -> {
+                                navigateToHomeFragment()
+                            }
+                            ERROR -> {
+                                showErrorToInsert()
+                            }
 
+                        }
+
+                    })
             }
         })
+
+    private fun showErrorToInsert() {
+        Toast.makeText(requireContext(), ERROR_INSERTING, Toast.LENGTH_LONG).show()
+    }
+
+    private fun navigateToHomeFragment() {
+        findNavController().navigate(R.id.action_navigation_add_to_navigation_users)
+    }
+
     private val addUserRepositoryGithubViewModel: AddUserRepositoryGithubViewModel by viewModel()
 
     override fun onCreateView(
@@ -61,13 +86,14 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(), UserItemAdapter.User
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val searchText = s.toString().trim()
                 GlobalScope.launch {
-                    delay(300)  //debounce timeOut
+                    delay(500)  //debounce timeOut
                     addUserRepositoryGithubViewModel.searchUser(searchText)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) = Unit
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+                Unit
         }
 
         user_name_edittext.addTextChangedListener(watcher)
@@ -79,15 +105,15 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(), UserItemAdapter.User
             requireActivity(),
             Observer { list_user ->
                 when (list_user.status) {
-                    Resource.Status.SUCCESS -> {
+                    SUCCESS -> {
                         setCurrentUserAdapter(list_user.data?.peekContent()!!)
                     }
 
-                    Resource.Status.LOADING -> {
+                    LOADING -> {
 
                     }
 
-                    Resource.Status.ERROR -> {
+                    ERROR -> {
 
                     }
 
