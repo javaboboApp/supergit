@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "35510335006",
+    "firebase_url": "https://supergit-9f099.firebaseio.com",
+    "project_id": "supergit-9f099",
+    "storage_bucket": "supergit-9f099.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35510335006:android:9851b4fc2353a65468200f",
+        "android_client_info": {
+          "package_name": "com.javabobo.supergit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "35510335006-hgq52gge85l4pumes6s67s0r1gur86av.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.javabobo.supergit",
+            "certificate_hash": "111afdc7d541529f4c5fcdf6c6b92b68068d1ee1"
+          }
+        },
+        {
+          "client_id": "35510335006-7t6tmbea334v62fva512hphi3l6omlba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsmjBgfrHEMh1wtN4xR6PcbbXc9ux3Qao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35510335006-7t6tmbea334v62fva512hphi3l6omlba.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

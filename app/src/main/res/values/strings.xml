@@ -7,4 +7,7 @@
     <string name="title_favourites">Favourites</string>
     <string name="search_new_user_account">Search New User Git Account</string>
     <string name="message_empty_username">Please Enter A Git User Account</string>
+    <string name="add_private_repository">Add private repository</string>
+    <string name="or">Or</string>
+    <string name="type_an_username">Type an Username...</string>
 </resources>

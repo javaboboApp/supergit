@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "703316149984",
+    "firebase_url": "https://supergit-3ecc2.firebaseio.com",
+    "project_id": "supergit-3ecc2",
+    "storage_bucket": "supergit-3ecc2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703316149984:android:8a28d9f7afeffdfeec7285",
+        "android_client_info": {
+          "package_name": "com.theappexperts.supergit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703316149984-vhfuehsik5qr1ap6q6be2t9gupjo39ec.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theappexperts.supergit",
+            "certificate_hash": "5dc5aa5ad6713af31245a27135be9cc874e62acd"
+          }
+        },
+        {
+          "client_id": "703316149984-plr1l4v405vdk65uq5o6e6fufbnatg1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHtEPqKFgzxS90W1Sa_FT1tULudVX0jVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703316149984-plr1l4v405vdk65uq5o6e6fufbnatg1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
