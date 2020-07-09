@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "703316149984-ubfcen84pkr0s7ug9uce2ra84brbqvgf.apps.googleusercontent.com",
+          "client_id": "703316149984-vhfuehsik5qr1ap6q6be2t9gupjo39ec.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.theappexperts.supergit",
-            "certificate_hash": "111afdc7d541529f4c5fcdf6c6b92b68068d1ee1"
+            "certificate_hash": "5dc5aa5ad6713af31245a27135be9cc874e62acd"
           }
         },
         {
