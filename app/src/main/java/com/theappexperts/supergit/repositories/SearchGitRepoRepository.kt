@@ -73,12 +73,11 @@ class SearchGitRepoRepository(
     override fun searchUser(userName: String): LiveData<Resource<List<GitUser>>> {
         val searchUserLiveData = MediatorLiveData<Resource<List<GitUser>>>()
         searchUserLiveData.value = Resource.loading(null)
-
         searchUserLiveData.addSource(gitRepoService.searchUser(userName)) {
             searchUserLiveData.removeSource(searchUserLiveData)
             when (it) {
                 is ApiSuccessResponse -> {
-                    searchUserLiveData.value = Resource.success(Event(it.body.asListUserTransfer()))
+                    searchUserLiveData.value = Resource.success(Event(it.body.asListUserTransfer().take(4)))
                 }
                 is ApiErrorResponse -> {
                     searchUserLiveData.value = Resource.error(it.errorMessage, null)

@@ -18,12 +18,6 @@ private const val TAG = "UserFragment"
 class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
 
     private val currentUserItemAdapter: UserItemAdapter = UserItemAdapter(this)
-    private val searchUserAdapter: SearchUserAdapter =
-        SearchUserAdapter(object : SearchUserAdapter.SearchUserListener {
-            override fun onClickItem(user: GitUser) {
-                userViewModel.insertUser(user)
-            }
-        })
     private val userViewModel: UserViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,65 +30,31 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUserAdapter()
-        initSearchAdapter()
         subscribeGetCurrentUser()
-        subscribeSearchUser()
-        initListeners()
+
 
     }
 
-    private fun initListeners() {
-        search_imageView.setOnClickListener {
-            val username: String = search_username_editText.text.toString().trim()
-            if (username.isNotEmpty()) {
-                userViewModel.searchUser(username)
-            } else {
-                Toast.makeText(
-                    context,
-                    getString(R.string.message_empty_username),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
+    private fun initUserAdapter() {
+        users_recycler.adapter = currentUserItemAdapter
     }
 
-    private fun subscribeSearchUser() {
-        userViewModel.searchUser.observe(
-            requireActivity(),
-            Observer { list_user ->
-                when (list_user) {
-                    SUCCESS -> {
-
-                    }
-
-                    LOADING -> {
-
-                    }
-
-                    ERROR -> {
-
-                    }
-
-                }
-
-            })
-    }
 
     private fun subscribeGetCurrentUser() {
         userViewModel.getCurrentUsers().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 SUCCESS -> {
-                    uiCommunicatorInterface.hideProgressBar()
-                    setCurrentUserAdapter(it.data?.peekContent()!!)
+                    uiCommunicatorInterface?.hideProgressBar()
+                    setCurrentUsers(it.data?.peekContent()!!)
 
                 }
                 ERROR -> {
-                    uiCommunicatorInterface.hideProgressBar()
+                    uiCommunicatorInterface?.hideProgressBar()
                     showErrorMsg()
                 }
 
                 LOADING -> {
-                    uiCommunicatorInterface.showProgressBar()
+                    uiCommunicatorInterface?.showProgressBar()
                 }
 
             }
@@ -110,20 +70,9 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
         )
     }
 
-    private fun initSearchAdapter() {
-        searching_user_recyclerView.adapter = searchUserAdapter
-    }
 
-    private fun initUserAdapter() {
-        users_recycler.adapter = currentUserItemAdapter
-    }
-
-    fun setCurrentUserAdapter(users: List<GitUser>) {
+    private fun setCurrentUsers(users: List<GitUser>) {
         currentUserItemAdapter.list = users
-    }
-
-    fun setSearchUserAdapter(users: List<GitUser>) {
-        searchUserAdapter.list = users
     }
 
     override fun remove(user: GitUser, position: Int) {

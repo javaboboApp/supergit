@@ -9,14 +9,12 @@ import java.lang.ClassCastException
 private const val TAG = "BaseFragment"
 open class BaseFragment : Fragment(){
 
-    lateinit var uiCommunicatorInterface: CommunicatorsInterface
+     var uiCommunicatorInterface: CommunicatorsInterface? =null
 
 
     interface CommunicatorsInterface {
         fun showProgressBar()
         fun hideProgressBar()
-
-
 
     }
 

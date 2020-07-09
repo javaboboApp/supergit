@@ -28,17 +28,7 @@
             app:layout_constraintTop_toTopOf="@+id/search_username_editText"
             android:src="@drawable/ic_search"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searching_user_recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:elevation="1dp"
-            app:layout_constraintEnd_toEndOf="@+id/search_username_editText"
-            app:layout_constraintStart_toStartOf="@+id/search_username_editText"
-            app:layout_constraintTop_toBottomOf="@+id/search_username_editText"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_search_user"
-            tools:itemCount="2"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/users_recycler"

@@ -19,7 +19,7 @@ class GitRetrofitInstance {
 
         return Retrofit.Builder()
             .baseUrl(GIT_BASE_URL)
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build().create(IGitRepoService::class.java)
     }

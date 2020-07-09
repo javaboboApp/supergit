@@ -1,84 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    >
-
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.auth.AddUserRepositoryGithubFragment">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/add_user_git_hub_buttom"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen16dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        tools:context=".ui.auth.AddUserRepositoryGithubFragment">
 
-        android:background="@android:color/black"
-        android:text="@string/add_private_repository"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.325" />
 
-    <TextView
-        android:id="@+id/or_texview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/or"
-        android:textSize="@dimen/dimen24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_user_git_hub_buttom"
-        app:layout_constraintVertical_bias="0.139" />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen16dp"
-        app:cardCornerRadius="@dimen/dimen8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/or_texview"
-        app:layout_constraintVertical_bias="0.139">
-
-        <RelativeLayout
-            android:gravity="center"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardviewd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen16dp"
+            app:cardCornerRadius="@dimen/dimen8dp"
 
-            <EditText
-                android:id="@+id/user_name"
-                android:padding="@dimen/dimen8dp"
-                android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:background="@android:color/transparent"
-                android:hint="@string/type_an_username" />
-
-            <ImageView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/dimen8dp"
-                android:src="@drawable/ic_baseline_search_24" />
-        </RelativeLayout>
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:id="@+id/search_container_relativelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/user_name_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/type_an_username"
+                        android:padding="@dimen/dimen8dp" />
+
+                    <ImageView
+                        android:id="@+id/button_search_imageview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/dimen8dp"
+                        android:src="@drawable/ic_baseline_search_24" />
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searching_user_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/search_container_relativelayout"
+
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_search_user" />
+            </RelativeLayout>
 
 
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/or_texview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardviewd"
+            android:layout_centerHorizontal="true"
+            android:text="@string/or"
+            android:textSize="@dimen/dimen24sp" />
+
+        <Button
+            android:id="@+id/add_user_git_hub_buttom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/or_texview"
+            android:layout_marginTop="@dimen/dimen24dp"
+            android:layout_marginLeft="@dimen/dimen16dp"
+            android:layout_marginRight="@dimen/dimen16dp"
+
+            android:background="@android:color/black"
+            android:text="@string/add_private_repository"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
 </androidx.core.widget.NestedScrollView>

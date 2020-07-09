@@ -3,6 +3,7 @@ package com.theappexperts.supergit.network
 
 
 import com.squareup.moshi.JsonClass
+import com.theappexperts.supergit.mappers.asDomainModel
 import com.theappexperts.supergit.models.GitRepository
 
 @JsonClass(generateAdapter = true)

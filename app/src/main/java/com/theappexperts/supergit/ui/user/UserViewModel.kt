@@ -16,16 +16,6 @@ private const val TAG = "UserViewModel"
 
 class UserViewModel(private val searchGitRepo: ISearchGitRepo) : ViewModel() {
 
-    private val _searchUser = MutableLiveData<String>()
-    val searchUser = Transformations.switchMap(_searchUser) { userName ->
-        searchGitRepo.searchUser(userName)
-    }
-
-    fun searchUser(userName: String) {
-        Log.i(TAG, "searchUser: ")
-        _searchUser.value = userName
-    }
-
     fun getCurrentUsers(): LiveData<Resource<List<GitUser>>> {
         return searchGitRepo.getCurrentUsers()
     }
