@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.theappexperts.supergit.R
 import androidx.lifecycle.Observer
 import com.javabobo.supergit.models.GitUser
+import com.javabobo.supergit.network.asDomainModel
 import kotlinx.android.synthetic.main.fragment_user.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,9 +40,12 @@ class UserFragment : Fragment(), UserItemAdapter.UserItemsListener {
         userViewModel.currentUsersLiveData.observe(requireActivity(), Observer { listUsers ->
             setCurrentUserAdapter(listUsers)
         })
-        userViewModel.userSearchResponseLiveData.observe(requireActivity(), Observer { usersList ->
-            Log.i(TAG, "on user Search Response : ${usersList?.size} ")
-            setSearchUserAdapter(usersList)
+        userViewModel.searchUserAPIResponseLiveData.observe(requireActivity(), Observer { usersContainerResponse ->
+            if (usersContainerResponse.total_count > 0){
+                setSearchUserAdapter(usersContainerResponse.users.asDomainModel())
+            }else{
+                Toast.makeText(context,getString(R.string.user_not_found), Toast.LENGTH_LONG).show()
+            }
         })
         search_imageView.setOnClickListener {
             val username: String = search_username_editText.text.toString().trim()
