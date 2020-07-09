@@ -8,16 +8,36 @@
 
     <fragment
         android:id="@+id/navigation_users"
-        android:name="com.javabobo.supergit.ui.user.UserFragment"
-        android:label="UserFragment" />
+        android:name="com.appexperts.supergit.ui.user.UserFragment"
+        android:label="UserFragment" >
+
+        <action
+            android:id="@+id/action_navigation_users_to_navigation_favourites"
+            app:destination="@id/navigation_favourites"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+
+            />
+    </fragment>
     <fragment
         android:id="@+id/navigation_favourites"
-        android:name="com.javabobo.supergit.ui.repo.FavoritesFragment"
+        android:name="com.appexperts.supergit.ui.repo.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_navigation_favourites_to_navigation_add"
+            app:destination="@id/navigation_add"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+    </fragment>
     <fragment
         android:id="@+id/navigation_add"
-        android:name="com.javabobo.supergit.ui.auth.LoginGithubFragment"
+        android:name="com.appexperts.supergit.ui.auth.AddUserRepositoryGithubFragment"
         android:label="fragment_login_github"
-        tools:layout="@layout/fragment_login_github" />
+        tools:layout="@layout/fragment_add_user_repository" />
 </navigation>

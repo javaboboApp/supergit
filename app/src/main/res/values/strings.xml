@@ -5,4 +5,8 @@
     <string name="title_user">User</string>
     <string name="title_add">Add</string>
     <string name="title_favourites">Favourites</string>
+    <string name="add_private_repository">Add private repository</string>
+    <string name="or">Or</string>
+    <string name="type_an_username">Type an Username...</string>
+
 </resources>
