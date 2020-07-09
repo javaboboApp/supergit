@@ -26,21 +26,11 @@ class UserItemAdapter(val listener: UserItemsListener) :
         )
     }
 
-    fun remove(position: Int) {
-        listener.remove(list[position],position)
-    }
-
-    fun removeAt(position: Int){
-        list.toMutableList().removeAt(position)
-        notifyItemRemoved(position)
-    }
-
     override fun getItemCount(): Int {
         return list.size
     }
 
     interface UserItemsListener {
-        fun remove(user: GitUser, position: Int)
         fun onClickItem(user: GitUser)
 
     }

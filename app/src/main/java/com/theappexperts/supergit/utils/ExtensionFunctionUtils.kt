@@ -8,7 +8,6 @@ import android.widget.EditText
 import android.widget.SearchView
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 fun EditText.getQueryTextChangeStateFlow(): Flow<String> {
     val query = MutableStateFlow("")

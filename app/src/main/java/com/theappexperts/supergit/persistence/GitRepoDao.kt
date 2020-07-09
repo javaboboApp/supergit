@@ -12,4 +12,6 @@ interface GitRepoDao {
     fun getLocalUsers():LiveData<List<DBUser>>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(user: DBUser): Long
+    @Delete
+    fun deleteUser(user: DBUser)
 }
