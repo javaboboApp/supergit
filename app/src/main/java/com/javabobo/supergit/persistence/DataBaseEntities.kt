@@ -1,16 +1,14 @@
 package com.javabobo.supergit.persistence
 
 import android.net.Uri
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.javabobo.supergit.models.GitUser
 
-@Entity(foreignKeys =  arrayOf(ForeignKey(entity = DBGitRepository::class,
+@Entity(foreignKeys = [ForeignKey(entity = DBUser::class,
     parentColumns = arrayOf("username"),
     childColumns = arrayOf("owner_name"),
-    onDelete = ForeignKey.CASCADE)))
+    onDelete = ForeignKey.CASCADE)], indices = [Index(value = ["owner_name"])]
+)
 data class DBGitRepository (
     @PrimaryKey(autoGenerate = true)
     val id : Long?,
@@ -26,7 +24,7 @@ data class DBGitRepository (
 @Entity
 data class DBUser (
     @PrimaryKey()
-    val username : String,
+    val username : String="",
     val avatar_url: String = ""
 )
 

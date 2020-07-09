@@ -27,12 +27,11 @@ class SearchGitRepoRepository(private val gitRepoService: IGitRepoService, priva
     override fun getCurrentUsersLiveData(): LiveData<List<GitUser>> {
         return Transformations.map(database.gitRepoDao.getLocalUsers()) {
             it.asDomainModel()
-
         }
     }
 
     override fun insertUser(user: GitUser) {
-        database.gitRepoDao.insertUser(user)
+        database.gitRepoDao.insertUser(user.asDbMoodel())
     }
 
     override fun searchUser(userName: String): LiveData<ApiResponse<SearchGitUsersContainer>> {

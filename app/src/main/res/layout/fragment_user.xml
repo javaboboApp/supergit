@@ -15,12 +15,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/search_new_user_account"
-            app:layout_constraintEnd_toStartOf="@+id/search_username_imageView"
+            app:layout_constraintEnd_toStartOf="@+id/search_imageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/search_username_imageView"
+            android:id="@+id/search_imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:layout_constraintBottom_toBottomOf="@+id/search_username_editText"
@@ -36,6 +36,7 @@
             app:layout_constraintEnd_toEndOf="@+id/search_username_editText"
             app:layout_constraintStart_toStartOf="@+id/search_username_editText"
             app:layout_constraintTop_toBottomOf="@+id/search_username_editText"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_search_user"
             tools:itemCount="2"/>
 

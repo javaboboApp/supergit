@@ -1,15 +1,19 @@
 package com.javabobo.supergit.ui.user
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.javabobo.supergit.R
 import com.javabobo.supergit.models.GitUser
 import kotlinx.android.synthetic.main.fragment_user.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+private const val TAG = "UserFragment"
 
 class UserFragment : Fragment(), UserItemAdapter.UserItemsListener {
 
@@ -36,12 +40,27 @@ class UserFragment : Fragment(), UserItemAdapter.UserItemsListener {
         userViewModel.currentUsersLiveData.observe(requireActivity(), Observer { listUsers ->
             setCurrentUserAdapter(listUsers)
         })
-
+        userViewModel.userSearchResponseLiveData.observe(requireActivity(), Observer { usersList ->
+            Log.i(TAG, "on user Search Response : ${usersList?.size} ")
+            setSearchUserAdapter(usersList)
+        })
+        search_imageView.setOnClickListener {
+            val username: String = search_username_editText.text.toString().trim()
+            if (username.isNotEmpty()){
+                userViewModel.searchUser(username)
+            }else{
+                Toast.makeText(context,getString(R.string.message_empty_username),Toast.LENGTH_LONG).show()
+            }
+        }
 
     }
 
     fun setCurrentUserAdapter(users: List<GitUser>) {
         currentUserItemAdapter.list = users
+    }
+
+    fun setSearchUserAdapter(users: List<GitUser>) {
+        searchUserAdapter.list = users
     }
 
     override fun remove(user: GitUser, position: Int) {

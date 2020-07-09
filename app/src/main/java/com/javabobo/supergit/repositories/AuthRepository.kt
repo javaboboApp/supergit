@@ -42,9 +42,11 @@ class AuthGitRepository(val firebaseAuth: FirebaseAuth) : IAuthGitRepository {
                 // authResult.getAdditionalUserInfo().getProfile().
                 // The OAuth access token can also be retrieved:
                 // authResult.getCredential().getAccessToken().
-                val user =
-                    GitUser(name = authResult.user?.displayName, photo = authResult.user?.photoUrl)
-                result.value = Resource.success(Event(user))
+                authResult.user?.displayName?.let {
+                    val user =GitUser(name = it, photo = authResult.user?.photoUrl)
+                    result.value = Resource.success(Event(user))
+                }
+
                 firebaseAuth.signOut()
             }
             .addOnFailureListener { exception ->

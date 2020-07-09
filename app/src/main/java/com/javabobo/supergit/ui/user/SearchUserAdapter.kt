@@ -40,9 +40,10 @@ class SearchUserAdapter (private val listener: SearchUserAdapter.SearchUserListe
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bind(user: GitUser, listener: SearchUserAdapter.SearchUserListener) = with(itemView) {
+        fun bind(user: GitUser, listener: SearchUserListener) = with(itemView) {
             search_bar_username_textView.text = user.name
             Glide.with(context).load(user.photo).into(search_bar_imageView)
+            setOnClickListener { listener.onClickItem(user) }
         }
     }
 
