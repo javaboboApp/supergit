@@ -15,4 +15,5 @@
     <string name="add_user_text">Let\'s begin by adding a Git User !</string>
     <string name="add_user_button">Add User</string>
     <string name="error_removing_user_msg">Error Occurred during suppression</string>
+    <string name="visibility_public">public</string>
 </resources>
