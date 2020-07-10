@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.theappexperts.supergit.R
 import com.theappexperts.supergit.models.GitRepository
 import com.theappexperts.supergit.models.GitUser
@@ -53,6 +54,8 @@ class SearchRepoFragment : BaseFragment() {
         sharedHomeViewModel.userSelectedLiveData.observe(viewLifecycleOwner, Observer { user ->
 
             user?.let {
+                repo_username_textView.text = it.name
+                Glide.with(requireContext()).load(it.photo).into(repo_logo_imageview)
                 searchRepoViewModel.getPublicRepositoriesByUser(it.name).observe(viewLifecycleOwner,
                     Observer { resource ->
                         when(resource.status){

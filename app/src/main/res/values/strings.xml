@@ -14,4 +14,6 @@
     <string name="error_msg_to_get_current_user">Something was wrong :(</string>
     <string name="add_user_text">Let\'s begin by adding a Git User !</string>
     <string name="add_user_button">Add User</string>
+    <string name="visibility_private">private</string>
+    <string name="visibility_public">public</string>
 </resources>

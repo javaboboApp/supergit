@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/main_cnt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,27 +45,37 @@
                     android:textColor="@color/blue_link"
                     android:textSize="@dimen/dimen24sp"
                     android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="Repository Full Name" />
 
                 <TextView
-                    android:layout_below="@id/repo_item_fullname_textview"
                     android:id="@+id/repo_item_description"
-                    android:textSize="@dimen/repo_description_text_size"
-                    android:layout_marginTop="@dimen/dimen8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="desciption"/>
+                    android:layout_below="@id/repo_item_fullname_textview"
+                    android:layout_marginTop="8dp"
+                    android:textSize="@dimen/repo_description_text_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/repo_item_fullname_textview"
+                    tools:text="desciption" />
 
                 <TextView
+                    android:id="@+id/repo_item_visibility_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/repo_item_description"
-                    android:text="Visibility"
-                    />
+                    android:layout_marginTop="8dp"
+                    tools:text="public"
+                    tools:textColor="@color/visibility_public_text_color"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/repo_item_description" />
 
 
 
-            </RelativeLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </RelativeLayout>
