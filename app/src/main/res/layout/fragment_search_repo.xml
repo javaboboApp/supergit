@@ -12,27 +12,16 @@
 
 
         <ImageView
-            android:id="@+id/repo_back_imageview"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="@dimen/dimen16dp"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_arrow_back"/>
-
-        <ImageView
             android:id="@+id/repo_logo_imageview"
-            android:layout_width="@dimen/picture_size"
-            android:layout_height="@dimen/picture_size"
+            android:layout_width="@dimen/repo_user_avatar_size"
+            android:layout_height="@dimen/repo_user_avatar_size"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/dimen16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@mipmap/ic_launcher" />
@@ -41,14 +30,13 @@
             android:id="@+id/repo_username_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:gravity="center"
             android:textSize="@dimen/dimen24sp"
-            app:layout_constraintEnd_toEndOf="@+id/repo_logo_imageview"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/repo_logo_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/repo_logo_imageview"
-            tools:text="UserName"
-            android:gravity="center"/>
+            app:layout_constraintBottom_toBottomOf="@+id/repo_logo_imageview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/repo_logo_imageview"
+            app:layout_constraintTop_toTopOf="@+id/repo_logo_imageview"
+            tools:text="UserName" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/repositories_recyclerView"
@@ -58,13 +46,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repo_username_textView"
-            tools:listitem="@layout/item_adapter_repo"/>
-
+            app:layout_constraintTop_toBottomOf="@+id/repo_logo_imageview"
+            tools:listitem="@layout/item_adapter_repo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </FrameLayout>

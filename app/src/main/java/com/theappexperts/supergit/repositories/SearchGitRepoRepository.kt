@@ -4,18 +4,13 @@ import com.theappexperts.supergit.models.GitUser
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.theappexperts.supergit.AppExecutors
-import com.theappexperts.supergit.mappers.asDbMoodel
-import com.theappexperts.supergit.mappers.asDomainModel
-import com.theappexperts.supergit.mappers.asGitRepositoryModel
-import com.theappexperts.supergit.mappers.asListUserTransfer
+import com.theappexperts.supergit.mappers.*
 import com.theappexperts.supergit.models.GitRepository
 import com.theappexperts.supergit.network.*
-import com.theappexperts.supergit.utils.Resource
 import com.theappexperts.supergit.persistence.AppDatabase
-import com.theappexperts.supergit.utils.ERROR_INSERTING
-import com.theappexperts.supergit.utils.Event
-import com.theappexperts.supergit.utils.GET_REPOSITORIES_PARAM_TYPE
+import com.theappexperts.supergit.utils.*
 import com.theappexperts.supergit.utils.Utitlites.runDelayForTesting
 import kotlinx.coroutines.Delay
 import java.lang.Exception
@@ -23,7 +18,7 @@ import java.lang.Exception
 private const val TAG = "SearchGitRepoRepository"
 
 interface ISearchGitRepo {
-    fun getPublicRepositoriesByUser(username: String): MediatorLiveData<Resource<List<GitRepository>>>
+    fun getPublicRepositoriesByUser(username: String): LiveData<Resource<List<GitRepository>>>
     fun searchUser(userName: String): LiveData<Resource<List<GitUser>>>
     fun getCurrentUsers(): LiveData<Resource<List<GitUser>>>
     fun insertUser(user: GitUser): LiveData<Resource<GitUser>>
@@ -124,25 +119,27 @@ class SearchGitRepoRepository(
     }
 
 
-    override fun getPublicRepositoriesByUser(userName: String): MediatorLiveData<Resource<List<GitRepository>>> {
-
-        val repositoriesLiveData = MediatorLiveData<Resource<List<GitRepository>>>()
-        repositoriesLiveData.value = Resource.loading(null)
-        repositoriesLiveData.addSource(gitRepoService.getPublicRepositoriesByUser(userName,GET_REPOSITORIES_PARAM_TYPE)){
-            repositoriesLiveData.removeSource(repositoriesLiveData)
-            when(it){
-                is ApiSuccessResponse -> {
-                    repositoriesLiveData.value = Resource.success(Event(it.body.asGitRepositoryModel()))
-                }
-                is ApiErrorResponse -> {
-                    repositoriesLiveData.value = Resource.error(it.errorMessage, null)
-                }
-                is ApiEmptyResponse -> {
-                    repositoriesLiveData.value = Resource.success(Event(listOf()))
-                }
+    override fun getPublicRepositoriesByUser(userName: String): LiveData<Resource<List<GitRepository>>> {
+        return object : NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(appExecutors = AppExecutors.instance!!) {
+            override fun saveCallResult(item: List<GitRepositoryTransfer>) {
+                //running in a threat...
+                database.gitRepoDao.insertRespositories(item.asDatabaseModel())
             }
-        }
-        return repositoriesLiveData
+
+            override fun shouldFetch(data: List<GitRepository>?): Boolean {
+                //24h make a request
+                return true
+            }
+
+            override fun loadFromDb(): LiveData<List<GitRepository>> =
+                Transformations.map(database.gitRepoDao.getRepositoriesByUser(userName)) { dbRepo -> dbRepo.asListDomainModel()  }
+
+
+            override fun createCall(): LiveData<ApiResponse<List<GitRepositoryTransfer>>> {
+                return gitRepoService.getPublicRepositoriesByUser(userName, GET_REPOSITORIES_PARAM_TYPE)
+            }
+
+        }.asLiveData()
     }
 
 

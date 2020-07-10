@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.theappexperts.supergit.R
 import com.theappexperts.supergit.models.GitRepository
+import kotlinx.android.synthetic.main.item_adapter_repo.view.*
 
 class RepoItemAdapter(val listener: RepositoryListener) :
     RecyclerView.Adapter<RepoItemAdapter.ItemViewHolder>() {
@@ -41,7 +42,10 @@ class RepoItemAdapter(val listener: RepositoryListener) :
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(gitRepository: GitRepository, listener: RepositoryListener) = with(itemView) {
-
+            gitRepository.apply {
+                repo_item_fullname_textview.text = this.full_name
+                repo_item_description.text = this.description
+            }
 
         }
     }
