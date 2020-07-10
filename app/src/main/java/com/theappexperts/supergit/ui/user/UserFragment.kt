@@ -1,21 +1,24 @@
 package com.theappexperts.supergit.ui.user
 
-import com.theappexperts.supergit.models.GitUser
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.theappexperts.supergit.R
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.theappexperts.supergit.R
+import com.theappexperts.supergit.models.GitUser
 import com.theappexperts.supergit.ui.BaseFragment
 import com.theappexperts.supergit.ui.main.SharedHomeViewModel
 import com.theappexperts.supergit.utils.Resource.Status.*
 import kotlinx.android.synthetic.main.fragment_user.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 private const val TAG = "UserFragment"
 
@@ -34,7 +37,6 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeUserSelected()
         initUserAdapter()
         subscribeGetCurrentUser()
         subscribeIsShowingNoUserLayout()
@@ -44,11 +46,6 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
 
     }
 
-    private fun subscribeUserSelected() {
-        sharedHomeViewModel.userSelectedLiveData.observe(requireActivity(), Observer { user ->
-            user?.let {goSearchRepoFragment()  }
-        })
-    }
 
 
     private fun subscribeIsShowingNoUserLayout() {
@@ -132,7 +129,13 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
 
 
     fun goSearchRepoFragment(){
-        findNavController().navigate(R.id.action_navigation_user_to_searchRepoFragment)
+
+        try {
+
+            findNavController().navigate(R.id.action_navigation_user_to_searchRepoFragment)
+        } catch (e: IllegalArgumentException) {
+            Log.e(TAG, "Multiple navigation attempts handled. ",e )
+        }
     }
 
 

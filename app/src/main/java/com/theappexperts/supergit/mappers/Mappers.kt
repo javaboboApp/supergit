@@ -6,6 +6,7 @@ import com.theappexperts.supergit.models.GitUser
 import com.theappexperts.supergit.network.GitRepositoryTransfer
 import com.theappexperts.supergit.network.SearchGitUsersContainer
 import com.theappexperts.supergit.network.UserTransfer
+import com.theappexperts.supergit.persistence.DBGitRepository
 import com.theappexperts.supergit.persistence.DBUser
 import com.theappexperts.supergit.utils.Event
 import com.theappexperts.supergit.utils.Resource
@@ -41,14 +42,39 @@ fun List<UserTransfer>.asGitUserModel(): List<GitUser> {
 
 fun GitRepositoryTransfer.asDomainModel(): GitRepository{
     return GitRepository(
-        name = name,
-        full_name = full_name,
-        owner = owner.asDomainModel(),
-        private = private,
-        description = description
+        id = id?.toLong() ?: 0,
+        name = name?: "" ,
+        full_name = full_name?: "",
+        owner = owner?.asDomainModel(),
+        private = private?: false,
+        description = description?: ""
     )
 }
 
 fun List<GitRepositoryTransfer>.asGitRepositoryModel(): List<GitRepository>{
     return  map {it.asDomainModel() }
+}
+
+fun List<GitRepositoryTransfer>.asDatabaseModel(): List<DBGitRepository>{
+    return map {
+        DBGitRepository(
+             id= it.id?.toLong()?: 0,
+            name = it.name?: "",
+            full_name = it.full_name?: "",
+            owner_name = it.owner?.asDomainModel()?.name?: "",
+            private = it.private?: false,
+            description = it.description?: "")
+    }
+}
+
+fun List<DBGitRepository>.asListDomainModel(): List<GitRepository>{
+    return map{
+        GitRepository(
+            id= it.id,
+            name = it.name,
+            full_name = it.full_name,
+            private = it.private,
+            description = it.description
+        )
+    }
 }

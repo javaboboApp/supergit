@@ -7,7 +7,7 @@ import com.theappexperts.supergit.persistence.DBGitRepository
 import com.theappexperts.supergit.persistence.DBUser
 
 
-@Database(entities = [DBGitRepository::class, DBUser::class], version = 1)
+@Database(entities = [DBGitRepository::class, DBUser::class], version = 5)
 abstract class AppDatabase : RoomDatabase() {
     abstract val gitRepoDao: GitRepoDao
 }
