@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_app"
+
     tools:context=".ui.user.UserFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,41 +28,32 @@
             tools:itemCount="3"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/no_user_layout"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/no_user_imageView"
                 android:layout_width="@dimen/no_user_dimen"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/no_user_dimen"
                 android:src="@drawable/ic_add_person"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/no_user_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/add_user_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/no_user_imageView"
-                android:textSize="@dimen/no_user_text_size"
-                android:textStyle="bold"/>
+
 
             <Button
                 android:id="@+id/no_user_button"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/add_user_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/no_user_textView"
+                app:layout_constraintTop_toBottomOf="@+id/no_user_imageView"
                 android:textColor="@color/add_user_button_color"
                 android:background="@color/add_user_button_text_color"/>
 

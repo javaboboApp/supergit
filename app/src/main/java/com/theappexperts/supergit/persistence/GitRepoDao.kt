@@ -21,5 +21,5 @@ interface GitRepoDao {
     fun insertRespositories(user:  List<DBGitRepository>): LongArray
 
     @Delete
-    fun deleteUser(user: DBUser)
+    fun deleteUser(user: DBUser) : Int
 }

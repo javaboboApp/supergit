@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.theappexperts.supergit.R
@@ -39,24 +38,13 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
         super.onViewCreated(view, savedInstanceState)
         initUserAdapter()
         subscribeGetCurrentUser()
-        subscribeIsShowingNoUserLayout()
-        no_user_button.setOnClickListener { findNavController().navigate(R.id.action_navigation_user_to_navigation_add) }
+
+        no_user_button.setOnClickListener { findNavController().navigate(R.id.action_user_to_searchRepoFragment) }
         initOnTouchListener()
 
 
     }
 
-
-
-    private fun subscribeIsShowingNoUserLayout() {
-        userViewModel.showNoUserLayout.observe(requireActivity(), Observer { it ->
-            no_user_layout.visibility = when (it) {
-                true -> View.VISIBLE
-                else -> View.GONE
-            }
-
-        })
-    }
 
     private fun initUserAdapter() {
         users_recycler.adapter = currentUserItemAdapter
@@ -67,8 +55,15 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
         userViewModel.getCurrentUsers().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 SUCCESS -> {
+                    it.data?.peekContent()?.let {
+                        if (it.isEmpty()) {
+                            showUserEmptyLayout()
+                        }else
+                            hideNotUserLayout()
+
+                        setCurrentUsers(it)
+                    }
                     uiCommunicatorInterface?.hideProgressBar()
-                    setCurrentUsers(it.data?.peekContent()!!)
 
                 }
                 ERROR -> {
@@ -85,6 +80,15 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
         })
     }
 
+    private fun showUserEmptyLayout() {
+        no_user_layout.visibility = View.VISIBLE
+
+    }
+
+    private fun hideNotUserLayout() {
+        no_user_layout.visibility = View.GONE
+    }
+
     private fun showErrorMsg() {
         Toast.makeText(
             requireContext(),
@@ -99,7 +103,6 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
     }
 
 
-
     private fun initOnTouchListener() {
         val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(users_recycler)
@@ -110,16 +113,20 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
             currentUserItemAdapter,
             object :
                 CustomItemTouchHelper.CustomSwipListner {
-                override fun onSwipedUser(user: GitUser) {
+                override fun onSwipedUser(
+                    user: GitUser,
+                    itemPosition: Int
+                ) {
                     userViewModel.removeUser(user).observe(viewLifecycleOwner, Observer { result ->
-
-                        if (result.status == ERROR) {
-                            Toast.makeText(
-                                requireContext(),
-                                "Error Occurred during suppression",
-                                Toast.LENGTH_LONG
-                            ).show()
+                        when (result.status) {
+                            SUCCESS -> {
+                                currentUserItemAdapter.notifyItemChanged(itemPosition)
+                            }
+                            ERROR -> {
+                                showMsgRemoving()
+                            }
                         }
+
 
                     }
                     )
@@ -127,14 +134,22 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
 
             })
 
+    private fun showMsgRemoving() {
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.error_removing_user_msg),
+            Toast.LENGTH_LONG
+        ).show()
+    }
 
-    fun goSearchRepoFragment(){
+
+    fun goSearchRepoFragment() {
 
         try {
 
-            findNavController().navigate(R.id.action_navigation_user_to_searchRepoFragment)
+            findNavController().navigate(R.id.action_user_to_searchRepoFragment)
         } catch (e: IllegalArgumentException) {
-            Log.e(TAG, "Multiple navigation attempts handled. ",e )
+            Log.e(TAG, "Multiple navigation attempts handled. ", e)
         }
     }
 

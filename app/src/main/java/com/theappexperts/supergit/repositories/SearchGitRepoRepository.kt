@@ -37,7 +37,7 @@ class SearchGitRepoRepository(
 
         val localUser = database.gitRepoDao.getLocalUsers()
         result.addSource(localUser) {
-            result.removeSource(localUser)
+
             //only in the debug version...
             runDelayForTesting(createDelay) {
                 result.value = Resource.success(Event(it.asDomainModel()))
@@ -79,10 +79,10 @@ class SearchGitRepoRepository(
         AppExecutors.instance?.diskIO()?.execute {
             try {
                 val valueReturned = database.gitRepoDao.deleteUser(user.asDbMoodel())
-                /*if (valueReturned == -1L) {
+                if (valueReturned == -1) {
                     result.postValue(Resource.error(ERROR_INSERTING, null))
                     return@execute
-                }*/
+                }
                 result.postValue(Resource.success(Event(user)))
             } catch (exception: Exception) {
                 result.postValue(Resource.error(exception.message, null))

@@ -52,7 +52,7 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(){
     }
 
     private fun navigateToHomeFragment() {
-        findNavController().navigate(R.id.action_navigation_add_to_navigation_users)
+    //  findNavController().navigate(R.id.action_navigation_user_to_searchRepoFragment)
     }
 
     private val addUserRepositoryGithubViewModel: AddUserRepositoryGithubViewModel by viewModel()

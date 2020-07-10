@@ -3,21 +3,24 @@
 
 
     <item
-        android:id="@+id/navigation_add"
+        android:id="@+id/add"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
         android:title="@string/title_add"
-
+        android:contentDescription="@string/title_add"
         />
     <item
-        android:id="@+id/navigation_user"
+        android:id="@+id/home"
         android:icon="@drawable/ic_home"
         android:title="@string/title_home"
+        android:contentDescription="@string/title_home"
+
         />
 
     <item
-        android:id="@+id/navigation_favourites"
+        android:id="@+id/favourites"
         android:icon="@drawable/ic_baseline_favorite_24"
         android:title="@string/title_favourites"
+        android:contentDescription="@string/title_favourites"
 
         />
 </menu>

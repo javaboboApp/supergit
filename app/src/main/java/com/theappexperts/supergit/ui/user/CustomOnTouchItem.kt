@@ -23,8 +23,7 @@ class CustomItemTouchHelper(private val userItemAdapter: UserItemAdapter, privat
         Log.d("TAG_X", "swiped... outside")
         if (direction == (ItemTouchHelper.LEFT) || direction == (ItemTouchHelper.RIGHT)) {
             val itemPosition = viewHolder.adapterPosition
-            listener.onSwipedUser(userItemAdapter.list[itemPosition])
-            userItemAdapter.removeUser(itemPosition)
+            listener.onSwipedUser(userItemAdapter.list[itemPosition], itemPosition)
         }
     }
 
@@ -52,6 +51,6 @@ class CustomItemTouchHelper(private val userItemAdapter: UserItemAdapter, privat
         return super.getSwipeDirs(recyclerView, viewHolder)
     }
     interface CustomSwipListner {
-        fun onSwipedUser(user : GitUser)
+        fun onSwipedUser(user: GitUser, itemPosition: Int)
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add"
+    app:startDestination="@+id/add"
+    >
+    <fragment
+        android:id="@+id/add"
+        android:name="com.theappexperts.supergit.ui.auth.AddUserRepositoryGithubFragment"
+        android:label="fragment_login_github"
+        tools:layout="@layout/fragment_add_user_repository" />
+</navigation>
