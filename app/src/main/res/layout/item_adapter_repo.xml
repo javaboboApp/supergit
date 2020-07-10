@@ -39,21 +39,31 @@
 
 
                 <TextView
-                    android:id="@+id/nickname_textview"
-
+                    android:id="@+id/repo_item_fullname_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/blue_link"
                     android:textSize="@dimen/dimen24sp"
                     android:textStyle="bold"
-                    tools:text="javabobo" />
+                    tools:text="Repository Full Name" />
 
                 <TextView
-                    android:layout_below="@id/nickname_textview"
-                    android:text="Welcome to my repository"
+                    android:layout_below="@id/repo_item_fullname_textview"
+                    android:id="@+id/repo_item_description"
+                    android:textSize="@dimen/repo_description_text_size"
                     android:layout_marginTop="@dimen/dimen8dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    tools:text="desciption"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/repo_item_description"
+                    android:text="Visibility"
+                    />
+
+
 
             </RelativeLayout>
 

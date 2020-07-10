@@ -27,10 +27,6 @@ class UserViewModel(private val searchGitRepo: ISearchGitRepo) : ViewModel() {
         return searchGitRepo.getCurrentUsers()
     }
 
-    fun insertUser(user: GitUser): LiveData<Resource<GitUser>> {
-        return searchGitRepo.insertUser(user)
-    }
-
 
     fun removeUser(user: GitUser): LiveData<Resource<GitUser>> {
         return searchGitRepo.deleteUser(user)
