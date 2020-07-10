@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.theappexperts.supergit.R
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.theappexperts.supergit.ui.BaseFragment
 import com.theappexperts.supergit.utils.Resource.Status.*
 import kotlinx.android.synthetic.main.fragment_user.*
@@ -31,8 +34,22 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
         super.onViewCreated(view, savedInstanceState)
         initUserAdapter()
         subscribeGetCurrentUser()
+        isShowingNoUserLayout()
+        no_user_button.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_add) }
+        initOnTouchListener()
 
 
+    }
+
+
+    private fun isShowingNoUserLayout() {
+        userViewModel.showNoUserLayout.observe(requireActivity(), Observer { it ->
+            no_user_layout.visibility = when (it) {
+                true -> View.VISIBLE
+                else -> View.GONE
+            }
+
+        })
     }
 
     private fun initUserAdapter() {
@@ -75,11 +92,35 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
         currentUserItemAdapter.list = users
     }
 
-    override fun remove(user: GitUser, position: Int) {
-        //TODO("Not yet implemented")
-    }
-
     override fun onClickItem(user: GitUser) {
         //  TODO("Not yet implemented")
     }
+
+    private fun initOnTouchListener() {
+        val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(users_recycler)
+    }
+
+    val callback: ItemTouchHelper.SimpleCallback =
+        CustomItemTouchHelper(
+            currentUserItemAdapter,
+            object :
+                CustomItemTouchHelper.CustomSwipListner {
+                override fun onSwipedUser(user: GitUser) {
+                    userViewModel.removeUser(user).observe(viewLifecycleOwner, Observer { result ->
+                        if (result.status == ERROR) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Error Occurred during suppression",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                    }
+                    )
+                }
+
+            })
+
+
 }

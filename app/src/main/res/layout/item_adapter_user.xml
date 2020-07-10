@@ -33,8 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:padding="@dimen/dimen16dp">
+                android:layout_gravity="center">
 
                 <ImageView
                     android:id="@+id/logo_imageview"
@@ -59,58 +58,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/dimen24sp"
                     tools:text="UserName" />
-
-                <TextView
-                    android:id="@+id/repoName_textview"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/username_textview"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="#ccc"
-                    android:textSize="@dimen/dimen24sp"
-                    android:textStyle="bold"
-                    tools:text="javabobo" />
-
-
             </RelativeLayout>
-
-
-            <View
-                android:id="@+id/first_line_view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/main_cnt"
-                android:background="#ccc" />
-
-            <TextView
-                android:id="@+id/starred_topics_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/first_line_view"
-                android:padding="@dimen/dimen16dp"
-                android:textColor="@color/blue_link"
-                android:textSize="@dimen/dimen24sp"
-                tools:text="kjhjh" />
-
-            <View
-
-                android:id="@+id/second_line_view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/starred_topics_textview"
-                android:background="#ccc" />
-
-            <TextView
-                android:id="@+id/starred_repositories_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/second_line_view"
-                android:padding="@dimen/dimen16dp"
-                android:textColor="@color/blue_link"
-                android:textSize="@dimen/dimen24sp"
-
-                tools:text="kjhjh" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

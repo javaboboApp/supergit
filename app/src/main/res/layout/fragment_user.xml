@@ -10,40 +10,63 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/search_username_editText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/search_new_user_account"
-            app:layout_constraintEnd_toStartOf="@+id/search_imageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/search_imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="@+id/search_username_editText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/search_username_editText"
-            android:src="@drawable/ic_search"/>
-
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/users_recycler"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="88dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_username_editText"
-            tools:listitem="@layout/item_adapter_user"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
             app:spanCount="@integer/span_count_user_grid_layout"
-            />
+            tools:listitem="@layout/item_adapter_user"
+            tools:itemCount="3"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/no_user_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/no_user_imageView"
+                android:layout_width="@dimen/no_user_dimen"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_add_person"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/no_user_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/add_user_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/no_user_imageView"
+                android:textSize="@dimen/no_user_text_size"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/no_user_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/add_user_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/no_user_textView"
+                android:textColor="@color/add_user_button_color"
+                android:background="@color/add_user_button_text_color"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

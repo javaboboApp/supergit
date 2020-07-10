@@ -2,7 +2,7 @@
     <string name="app_name">SuperGit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_user">User</string>
+    <string name="title_home">Home</string>
     <string name="title_add">Add</string>
     <string name="title_favourites">Favourites</string>
     <string name="search_new_user_account">Search New User Git Account</string>
@@ -12,4 +12,6 @@
     <string name="or">OR</string>
     <string name="type_an_username">Type an Username...</string>
     <string name="error_msg_to_get_current_user">Something was wrong :(</string>
+    <string name="add_user_text">Let\'s begin by adding a Git User !</string>
+    <string name="add_user_button">Add User</string>
 </resources>

@@ -9,29 +9,27 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.theappexperts.supergit.R
 import com.theappexperts.supergit.models.GitUser
-import com.theappexperts.supergit.ui.user.SearchUserAdapter
+import com.theappexperts.supergit.ui.user.CustomItemTouchHelper
+import com.theappexperts.supergit.ui.auth.adapter.SearchUserAdapter
 import com.theappexperts.supergit.ui.user.UserItemAdapter
 import com.theappexperts.supergit.utils.ERROR_INSERTING
-import com.theappexperts.supergit.utils.Resource
-import com.theappexperts.supergit.utils.Resource.Status
 import com.theappexperts.supergit.utils.Resource.Status.*
-import com.theappexperts.supergit.utils.getQueryTextChangeStateFlow.getQueryTextChangeStateFlow
 import kotlinx.android.synthetic.main.fragment_add_user_repository.*
-import kotlinx.android.synthetic.main.fragment_user.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val TAG = "AddUserRepositoryGithub"
 
-class AddUserRepositoryGithubFragment : BaseAuthFragment(), UserItemAdapter.UserItemsListener {
+class AddUserRepositoryGithubFragment : BaseAuthFragment(){
 
     private val searchUserAdapter: SearchUserAdapter =
-        SearchUserAdapter(object : SearchUserAdapter.SearchUserListener {
+        SearchUserAdapter(object :
+            SearchUserAdapter.SearchUserListener {
             override fun onClickItem(user: GitUser) {
                 addUserRepositoryGithubViewModel.insertUser(user)
                     .observe(viewLifecycleOwner, Observer { result ->
@@ -74,6 +72,9 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(), UserItemAdapter.User
         initListeners()
         subscribeSearchUser()
         initListeners()
+
+
+
 
     }
 
@@ -130,13 +131,10 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(), UserItemAdapter.User
         searching_user_recyclerView.adapter = searchUserAdapter
     }
 
-    override fun remove(user: GitUser, position: Int) {
 
-    }
 
-    override fun onClickItem(user: GitUser) {
 
-    }
+
 
 
 }

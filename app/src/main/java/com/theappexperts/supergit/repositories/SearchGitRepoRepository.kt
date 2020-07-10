@@ -30,6 +30,7 @@ interface ISearchGitRepo {
     fun searchUser(userName: String): LiveData<Resource<List<GitUser>>>
     fun getCurrentUsers(): LiveData<Resource<List<GitUser>>>
     fun insertUser(user: GitUser): LiveData<Resource<GitUser>>
+    fun deleteUser(user: GitUser): LiveData<Resource<GitUser>>
 }
 
 class SearchGitRepoRepository(
@@ -78,6 +79,25 @@ class SearchGitRepoRepository(
 
         return result
 
+    }
+
+    override fun deleteUser(user: GitUser): LiveData<Resource<GitUser>> {
+        val result = MutableLiveData<Resource<GitUser>>()
+        result.value = Resource.loading(null)
+        AppExecutors.instance?.diskIO()?.execute {
+            try {
+                val valueReturned = database.gitRepoDao.deleteUser(user.asDbMoodel())
+                /*if (valueReturned == -1L) {
+                    result.postValue(Resource.error(ERROR_INSERTING, null))
+                    return@execute
+                }*/
+                result.postValue(Resource.success(Event(user)))
+            } catch (exception: Exception) {
+                result.postValue(Resource.error(exception.message, null))
+            }
+        }
+
+        return result
     }
 
     override fun searchUser(userName: String): LiveData<Resource<List<GitUser>>> {
