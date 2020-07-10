@@ -16,6 +16,8 @@ import com.theappexperts.supergit.persistence.AppDatabase
 import com.theappexperts.supergit.utils.ERROR_INSERTING
 import com.theappexperts.supergit.utils.Event
 import com.theappexperts.supergit.utils.NetworkBoundResource
+import com.theappexperts.supergit.utils.Utitlites.runDelayForTesting
+import kotlinx.coroutines.Delay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -32,16 +34,21 @@ interface ISearchGitRepo {
 
 class SearchGitRepoRepository(
     private val gitRepoService: IGitRepoService,
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    var createDelay: Boolean = false
 ) : ISearchGitRepo {
 
     override fun getCurrentUsers(): LiveData<Resource<List<GitUser>>> {
         val result = MediatorLiveData<Resource<List<GitUser>>>()
         result.value = Resource.loading(null)
+
         val localUser = database.gitRepoDao.getLocalUsers()
-        result.addSource(localUser){
+        result.addSource(localUser) {
             result.removeSource(localUser)
-            result.value = Resource.success(Event(it.asDomainModel()))
+            //only in the debug version...
+            runDelayForTesting(createDelay) {
+                result.value = Resource.success(Event(it.asDomainModel()))
+            }
         }
 
         return result
@@ -60,7 +67,10 @@ class SearchGitRepoRepository(
                     result.postValue(Resource.error(ERROR_INSERTING, null))
                     return@execute
                 }
-                result.postValue(Resource.success(Event(user)))
+                //only in the debug version...
+                runDelayForTesting(createDelay) {
+                    result.postValue(Resource.success(Event(user)))
+                }
             } catch (exception: Exception) {
                 result.postValue(Resource.error(exception.message, null))
             }
@@ -75,15 +85,19 @@ class SearchGitRepoRepository(
         searchUserLiveData.value = Resource.loading(null)
         searchUserLiveData.addSource(gitRepoService.searchUser(userName)) {
             searchUserLiveData.removeSource(searchUserLiveData)
-            when (it) {
-                is ApiSuccessResponse -> {
-                    searchUserLiveData.value = Resource.success(Event(it.body.asListUserTransfer().take(4)))
-                }
-                is ApiErrorResponse -> {
-                    searchUserLiveData.value = Resource.error(it.errorMessage, null)
-                }
-                is ApiEmptyResponse -> {
-                    searchUserLiveData.value = Resource.success(Event(listOf()))
+            //only in the debug version...
+            runDelayForTesting(createDelay) {
+                when (it) {
+                    is ApiSuccessResponse -> {
+                        searchUserLiveData.value =
+                            Resource.success(Event(it.body.asListUserTransfer().take(4)))
+                    }
+                    is ApiErrorResponse -> {
+                        searchUserLiveData.value = Resource.error(it.errorMessage, null)
+                    }
+                    is ApiEmptyResponse -> {
+                        searchUserLiveData.value = Resource.success(Event(listOf()))
+                    }
                 }
             }
         }

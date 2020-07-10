@@ -28,9 +28,10 @@ class AddUserRepositoryGithubViewModel(private val authGitRepository: IAuthGitRe
         searchGitRepo.searchUser(userName)
     }
 
-    fun searchUser(userName: String) {
+    fun searchUser(userName: String): LiveData<Resource<List<GitUser>>> {
         Log.i(TAG, "searchUser: ")
         _searchUser.postValue( userName)
+        return searchUser
     }
 
 }
