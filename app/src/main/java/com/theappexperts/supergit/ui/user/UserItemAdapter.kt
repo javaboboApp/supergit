@@ -38,6 +38,9 @@ class UserItemAdapter(val listener: UserItemsListener) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(user = list[position], listener = listener)
     }
+    fun removeUser(itemPosition: Int) {
+        notifyItemRemoved(itemPosition)
+    }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: GitUser, listener: UserItemsListener) = with(itemView) {
@@ -45,6 +48,9 @@ class UserItemAdapter(val listener: UserItemsListener) :
             username_textview.text= user.name
             Glide.with(context).load(user.photo)
                 .into(logo_imageview)
+            setOnClickListener {
+                listener.onClickItem(user)
+            }
 
         }
     }

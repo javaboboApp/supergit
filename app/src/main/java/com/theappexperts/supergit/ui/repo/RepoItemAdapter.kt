@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 import com.theappexperts.supergit.R
+import com.theappexperts.supergit.models.GitRepository
 
-class RepoItemAdapter(val listener: Listener) :
+class RepoItemAdapter(val listener: RepositoryListener) :
     RecyclerView.Adapter<RepoItemAdapter.ItemViewHolder>() {
-    var list: List<GitUser> = listOf()
+    var list: List<GitRepository> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -24,45 +25,23 @@ class RepoItemAdapter(val listener: Listener) :
         )
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
-
-    fun remove(position: Int) {
-        listener.remove(list[position],position)
-    }
-
-    fun removeAt(position: Int){
-        list.toMutableList().removeAt(position)
-        notifyItemRemoved(position)
-    }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    interface Listener {
-        fun remove(user: GitUser, position: Int)
+    interface RepositoryListener {
         fun onClickItem(user: GitUser)
 
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(user = list[position], listener = listener)
+        holder.bind(list[position], listener)
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(user: GitUser, listener: Listener) = with(itemView) {
-//            title_textview.text =post.title
-//            create_date_textview.text = getDate(post.timestamp)
-//            setOnClickListener {
-//                listener.onClickItem(post)
-//            }
-//            share_imageview.setOnClickListener {
-//                listener.onClickShareButtom(post)
-//            }
-//            Glide.with(context)
-//                .into(image_imageview)
+        fun bind(gitRepository: GitRepository, listener: RepositoryListener) = with(itemView) {
+
 
         }
     }

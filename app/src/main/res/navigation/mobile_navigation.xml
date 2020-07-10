@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@id/navigation_user">
 
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_user"
         android:name="com.theappexperts.supergit.ui.user.UserFragment"
         android:label="UserFragment"
         tools:layout="@layout/fragment_user">
@@ -22,11 +22,11 @@
 
             />
         <action
-            android:id="@+id/action_navigation_home_to_searchRepoFragment"
+            android:id="@+id/action_navigation_user_to_searchRepoFragment"
             app:destination="@id/searchRepoFragment"
-            app:popUpTo="@id/navigation_home" />
+            app:popUpTo="@id/navigation_user" />
         <action
-            android:id="@+id/action_navigation_home_to_navigation_add"
+            android:id="@+id/action_navigation_user_to_navigation_add"
             app:destination="@id/navigation_add"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
@@ -54,7 +54,7 @@
         tools:layout="@layout/fragment_add_user_repository" >
         <action
             android:id="@+id/action_navigation_add_to_navigation_users"
-            app:destination="@id/navigation_home"
+            app:destination="@id/navigation_user"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
@@ -65,5 +65,9 @@
         android:id="@+id/searchRepoFragment"
         android:name="com.theappexperts.supergit.ui.repo.SearchRepoFragment"
         android:label="fragment_search_repo"
-        tools:layout="@layout/fragment_search_repo" />
+        tools:layout="@layout/fragment_search_repo" >
+        <action
+            android:id="@+id/action_searchRepoFragment_to_navigation_user"
+            app:destination="@id/navigation_user" />
+    </fragment>
 </navigation>

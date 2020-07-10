@@ -1,10 +1,11 @@
 package com.theappexperts.supergit.mappers
 
 import android.net.Uri
+import com.theappexperts.supergit.models.GitRepository
 import com.theappexperts.supergit.models.GitUser
+import com.theappexperts.supergit.network.GitRepositoryTransfer
 import com.theappexperts.supergit.network.SearchGitUsersContainer
 import com.theappexperts.supergit.network.UserTransfer
-import com.theappexperts.supergit.network.asDomainModel
 import com.theappexperts.supergit.persistence.DBUser
 import com.theappexperts.supergit.utils.Event
 import com.theappexperts.supergit.utils.Resource
@@ -34,6 +35,20 @@ fun UserTransfer.asDomainModel(): GitUser {
     return GitUser(login, Uri.parse(avatar_url))
 }
 
-fun List<UserTransfer>.asListUserTranferDomainModel(): List<GitUser> {
+fun List<UserTransfer>.asGitUserModel(): List<GitUser> {
     return map { it.asDomainModel() }
+}
+
+fun GitRepositoryTransfer.asDomainModel(): GitRepository{
+    return GitRepository(
+        name = name,
+        full_name = full_name,
+        owner = owner.asDomainModel(),
+        private = private,
+        description = description
+    )
+}
+
+fun List<GitRepositoryTransfer>.asGitRepositoryModel(): List<GitRepository>{
+    return  map {it.asDomainModel() }
 }

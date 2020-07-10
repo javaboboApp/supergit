@@ -85,13 +85,7 @@ data class GitRepositoryTransfer (
     val permissions : GitPermissions
 )
 
-fun List<GitRepositoryTransfer>.asDomainModel(): List<GitRepository>{
-   return  map {
-       GitRepository(
-           name = it.name,
-           full_name = it.full_name,
-           owner = it.owner.asDomainModel(),
-           private = it.private
-       )
-    }
-}
+
+
+
+

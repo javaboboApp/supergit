@@ -45,7 +45,7 @@ class HomeActivity : AppCompatActivity(), BaseAuthFragment.CommunicatorsInterfac
 
 
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.navigation_home, R.id.navigation_add, R.id.navigation_favourites)
+            setOf(R.id.navigation_user, R.id.navigation_add, R.id.navigation_favourites)
         )
         navView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 

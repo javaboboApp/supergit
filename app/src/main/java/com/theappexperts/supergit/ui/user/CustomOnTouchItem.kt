@@ -24,6 +24,7 @@ class CustomItemTouchHelper(private val userItemAdapter: UserItemAdapter, privat
         if (direction == (ItemTouchHelper.LEFT) || direction == (ItemTouchHelper.RIGHT)) {
             val itemPosition = viewHolder.adapterPosition
             listener.onSwipedUser(userItemAdapter.list[itemPosition])
+            userItemAdapter.removeUser(itemPosition)
         }
     }
 
