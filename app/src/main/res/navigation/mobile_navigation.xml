@@ -24,7 +24,12 @@
         <action
             android:id="@+id/action_navigation_user_to_searchRepoFragment"
             app:destination="@id/searchRepoFragment"
-            app:popUpTo="@id/navigation_user" />
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+
         <action
             android:id="@+id/action_navigation_user_to_navigation_add"
             app:destination="@id/navigation_add"
@@ -66,8 +71,7 @@
         android:name="com.theappexperts.supergit.ui.repo.SearchRepoFragment"
         android:label="fragment_search_repo"
         tools:layout="@layout/fragment_search_repo" >
-        <action
-            android:id="@+id/action_searchRepoFragment_to_navigation_user"
-            app:destination="@id/navigation_user" />
+
+
     </fragment>
 </navigation>

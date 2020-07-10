@@ -37,6 +37,6 @@ class SearchRepoFragment : Fragment() {
     }
 
     private fun goUserFragment() {
-        findNavController().navigate(R.id.action_searchRepoFragment_to_navigation_user)
+      //  findNavController().navigate(R.id.action_searchRepoFragment_to_navigation_user)
     }
 }
