@@ -25,7 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val TAG = "AddUserRepositoryGithub"
 
-class AddUserRepositoryGithubFragment : BaseAuthFragment(){
+class AddUserRepositoryGithubFragment : BaseAuthFragment() {
 
     private val searchUserAdapter: SearchUserAdapter =
         SearchUserAdapter(object :
@@ -52,7 +52,7 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(){
     }
 
     private fun navigateToHomeFragment() {
-    //  findNavController().navigate(R.id.action_navigation_user_to_searchRepoFragment)
+        //  findNavController().navigate(R.id.action_navigation_user_to_searchRepoFragment)
     }
 
     private val addUserRepositoryGithubViewModel: AddUserRepositoryGithubViewModel by viewModel()
@@ -72,8 +72,6 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(){
         initListeners()
         subscribeSearchUser()
         initListeners()
-
-
 
 
     }
@@ -107,20 +105,29 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(){
             Observer { list_user ->
                 when (list_user.status) {
                     SUCCESS -> {
+                        hideProgressBar()
                         setCurrentUserAdapter(list_user.data?.peekContent()!!)
                     }
 
                     LOADING -> {
-
+                        showProgressBar()
                     }
 
                     ERROR -> {
-
+                        hideProgressBar()
                     }
 
                 }
 
             })
+    }
+
+    private fun showProgressBar() {
+        progress_bar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        progress_bar.visibility = View.GONE
     }
 
     private fun setCurrentUserAdapter(listUser: List<GitUser>) {
@@ -130,11 +137,6 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment(){
     private fun initUserAdapter() {
         searching_user_recyclerView.adapter = searchUserAdapter
     }
-
-
-
-
-
 
 
 }

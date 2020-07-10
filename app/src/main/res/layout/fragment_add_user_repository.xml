@@ -40,10 +40,10 @@
                         android:id="@+id/user_name_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
                         android:layout_centerVertical="true"
                         android:background="@android:color/transparent"
                         android:hint="@string/type_an_username"
+                        android:maxLines="1"
                         android:padding="@dimen/dimen8dp" />
 
                     <ImageView
@@ -56,15 +56,30 @@
                         android:src="@drawable/ic_baseline_search_24" />
                 </RelativeLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/searching_user_recyclerView"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/search_container_relativelayout"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/search_container_relativelayout"
 
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/item_search_user" />
+                    >
+
+                    <ProgressBar
+                        android:elevation="2dp"
+                        android:visibility="gone"
+                        android:id="@+id/progress_bar"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/searching_user_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/item_search_user" />
+                </RelativeLayout>
             </RelativeLayout>
 
 
@@ -84,8 +99,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/or_texview"
-            android:layout_marginTop="@dimen/dimen24dp"
             android:layout_marginLeft="@dimen/dimen16dp"
+            android:layout_marginTop="@dimen/dimen24dp"
             android:layout_marginRight="@dimen/dimen16dp"
 
             android:background="@android:color/black"
