@@ -61,7 +61,7 @@ fun List<GitRepositoryTransfer>.asDatabaseModel(): List<DBGitRepository>{
              id= it.id?.toLong()?: 0,
             name = it.name?: "",
             full_name = it.full_name?: "",
-            owner_name = it.owner?.asDomainModel()?.name?: "",
+            owner_name = it.owner?.login ?: "",
             private = it.private?: false,
             description = it.description?: "")
     }
@@ -74,7 +74,8 @@ fun List<DBGitRepository>.asListDomainModel(): List<GitRepository>{
             name = it.name,
             full_name = it.full_name,
             private = it.private,
-            description = it.description
+            description = it.description,
+            owner = GitUser(it.name)
         )
     }
 }
