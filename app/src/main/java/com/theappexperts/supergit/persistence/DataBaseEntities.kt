@@ -5,12 +5,12 @@ import android.net.Uri
 import androidx.room.*
 
 @Entity(
-//    foreignKeys = [ForeignKey(
-//        entity = DBUser::class,
-//        parentColumns = arrayOf("username"),
-//        childColumns = arrayOf("owner_name"),
-//        onDelete = ForeignKey.CASCADE
-//    )], indices = [Index(value = ["owner_name"])]
+    foreignKeys = [ForeignKey(
+        entity = DBUser::class,
+        parentColumns = arrayOf("username"),
+        childColumns = arrayOf("owner_name"),
+        onDelete = ForeignKey.CASCADE
+    )], indices = [Index(value = ["owner_name"])]
 )
  class DBGitRepository(
     @PrimaryKey
