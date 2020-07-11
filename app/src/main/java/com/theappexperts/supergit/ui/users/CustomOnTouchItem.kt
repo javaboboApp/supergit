@@ -1,4 +1,4 @@
-package com.theappexperts.supergit.ui.user
+package com.theappexperts.supergit.ui.users
 
 import android.util.Log
 import androidx.recyclerview.widget.ItemTouchHelper

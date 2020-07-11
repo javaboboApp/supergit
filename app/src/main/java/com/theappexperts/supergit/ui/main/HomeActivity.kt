@@ -1,6 +1,5 @@
 package com.theappexperts.supergit.ui.main
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.theappexperts.supergit.R
-import com.theappexperts.supergit.ui.auth.BaseAuthFragment
+import com.theappexperts.supergit.ui.addUser.BaseAuthFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthProvider

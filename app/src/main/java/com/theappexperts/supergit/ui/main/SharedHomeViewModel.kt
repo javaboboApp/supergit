@@ -8,7 +8,6 @@ import com.theappexperts.supergit.models.GitUser
 class SharedHomeViewModel : ViewModel() {
 
 
-    private val currentFragment = MutableLiveData<Int>()
 
     private val _userSelectedLiveData = MutableLiveData<GitUser>()
     val userSelectedLiveData: LiveData<GitUser?>
@@ -19,9 +18,7 @@ class SharedHomeViewModel : ViewModel() {
    fun selectUser(user: GitUser){
       _userSelectedLiveData.value = user
    }
-   fun unselectUser(){
-      _userSelectedLiveData.value = null
-   }
+
 
 
 }

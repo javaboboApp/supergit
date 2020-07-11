@@ -1,4 +1,4 @@
-package com.theappexperts.supergit.ui.auth
+package com.theappexperts.supergit.ui.addUser
 
 import android.os.Bundle
 import android.text.Editable
@@ -8,13 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import com.theappexperts.supergit.R
 import com.theappexperts.supergit.models.GitUser
-import com.theappexperts.supergit.ui.user.CustomItemTouchHelper
-import com.theappexperts.supergit.ui.auth.adapter.SearchUserAdapter
-import com.theappexperts.supergit.ui.user.UserItemAdapter
+import com.theappexperts.supergit.ui.addUser.adapter.SearchUserAdapter
 import com.theappexperts.supergit.utils.ERROR_INSERTING
 import com.theappexperts.supergit.utils.Resource.Status.*
 import kotlinx.android.synthetic.main.fragment_add_user_repository.*

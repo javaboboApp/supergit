@@ -3,7 +3,6 @@ package com.theappexperts.supergit.ui
 import android.content.Context
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.theappexperts.supergit.ui.auth.BaseAuthFragment
 import java.lang.ClassCastException
 
 private const val TAG = "BaseFragment"

@@ -1,16 +1,11 @@
-package com.theappexperts.supergit.ui.user
+package com.theappexperts.supergit.ui.users
 
 import com.theappexperts.supergit.models.GitUser
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.theappexperts.supergit.di.repositoriesModule
-import com.theappexperts.supergit.network.SearchGitUsersContainer
 import com.theappexperts.supergit.repositories.ISearchGitRepo
 import com.theappexperts.supergit.utils.Resource
-import kotlinx.coroutines.*
 
 private const val TAG = "UserViewModel"
 

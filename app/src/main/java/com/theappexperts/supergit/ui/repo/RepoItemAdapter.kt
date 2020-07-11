@@ -35,8 +35,7 @@ class RepoItemAdapter(val listener: RepositoryListener) :
     }
 
     interface RepositoryListener {
-        fun onClickItem(user: GitUser)
-
+        fun onClickItem(gitRepository: GitRepository)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -76,6 +75,8 @@ class RepoItemAdapter(val listener: RepositoryListener) :
                         }
                     }
                 }
+
+                setOnClickListener { listener.onClickItem(gitRepository) }
 
             }
         }

@@ -1,4 +1,4 @@
-package com.theappexperts.supergit.ui.auth
+package com.theappexperts.supergit.ui.addUser
 
 import com.theappexperts.supergit.models.GitUser
 import android.app.Activity

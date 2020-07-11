@@ -1,4 +1,4 @@
-package com.theappexperts.supergit.ui.auth
+package com.theappexperts.supergit.ui.addUser
 
 import android.content.Context
 import android.util.Log

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        tools:context=".ui.auth.AddUserRepositoryGithubFragment">
+        tools:context=".ui.addUser.AddUserRepositoryGithubFragment">
 
 
         <androidx.cardview.widget.CardView

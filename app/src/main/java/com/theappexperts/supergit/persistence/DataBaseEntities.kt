@@ -41,3 +41,5 @@ data class DBUser(
 )
 
 
+@Entity
+data class DBCommit( @ColumnInfo(name = "timestamp") val timestamp: Long)

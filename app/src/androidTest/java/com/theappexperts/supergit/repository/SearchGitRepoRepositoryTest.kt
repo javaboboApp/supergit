@@ -2,24 +2,20 @@ package com.theappexperts.supergit.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
-import com.theappexperts.supergit.models.GitRepository
 import com.theappexperts.supergit.models.GitUser
 import com.theappexperts.supergit.network.ApiResponse
 import com.theappexperts.supergit.network.IGitRepoService
 import com.theappexperts.supergit.network.SearchGitUsersContainer
 import com.theappexperts.supergit.repositories.AuthGitRepository
 import com.theappexperts.supergit.repositories.SearchGitRepoRepository
-import com.theappexperts.supergit.ui.auth.AddUserRepositoryGithubViewModel
-import com.theappexperts.supergit.ui.user.UserViewModel
+import com.theappexperts.supergit.ui.addUser.AddUserRepositoryGithubViewModel
 import com.theappexperts.supergit.utils.*
 import junit.framework.Assert.assertEquals
-import org.hamcrest.CoreMatchers.any
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 

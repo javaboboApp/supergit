@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/user"
-        android:name="com.theappexperts.supergit.ui.user.UserFragment"
+        android:name="com.theappexperts.supergit.ui.users.UserFragment"
         android:label="UserFragment"
         tools:layout="@layout/fragment_user">
         <action
@@ -27,5 +27,17 @@
         android:id="@+id/searchRepoFragment"
         android:name="com.theappexperts.supergit.ui.repo.SearchRepoFragment"
         android:label="fragment_search_repo"
-        tools:layout="@layout/fragment_search_repo" />
+        tools:layout="@layout/fragment_search_repo" >
+        <action
+            android:id="@+id/action_searchRepoFragment_to_commitsFragment"
+            app:destination="@id/commitsFragment"
+
+
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/commitsFragment"
+        android:name="com.theappexperts.supergit.ui.commits.CommitsFragment"
+        android:label="fragment_commits"
+        tools:layout="@layout/fragment_commits" />
 </navigation>

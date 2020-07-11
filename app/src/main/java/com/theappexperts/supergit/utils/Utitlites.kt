@@ -1,9 +1,10 @@
 package com.theappexperts.supergit.utils
 
-import com.theappexperts.supergit.R
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Utitlites {
     fun runDelayForTesting(runDelay: Boolean, runWihDelayTesting: () -> Unit) {
@@ -14,5 +15,11 @@ object Utitlites {
             }
         else
             runWihDelayTesting()
+    }
+
+
+    fun getDateAsHeaderId(milliseconds: Long): Long {
+        val dateFormat = SimpleDateFormat("ddMMyyyy", Locale.getDefault())
+        return dateFormat.format(Date(milliseconds)).toLong()
     }
 }

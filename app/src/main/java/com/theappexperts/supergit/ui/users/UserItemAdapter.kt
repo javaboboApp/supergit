@@ -1,4 +1,4 @@
-package com.theappexperts.supergit.ui.user
+package com.theappexperts.supergit.ui.users
 
 import com.theappexperts.supergit.models.GitUser
 import android.view.LayoutInflater

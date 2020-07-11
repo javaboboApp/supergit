@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/add"
-        android:name="com.theappexperts.supergit.ui.auth.AddUserRepositoryGithubFragment"
+        android:name="com.theappexperts.supergit.ui.addUser.AddUserRepositoryGithubFragment"
         android:label="fragment_login_github"
         tools:layout="@layout/fragment_add_user_repository" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.theappexperts.supergit.ui.user
+package com.theappexperts.supergit.ui.users
 
 import android.os.Bundle
 import android.util.Log

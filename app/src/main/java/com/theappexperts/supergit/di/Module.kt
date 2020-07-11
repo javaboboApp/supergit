@@ -7,9 +7,9 @@ import com.theappexperts.supergit.repositories.AuthGitRepository
 import com.theappexperts.supergit.repositories.IAuthGitRepository
 import com.theappexperts.supergit.repositories.ISearchGitRepo
 import com.theappexperts.supergit.repositories.SearchGitRepoRepository
-import com.theappexperts.supergit.ui.auth.AddUserRepositoryGithubViewModel
+import com.theappexperts.supergit.ui.addUser.AddUserRepositoryGithubViewModel
 import com.theappexperts.supergit.ui.repo.SearchRepoViewModel
-import com.theappexperts.supergit.ui.user.UserViewModel
+import com.theappexperts.supergit.ui.users.UserViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
