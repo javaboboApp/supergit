@@ -34,10 +34,18 @@ class CommitsFragment : BaseFragment() {
         val COMMITDEMO_4 = Commit(System.currentTimeMillis())
         val COMMITDEMO_5 = Commit(System.currentTimeMillis())
         val COMMITDEMO_6 = Commit(System.currentTimeMillis())
-
-        commits_recyclerView.apply{
-            adapter = CommitsAdapter(listOf(COMMITDEMO_1, COMMITDEMO_2, COMMITDEMO_3, COMMITDEMO_4, COMMITDEMO_5,COMMITDEMO_6))
+       val  adapterx = CommitsAdapter()
+        commits_recyclerView.apply {
+            adapter = adapterx
         }
+        adapterx.setInitList( listOf(
+            COMMITDEMO_1,
+            COMMITDEMO_2,
+            COMMITDEMO_3,
+            COMMITDEMO_4,
+            COMMITDEMO_5,
+            COMMITDEMO_6
+        ))
 
     }
 

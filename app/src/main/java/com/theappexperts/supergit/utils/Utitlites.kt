@@ -22,4 +22,10 @@ object Utitlites {
         val dateFormat = SimpleDateFormat("ddMMyyyy", Locale.getDefault())
         return dateFormat.format(Date(milliseconds)).toLong()
     }
+
+    fun getDate(milliseconds: Long): String? {
+        val dateFormat =
+            SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+        return dateFormat.format(Date(milliseconds))
+    }
 }

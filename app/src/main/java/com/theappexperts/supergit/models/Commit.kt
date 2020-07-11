@@ -4,4 +4,4 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import java.sql.Timestamp
 
-data class Commit( val timestamp: Long)
+data class Commit( val timestamp: Long, var isHeader:Boolean =false)

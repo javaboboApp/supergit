@@ -8,24 +8,58 @@
 
     >
 
-    <View
-        android:layout_width="4dp"
-        android:orientation="vertical"
-        android:background="@color/blue_link"
-        android:layout_height="200dp"
-        app:layout_constraintStart_toStartOf="parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/ctn_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/point_header"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="2dp"
+                android:elevation="2dp"
+                android:src="@drawable/ic_point_header" />
+
+            <TextView
+                android:id="@+id/date_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen8dp"
+                android:layout_toRightOf="@+id/point_header"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                tools:text="10/04/2019" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="170dp"
+            android:layout_below="@id/ctn_point"
+            android:layout_marginLeft="@dimen/dimen16dp"
+            android:background="@color/blue_link"
+            android:orientation="vertical"
+
+            />
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dimen8dp"
-        android:layout_margin="@dimen/dimen16dp"
-
+        android:layout_marginLeft="32dp"
         android:background="?android:attr/selectableItemBackground"
+
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/dimen8dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,31 +76,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="left"
+
                 android:padding="@dimen/dimen16dp">
 
 
                 <TextView
-                    android:id="@+id/repo_item_fullname_textview"
+                    android:id="@+id/repo_item_fullname_header_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="HEADER"
                     android:textColor="@color/blue_link"
                     android:textSize="@dimen/dimen24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="HEADER" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/repo_item_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/repo_item_fullname_textview"
+                    android:layout_below="@id/repo_item_fullname_header_textview"
                     android:layout_marginTop="8dp"
+                    android:text="descipfsfsdfsdftion"
                     android:textSize="@dimen/repo_description_text_size"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/repo_item_fullname_textview"
-                    android:text="descipfsfsdfsdftion" />
+                    app:layout_constraintTop_toBottomOf="@+id/repo_item_fullname_header_textview" />
 
                 <TextView
                     android:id="@+id/repo_item_visibility_textView"
@@ -74,13 +108,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/repo_item_description"
                     android:layout_marginTop="8dp"
-                    tools:text="public"
-                    tools:textColor="@color/visibility_public_text_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/repo_item_description" />
-
-
+                    app:layout_constraintTop_toBottomOf="@+id/repo_item_description"
+                    tools:text="public"
+                    tools:textColor="@color/visibility_public_text_color" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
