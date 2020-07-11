@@ -155,6 +155,7 @@ fun BottomNavigationView.setupWithNavController(
     return selectedNavController
 }
 
+
 private fun BottomNavigationView.setupDeepLinks(
     navGraphIds: List<Int>,
     fragmentManager: FragmentManager,

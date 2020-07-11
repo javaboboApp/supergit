@@ -5,6 +5,7 @@
     android:id="@+id/add"
     app:startDestination="@+id/add"
     >
+
     <fragment
         android:id="@+id/add"
         android:name="com.theappexperts.supergit.ui.auth.AddUserRepositoryGithubFragment"

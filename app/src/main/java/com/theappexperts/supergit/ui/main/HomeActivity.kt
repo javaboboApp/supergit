@@ -27,6 +27,7 @@ class HomeActivity : AppCompatActivity(),
     BaseAuthFragment.CommunicatorsInterface,
     BaseFragment.CommunicatorsInterface {
 
+    private var bottomNavigationView: BottomNavigationView? = null
     private var currentNavController: LiveData<NavController>? = null
 
     val firebaseAuth: FirebaseAuth by inject()
@@ -53,18 +54,18 @@ class HomeActivity : AppCompatActivity(),
     }
 
     private fun setUpBottomNabView() {
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.nav_view)
-        val navGraphIds = listOf(R.navigation.add,R.navigation.home,R.navigation.favourites)
+        bottomNavigationView = findViewById(R.id.nav_view)
+        val navGraphIds = listOf(R.navigation.add, R.navigation.home, R.navigation.favourites)
 
         // Setup the bottom navigation view with a list of navigation graphs
-        val controller = bottomNavigationView.setupWithNavController(
+        val controller = bottomNavigationView?.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
             containerId = R.id.nav_host_fragment,
             intent = intent
         )
         // Whenever the selected controller changes, setup the action bar.
-        controller.observe(this, Observer { navController ->
+        controller?.observe(this, Observer { navController ->
             setupActionBarWithNavController(navController)
         })
         currentNavController = controller
@@ -82,6 +83,24 @@ class HomeActivity : AppCompatActivity(),
 
     override fun hideProgressBar() {
         progressbar.visibility = View.GONE
+    }
+
+    //Function that navigate to another graph given the navGraphId
+    override fun navigateToGraph(navGraphId: Int) {
+        when (navGraphId) {
+            R.id.add -> {
+                bottomNavigationView?.selectedItemId = R.id.add
+            }
+            R.id.home -> {
+                bottomNavigationView?.selectedItemId = R.id.home
+            }
+            R.id.favourites -> {
+                bottomNavigationView?.selectedItemId = R.id.favourites
+            }
+            else ->
+                IllegalArgumentException("I could not find the graph ")
+        }
+
     }
 
     override fun showGithubLogin() {

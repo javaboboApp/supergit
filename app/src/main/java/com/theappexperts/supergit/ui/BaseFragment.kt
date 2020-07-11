@@ -15,7 +15,7 @@ open class BaseFragment : Fragment(){
     interface CommunicatorsInterface {
         fun showProgressBar()
         fun hideProgressBar()
-
+        fun navigateToGraph(navGraphId: Int)
     }
 
     override fun onAttach(context: Context) {

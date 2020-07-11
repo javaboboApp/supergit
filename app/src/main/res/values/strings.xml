@@ -16,4 +16,6 @@
     <string name="add_user_button">Add User</string>
     <string name="error_removing_user_msg">Error Occurred during suppression</string>
     <string name="visibility_public">public</string>
+    <string name="visibility_private">private</string>
+
 </resources>

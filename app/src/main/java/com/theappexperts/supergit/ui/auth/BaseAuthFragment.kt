@@ -15,7 +15,7 @@ open class BaseAuthFragment : Fragment() {
         fun showProgressBar()
         fun hideProgressBar()
         fun showGithubLogin()
-
+        fun navigateToGraph(navGraphId: Int)
 
     }
 

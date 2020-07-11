@@ -39,7 +39,10 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
         initUserAdapter()
         subscribeGetCurrentUser()
 
-        no_user_button.setOnClickListener { findNavController().navigate(R.id.action_user_to_searchRepoFragment) }
+        no_user_button.setOnClickListener {
+            //navigate to another graph
+            uiCommunicatorInterface?.navigateToGraph(R.id.add)
+        }
         initOnTouchListener()
 
 

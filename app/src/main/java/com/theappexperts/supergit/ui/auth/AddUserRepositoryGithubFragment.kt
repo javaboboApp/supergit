@@ -52,7 +52,7 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment() {
     }
 
     private fun navigateToHomeFragment() {
-        //  findNavController().navigate(R.id.action_navigation_user_to_searchRepoFragment)
+        uiCommunicatorInterface?.navigateToGraph(R.id.home)
     }
 
     private val addUserRepositoryGithubViewModel: AddUserRepositoryGithubViewModel by viewModel()
@@ -72,8 +72,13 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment() {
         initListeners()
         subscribeSearchUser()
         initListeners()
+        requestFocus()
 
 
+    }
+
+    private fun requestFocus() {
+        request_focus_view.requestFocus()
     }
 
     private fun initListeners() {
@@ -102,32 +107,35 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment() {
     private fun subscribeSearchUser() {
         addUserRepositoryGithubViewModel.searchUser.observe(
             requireActivity(),
-            Observer { list_user ->
-                when (list_user.status) {
-                    SUCCESS -> {
-                        hideProgressBar()
-                        setCurrentUserAdapter(list_user.data?.peekContent()!!)
-                    }
+            Observer { result ->
+                //If the data has been handle ignore it...
+                result.data?.getContentIfNotHandled()?.let { list_user->
+                    when (result.status) {
+                        SUCCESS -> {
+                            setCurrentUserAdapter(list_user)
+                            hideProgressBar()
+                        }
 
-                    LOADING -> {
-                        showProgressBar()
-                    }
+                        LOADING -> {
+                            showProgressBar()
+                        }
 
-                    ERROR -> {
-                        hideProgressBar()
-                    }
+                        ERROR -> {
+                            hideProgressBar()
+                        }
 
+                    }
                 }
 
             })
     }
 
     private fun showProgressBar() {
-        progress_bar.visibility = View.VISIBLE
+        progress_bar?.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
-        progress_bar.visibility = View.GONE
+        progress_bar?.visibility = View.GONE
     }
 
     private fun setCurrentUserAdapter(listUser: List<GitUser>) {
