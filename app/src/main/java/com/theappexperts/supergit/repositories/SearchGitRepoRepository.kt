@@ -7,12 +7,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.theappexperts.supergit.AppExecutors
 import com.theappexperts.supergit.mappers.*
+import com.theappexperts.supergit.models.Commit
 import com.theappexperts.supergit.models.GitRepository
 import com.theappexperts.supergit.network.*
+import com.theappexperts.supergit.network.TransferModel.CommitTransfer
+import com.theappexperts.supergit.network.TransferModel.CommitsContainerTransfer
+import com.theappexperts.supergit.network.TransferModel.GitRepositoryTransfer
 import com.theappexperts.supergit.persistence.AppDatabase
 import com.theappexperts.supergit.utils.*
 import com.theappexperts.supergit.utils.Utitlites.runDelayForTesting
-import kotlinx.coroutines.Delay
 import java.lang.Exception
 
 private const val TAG = "SearchGitRepoRepository"
@@ -23,6 +26,7 @@ interface ISearchGitRepo {
     fun getCurrentUsers(): LiveData<Resource<List<GitUser>>>
     fun insertUser(user: GitUser): LiveData<Resource<GitUser>>
     fun deleteUser(user: GitUser): LiveData<Resource<GitUser>>
+    fun getCommits(userName: String, gitRepository: GitRepository): LiveData<Resource<List<Commit>>>
 }
 
 class SearchGitRepoRepository(
@@ -122,17 +126,17 @@ class SearchGitRepoRepository(
     override fun getPublicRepositoriesByUser(userName: String): LiveData<Resource<List<GitRepository>>> {
         return object : NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(appExecutors = AppExecutors.instance!!) {
             override fun saveCallResult(item: List<GitRepositoryTransfer>) {
-                //running in a threat...
+                //running in a thread...
                 database.gitRepoDao.insertRespositories(item.asDatabaseModel())
             }
 
             override fun shouldFetch(data: List<GitRepository>?): Boolean {
-                //24h make a request
+                //TODO  24 H make a request
                 return true
             }
 
             override fun loadFromDb(): LiveData<List<GitRepository>> =
-                Transformations.map(database.gitRepoDao.getRepositoriesByUser(userName)) { dbRepo -> dbRepo.asListDomainModel()  }
+                Transformations.map(database.gitRepoDao.getRepositoriesByUser(userName)) { listDBRepo -> listDBRepo.asListDomainModel()  }
 
 
             override fun createCall(): LiveData<ApiResponse<List<GitRepositoryTransfer>>> {
@@ -141,6 +145,29 @@ class SearchGitRepoRepository(
 
         }.asLiveData()
     }
+
+
+
+    override fun getCommits(userName: String, gitRepository: GitRepository): LiveData<Resource<List<Commit>>> {
+        return object : NetworkBoundResource<List<Commit>, List<CommitsContainerTransfer>>(appExecutors = AppExecutors.instance!!) {
+            override fun saveCallResult(item: List<CommitsContainerTransfer>) {
+                database.gitRepoDao.insertCommits(item.asListDBCommits(gitRepository.id))
+            }
+
+            override fun shouldFetch(data: List<Commit>?): Boolean {
+                //TODO 24h make a request
+                return true
+            }
+
+            override fun loadFromDb(): LiveData<List<Commit>> =
+                Transformations.map(database.gitRepoDao.getCommitsByRepoId(gitRepository.id)) { listDBCommit -> listDBCommit.asListCommitDomainModel()  }
+
+            override fun createCall(): LiveData<ApiResponse<List<CommitsContainerTransfer>>> {
+                return gitRepoService.getCommit(userName,gitRepository.name)
+            }
+        }.asLiveData()
+    }
+
 
 
 }

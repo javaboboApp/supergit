@@ -14,6 +14,10 @@ import kotlinx.android.synthetic.main.item_adapter_commits_header.view.*
 class CommitsAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder >() {
     var list: List<Commit> = listOf()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
 
 
 

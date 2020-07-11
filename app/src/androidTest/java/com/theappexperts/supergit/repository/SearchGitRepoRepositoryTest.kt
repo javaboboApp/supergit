@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import com.theappexperts.supergit.models.GitUser
 import com.theappexperts.supergit.network.ApiResponse
 import com.theappexperts.supergit.network.IGitRepoService
-import com.theappexperts.supergit.network.SearchGitUsersContainer
+import com.theappexperts.supergit.network.TransferModel.SearchGitUsersContainer
 import com.theappexperts.supergit.repositories.AuthGitRepository
 import com.theappexperts.supergit.repositories.SearchGitRepoRepository
 import com.theappexperts.supergit.ui.addUser.AddUserRepositoryGithubViewModel
@@ -46,7 +46,13 @@ class SearchGitRepoRepositoryTest : SuperGitDatabaseTest() {
         searchGitRepoRepository.createDelay = true
         val list = TestUtils.TEST_0_GIT_USER_TRANSFERT
         val call: LiveData<ApiResponse<SearchGitUsersContainer>> =
-            ApiUtil.successCall(SearchGitUsersContainer(total_count = list.size, incomplete_results = false, users =  list ))
+            ApiUtil.successCall(
+                SearchGitUsersContainer(
+                    total_count = list.size,
+                    incomplete_results = false,
+                    users = list
+                )
+            )
 
         val liveDataTestUtil = LiveDataTestUtil<Resource<List<GitUser>>>()
         //Act
@@ -64,7 +70,13 @@ class SearchGitRepoRepositoryTest : SuperGitDatabaseTest() {
         //Arrange
         val list = TestUtils.TEST_0_GIT_USER_TRANSFERT
         val call: LiveData<ApiResponse<SearchGitUsersContainer>> =
-            ApiUtil.successCall(SearchGitUsersContainer(total_count = list.size, incomplete_results = false, users =  list ))
+            ApiUtil.successCall(
+                SearchGitUsersContainer(
+                    total_count = list.size,
+                    incomplete_results = false,
+                    users = list
+                )
+            )
 
         val liveDataTestUtil = LiveDataTestUtil<Resource<List<GitUser>>>()
         //Act
@@ -81,7 +93,13 @@ class SearchGitRepoRepositoryTest : SuperGitDatabaseTest() {
         //Arrange
         val list = TestUtils.TEST_0_GIT_USER_TRANSFERT
         val call: LiveData<ApiResponse<SearchGitUsersContainer>> =
-            ApiUtil.errorCall(SearchGitUsersContainer(total_count = list.size, incomplete_results = false, users =  list ))
+            ApiUtil.errorCall(
+                SearchGitUsersContainer(
+                    total_count = list.size,
+                    incomplete_results = false,
+                    users = list
+                )
+            )
 
         val liveDataTestUtil = LiveDataTestUtil<Resource<List<GitUser>>>()
         //Act

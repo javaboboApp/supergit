@@ -1,6 +1,5 @@
-package com.theappexperts.supergit.network
+package com.theappexperts.supergit.network.TransferModel
 
-import androidx.lifecycle.Transformations.map
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

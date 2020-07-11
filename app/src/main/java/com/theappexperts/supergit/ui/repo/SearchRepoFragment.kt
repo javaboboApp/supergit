@@ -25,6 +25,7 @@ class SearchRepoFragment : BaseFragment() {
     private val repoItemAdapter by lazy {
         RepoItemAdapter(object : RepoItemAdapter.RepositoryListener{
         override fun onClickItem(gitRepository: GitRepository) {
+            sharedHomeViewModel.selectRepository(gitRepository)
             findNavController().navigate(R.id.action_searchRepoFragment_to_commitsFragment)
         }
 

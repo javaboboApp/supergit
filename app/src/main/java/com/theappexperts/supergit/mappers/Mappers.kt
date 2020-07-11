@@ -1,15 +1,17 @@
 package com.theappexperts.supergit.mappers
 
 import android.net.Uri
+import com.theappexperts.supergit.models.Commit
 import com.theappexperts.supergit.models.GitRepository
 import com.theappexperts.supergit.models.GitUser
-import com.theappexperts.supergit.network.GitRepositoryTransfer
-import com.theappexperts.supergit.network.SearchGitUsersContainer
-import com.theappexperts.supergit.network.UserTransfer
+import com.theappexperts.supergit.network.TransferModel.CommitsContainerTransfer
+import com.theappexperts.supergit.network.TransferModel.GitRepositoryTransfer
+import com.theappexperts.supergit.network.TransferModel.SearchGitUsersContainer
+import com.theappexperts.supergit.network.TransferModel.UserTransfer
+import com.theappexperts.supergit.persistence.DBCommit
 import com.theappexperts.supergit.persistence.DBGitRepository
 import com.theappexperts.supergit.persistence.DBUser
-import com.theappexperts.supergit.utils.Event
-import com.theappexperts.supergit.utils.Resource
+import com.theappexperts.supergit.utils.Utitlites.convertToDate
 
 fun List<DBUser>.asDomainModel(): List<GitUser> {
     return map {
@@ -78,4 +80,20 @@ fun List<DBGitRepository>.asListDomainModel(): List<GitRepository>{
             owner = GitUser(it.name)
         )
     }
+}
+
+fun List<CommitsContainerTransfer>.asListDBCommits(repoId: Long):List<DBCommit>{
+    return map {
+        DBCommit(timestamp = it.commit.author.date.convertToDate() ?: -1,
+        authorName = it.commit.author.name,
+        message = it.commit.message,
+        repoId = repoId)
+    }
+}
+
+fun List<DBCommit>.asListCommitDomainModel():List<Commit>{
+    return map { Commit(timestamp = it.timestamp,
+    repoId = it.repoId,
+    message = it.message,
+    authorName = it.authorName) }
 }

@@ -1,10 +1,8 @@
-package com.theappexperts.supergit.network
+package com.theappexperts.supergit.network.TransferModel
 
 
 
 import com.squareup.moshi.JsonClass
-import com.theappexperts.supergit.mappers.asDomainModel
-import com.theappexperts.supergit.models.GitRepository
 
 @JsonClass(generateAdapter = true)
 data class GitRepositoryTransfer (

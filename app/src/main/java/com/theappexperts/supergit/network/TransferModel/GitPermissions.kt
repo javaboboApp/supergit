@@ -1,4 +1,4 @@
-package com.theappexperts.supergit.network
+package com.theappexperts.supergit.network.TransferModel
 
 import com.squareup.moshi.JsonClass
 

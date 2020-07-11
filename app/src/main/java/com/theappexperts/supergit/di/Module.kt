@@ -8,6 +8,7 @@ import com.theappexperts.supergit.repositories.IAuthGitRepository
 import com.theappexperts.supergit.repositories.ISearchGitRepo
 import com.theappexperts.supergit.repositories.SearchGitRepoRepository
 import com.theappexperts.supergit.ui.addUser.AddUserRepositoryGithubViewModel
+import com.theappexperts.supergit.ui.commits.CommitsViewModel
 import com.theappexperts.supergit.ui.repo.SearchRepoViewModel
 import com.theappexperts.supergit.ui.users.UserViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -35,4 +36,5 @@ val viewModelModule = module {
     viewModel { AddUserRepositoryGithubViewModel(get(),get()) }
     viewModel { UserViewModel(get()) }
     viewModel { SearchRepoViewModel(get()) }
+    viewModel { CommitsViewModel(get()) }
 }
