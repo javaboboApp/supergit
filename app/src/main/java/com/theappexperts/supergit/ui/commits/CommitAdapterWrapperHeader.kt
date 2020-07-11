@@ -16,6 +16,7 @@ open abstract class CommitAdapterWrapperHeader :  RecyclerView.Adapter<CommitsAd
 
        if(_cacheHeader[headerId] == null){
            _cacheHeader[headerId] = true
+           super.getItemViewType(position)
            return VIEW_TYPE.VIEW_HEADER.ordinal
        }
         return VIEW_TYPE.VIEW_BODY.ordinal

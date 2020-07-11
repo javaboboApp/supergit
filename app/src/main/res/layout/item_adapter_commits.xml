@@ -55,7 +55,7 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="NORMAL ITEM" />
+                     />
 
                 <TextView
                     android:id="@+id/repo_item_description"

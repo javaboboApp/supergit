@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.theappexperts.supergit.R
 import com.theappexperts.supergit.models.Commit
 import com.theappexperts.supergit.utils.Utitlites.getDateAsHeaderId
-import kotlinx.android.synthetic.main.item_adapter_commits.view.*
 
 class CommitsAdapter(var list: List<Commit>) :
     CommitAdapterWrapperHeader(){
@@ -19,21 +18,23 @@ class CommitsAdapter(var list: List<Commit>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommitViewHolder {
 
            if(viewType ==  VIEW_TYPE.VIEW_HEADER.ordinal){
-               val itemView = LayoutInflater.from(parent.context)
+               val mView = LayoutInflater.from(parent.context)
                    .inflate(R.layout.item_adapter_commits_header, parent, false)
-               return CommitViewHolder(itemView)
+               return CommitViewHolder(mView)
            }else{
                //returning the body...
-               val itemView = LayoutInflater.from(parent.context)
+               val mView = LayoutInflater.from(parent.context)
                    .inflate(R.layout.item_adapter_commits, parent, false)
-               return CommitViewHolder(itemView)
+               return CommitViewHolder(mView)
            }
 
 
 
     }
 
-//    override fun onViewRecycled(holder: CommitViewHolder) {
+
+
+    //    override fun onViewRecycled(holder: CommitViewHolder) {
 //        holder.itemView.findViewById<TextView>(R.id.repo_item_fullname_textview).text = ""
 //        super.onViewRecycled(holder)
 //    }
@@ -42,26 +43,34 @@ class CommitsAdapter(var list: List<Commit>) :
 
 
     override fun onBindViewHolder(holder: CommitViewHolder, position: Int) {
+        val itemType = holder.getItemViewType()
+        if(itemType == VIEW_TYPE.VIEW_HEADER.ordinal){
 
-        holder.bind(list[position])
+            holder.bindHeader(list[position])
+        }else{
+            holder.bindNormal(list[position])
+        }
+
+
     }
 
 
 
-    open inner class CommitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-       open fun bind(commit: Commit) = with(itemView) {
-          val fullName : TextView = itemView.findViewById(R.id.repo_item_fullname_textview)
+    open inner class CommitViewHolder(var normalView: View) : RecyclerView.ViewHolder(normalView) {
+        fun bindNormal(commit: Commit) = with(normalView) {
+          val fullName : TextView = findViewById(R.id.repo_item_fullname_textview)
            fullName.text = "NORMAL"
 
         }
-    }
 
-    inner class CommitViewHolderHeader(itemView: View) : CommitViewHolder(itemView) {
-        override fun bind(commit: Commit) = with(itemView) {
-            val fullName : TextView = itemView.findViewById(R.id.repo_item_fullname_textview)
-            fullName.text = "HEADER"
+        fun bindHeader(commit: Commit)= with(normalView) {
+            val fullName : TextView = findViewById(R.id.repo_item_fullname_textview)
+            fullName.text = "header"
 
         }
+
     }
+
+
 
 }
