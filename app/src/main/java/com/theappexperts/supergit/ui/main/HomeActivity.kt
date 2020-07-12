@@ -16,10 +16,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.theappexperts.supergit.R
 import com.theappexperts.supergit.ui.addUser.BaseAuthFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.OAuthCredential
-import com.google.firebase.auth.OAuthProvider
+import com.google.firebase.auth.*
 import com.theappexperts.supergit.models.GitUser
 import com.theappexperts.supergit.ui.BaseFragment
 import com.theappexperts.supergit.ui.addUser.AddUserRepositoryGithubViewModel
