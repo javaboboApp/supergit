@@ -14,12 +14,12 @@
         tools:listitem="@layout/item_adapter_commits" />
 
     <TextView
-
         android:id="@+id/no_data_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/no_data"
         android:textSize="@dimen/dimen24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 </FrameLayout>
