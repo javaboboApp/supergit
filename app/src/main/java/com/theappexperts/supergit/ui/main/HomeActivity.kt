@@ -126,23 +126,20 @@ class HomeActivity : AppCompatActivity(),
     override fun showGithubLogin() {
 
         val provider: OAuthProvider.Builder = OAuthProvider.newBuilder("github.com")
-        
-            firebaseAuth
-                .startActivityForSignInWithProvider(this, provider.build())
 
-                .addOnSuccessListener {
-                    Log.i(
-                        TAG,
-                        "startActivityForSignInWithGithub: ${(it.credential as OAuthCredential).accessToken}"
-                    )
-                    insertUserAndMoveToHomePage(it)
-                }
-                .addOnFailureListener { exeption ->
-                    Log.i(TAG, "startActivityForSignInWithGithub: $exeption")
-                    //  showErrorGithub()
-                }
-
-        }
+        firebaseAuth
+            .startActivityForSignInWithProvider(this, provider.build())
+            .addOnSuccessListener {
+                Log.i(
+                    TAG,
+                    "startActivityForSignInWithGithub: ${(it.credential as OAuthCredential).accessToken}"
+                )
+                insertUserAndMoveToHomePage(it)
+            }
+            .addOnFailureListener { exeption ->
+                Log.i(TAG, "startActivityForSignInWithGithub: $exeption")
+                //  showErrorGithub()
+            }
 
 
     }
@@ -157,12 +154,18 @@ class HomeActivity : AppCompatActivity(),
                 when (it.status) {
                     Resource.Status.SUCCESS -> {
                         Log.i(TAG, "showGithubLogin: success")
+                        hideProgressBar()
                         navigateToGraph(R.id.home)
                     }
                     Resource.Status.ERROR -> {
                         Log.i(TAG, "showGithubLogin: error")
                         showErrorGithub()
+                        hideProgressBar()
                     }
+                    Resource.Status.LOADING ->{
+                        showProgressBar()
+                    }
+
                 }
             })
     }
