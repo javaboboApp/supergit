@@ -47,16 +47,18 @@ class HomeActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpActionBar()
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             setUpBottomNabView()
+            Handler().postDelayed({ /* Create an Intent that will start the Menu-Activity. */
+                motionLayout.transitionToEnd()
+            }, SPLASH_DISPLAY_LENGTH)
+        }
 
     }
 
     override fun onResume() {
         super.onResume()
-        Handler().postDelayed({ /* Create an Intent that will start the Menu-Activity. */
-        motionLayout.transitionToEnd()
-        }, SPLASH_DISPLAY_LENGTH)
+
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
