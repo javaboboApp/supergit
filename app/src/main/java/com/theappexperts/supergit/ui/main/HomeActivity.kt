@@ -1,11 +1,14 @@
 package com.theappexperts.supergit.ui.main
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,8 +26,9 @@ import com.theappexperts.supergit.R
 import com.theappexperts.supergit.models.GitUser
 import com.theappexperts.supergit.ui.BaseFragment
 import com.theappexperts.supergit.ui.addUser.AddUserRepositoryGithubViewModel
-import com.theappexperts.supergit.ui.addUser.BaseAuthFragment
+import com.theappexperts.supergit.ui.addUser.BaseAddUserFragment
 import com.theappexperts.supergit.utils.Resource
+import com.theappexperts.supergit.utils.Utitlites.hideKeyBoardHelper
 import com.theappexperts.supergit.utils.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
@@ -33,7 +37,7 @@ import org.koin.android.ext.android.inject
 private const val TAG = "HomeActivity"
 
 class HomeActivity : AppCompatActivity(),
-    BaseAuthFragment.CommunicatorsInterface,
+    BaseAddUserFragment.CommunicatorsInterface,
     BaseFragment.CommunicatorsInterface {
 
     private var bottomNavigationView: BottomNavigationView? = null
@@ -121,6 +125,10 @@ class HomeActivity : AppCompatActivity(),
                 IllegalArgumentException("I could not find the graph ")
         }
 
+    }
+
+    override fun hideKeyBoard() {
+        hideKeyBoardHelper()
     }
 
     override fun startActivityFromFragment(

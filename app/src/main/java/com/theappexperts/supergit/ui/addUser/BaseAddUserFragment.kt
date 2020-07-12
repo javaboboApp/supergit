@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import java.lang.ClassCastException
 
-open class BaseAuthFragment : Fragment() {
+open class BaseAddUserFragment : Fragment() {
 
     lateinit
     var uiCommunicatorInterface: CommunicatorsInterface
@@ -16,7 +16,7 @@ open class BaseAuthFragment : Fragment() {
         fun hideProgressBar()
         fun showGithubLogin()
         fun navigateToGraph(navGraphId: Int)
-
+        fun hideKeyBoard()
     }
 
     override fun onAttach(context: Context) {

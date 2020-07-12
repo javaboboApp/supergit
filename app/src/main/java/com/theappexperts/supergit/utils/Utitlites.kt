@@ -1,6 +1,9 @@
 package com.theappexperts.supergit.utils
 
+import android.app.Activity
+import android.content.Context
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,6 +26,14 @@ object Utitlites {
     }
 
 
-
+    fun Activity.hideKeyBoardHelper() {
+        if (currentFocus != null) {
+            val inputMethodManager = getSystemService(
+                Context.INPUT_METHOD_SERVICE
+            ) as InputMethodManager
+            inputMethodManager
+                .hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+    }
 
 }

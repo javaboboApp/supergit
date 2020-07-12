@@ -45,9 +45,11 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
             uiCommunicatorInterface?.navigateToGraph(R.id.add)
         }
         initOnTouchListener()
+        uiCommunicatorInterface?.hideKeyBoard()
 
 
     }
+
 
 
     private fun initUserAdapter() {

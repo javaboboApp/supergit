@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val TAG = "AddUserRepositoryGithub"
 
-class AddUserRepositoryGithubFragment : BaseAuthFragment() {
+class AddUserRepositoryGithubFragment : BaseAddUserFragment() {
 
     private val searchUserAdapter: SearchUserAdapter =
         SearchUserAdapter(object :
@@ -99,6 +99,8 @@ class AddUserRepositoryGithubFragment : BaseAuthFragment() {
         user_name_edittext.addTextChangedListener(watcher)
 
     }
+
+
 
     private fun subscribeSearchUser() {
         addUserRepositoryGithubViewModel.searchUser.observe(

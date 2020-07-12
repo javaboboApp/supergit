@@ -18,6 +18,7 @@ open class BaseFragment : Fragment() {
         fun showProgressBar()
         fun hideProgressBar()
         fun navigateToGraph(navGraphId: Int)
+        fun hideKeyBoard()
     }
 
     override fun onAttach(context: Context) {
