@@ -16,6 +16,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.theappexperts.supergit.R
 import com.theappexperts.supergit.ui.addUser.BaseAuthFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
@@ -123,41 +124,53 @@ class HomeActivity : AppCompatActivity(),
     }
 
     override fun showGithubLogin() {
+
         val provider: OAuthProvider.Builder = OAuthProvider.newBuilder("github.com")
-        firebaseAuth
-            .startActivityForSignInWithProvider(this, provider.build())
-            .addOnSuccessListener {
-                Log.i(TAG, "startActivityForSignInWithGithub: ${(it.credential as OAuthCredential).accessToken}")
-                val name = it.user?.displayName ?: ""
-                val photo:Uri = it.user?.photoUrl ?: Uri.Builder().build()
-                val token = (it.credential as OAuthCredential).accessToken
+        
+            firebaseAuth
+                .startActivityForSignInWithProvider(this, provider.build())
 
-                addUserRepositoryGithubViewModel.insertUser(GitUser(name, photo, token)).observe(this, Observer {
-                    when(it.status){
-                        Resource.Status.SUCCESS -> {
-                            Log.i(TAG, "showGithubLogin: success")
-                            navigateToGraph(R.id.home)
-                        }
-                        Resource.Status.ERROR ->{
-                            Log.i(TAG, "showGithubLogin: error")
-                            showErrorGithub()
-                        }
-                    }
-                })
-                firebaseAuth.signOut()
-            }
-            .addOnFailureListener { exeption ->
-                Log.i(TAG, "startActivityForSignInWithGithub: $exeption")
-                showErrorGithub()
+                .addOnSuccessListener {
+                    Log.i(
+                        TAG,
+                        "startActivityForSignInWithGithub: ${(it.credential as OAuthCredential).accessToken}"
+                    )
+                    insertUserAndMoveToHomePage(it)
+                }
+                .addOnFailureListener { exeption ->
+                    Log.i(TAG, "startActivityForSignInWithGithub: $exeption")
+                    //  showErrorGithub()
+                }
 
-            }
+        }
 
 
     }
 
+    private fun insertUserAndMoveToHomePage(it: AuthResult) {
+        val name = it.user?.displayName ?: ""
+        val photo: Uri = it.user?.photoUrl ?: Uri.Builder().build()
+        val token = (it.credential as OAuthCredential).accessToken
+
+        addUserRepositoryGithubViewModel.insertUser(GitUser(name, photo, token))
+            .observe(this, Observer {
+                when (it.status) {
+                    Resource.Status.SUCCESS -> {
+                        Log.i(TAG, "showGithubLogin: success")
+                        navigateToGraph(R.id.home)
+                    }
+                    Resource.Status.ERROR -> {
+                        Log.i(TAG, "showGithubLogin: error")
+                        showErrorGithub()
+                    }
+                }
+            })
+    }
+
     private fun showErrorGithub() {
 
-        Toast.makeText(this, getString(R.string.error_login_github_process_msg), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.error_login_github_process_msg), Toast.LENGTH_LONG)
+            .show()
     }
 
 }
