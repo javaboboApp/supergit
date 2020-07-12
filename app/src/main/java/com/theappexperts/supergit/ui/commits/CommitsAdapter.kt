@@ -82,8 +82,6 @@ class CommitsAdapter :
         } else {
             holder.bindNormal(list[position])
         }
-
-
     }
 
 //CommiViewHolder
@@ -95,7 +93,6 @@ class CommitsAdapter :
                 commit_item_date.text = context.getString(R.string.commit_item_date_text,
                     getDate(this.timestamp))
             }
-
         }
 
         fun bindHeader(commit: Commit) = with(normalView) {
