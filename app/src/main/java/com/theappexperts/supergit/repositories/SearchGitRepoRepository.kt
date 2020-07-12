@@ -27,7 +27,7 @@ interface ISearchGitRepo {
     fun getCurrentUsers(): LiveData<Resource<List<GitUser>>>
     fun insertUser(user: GitUser): LiveData<Resource<GitUser>>
     fun deleteUser(user: GitUser): LiveData<Resource<GitUser>>
-    fun getCommits(gitRepository: GitRepository, token:String? = null): LiveData<Resource<List<Commit>>>
+    fun getCommits(userName : String,gitRepository: GitRepository, token:String? = null): LiveData<Resource<List<Commit>>>
 }
 
 class SearchGitRepoRepository(
@@ -182,7 +182,7 @@ class SearchGitRepoRepository(
     }
 
 
-    override fun getCommits(gitRepository: GitRepository,token:String?): LiveData<Resource<List<Commit>>> {
+    override fun getCommits(userName: String,gitRepository: GitRepository,token:String?): LiveData<Resource<List<Commit>>> {
         return object :
             NetworkBoundResource<List<Commit>, List<CommitsContainerTransfer>>(appExecutors = AppExecutors.instance!!) {
             override fun saveCallResult(item: List<CommitsContainerTransfer>) {
@@ -200,13 +200,10 @@ class SearchGitRepoRepository(
             override fun createCall(): LiveData<ApiResponse<List<CommitsContainerTransfer>>> {
 
 
-                return token?.let { gitRepoService.getCommit(gitRepository.full_name, "token $token")} ?:
-                gitRepoService.getCommit(gitRepository.full_name)
-
+                return token?.let { gitRepoService.getCommit(userName,gitRepository.name, "token $token")} ?:
+                gitRepoService.getCommit(userName,gitRepository.name)
             }
         }.asLiveData()
     }
-
-
 }
 

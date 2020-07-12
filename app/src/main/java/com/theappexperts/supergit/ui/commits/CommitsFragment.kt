@@ -66,10 +66,12 @@ class CommitsFragment : BaseFragment() {
             Observer { userSelected ->
 
                 userSelected?.let {
-                    if (it.token?.isNotEmpty() == true) {
-                        subscribeRepositorySelected(it.token)
-                    } else {
-                        subscribeRepositorySelected()
+
+                    if (it.token?.isNotEmpty() == true ){
+                    subscribeRepositorySelected(it.name,it.token)
+                    }else{
+                        subscribeRepositorySelected(it.name)
+
                     }
                 }
             }
@@ -77,12 +79,14 @@ class CommitsFragment : BaseFragment() {
 
     }
 
-    private fun subscribeRepositorySelected(token: String? = null) {
+    private fun subscribeRepositorySelected(username:String, token: String? = null) {
         sharedHomeViewModel.gitRepoSelectedLiveData.observe(viewLifecycleOwner,
             Observer { repositorySelected ->
 
                 repositorySelected?.let {
-                    commitsViewModel.getCommit(repositorySelected, token)
+
+                    commitsViewModel.getCommit(username,repositorySelected,token)
+
                         .observe(
                             viewLifecycleOwner,
                             Observer { resource ->
