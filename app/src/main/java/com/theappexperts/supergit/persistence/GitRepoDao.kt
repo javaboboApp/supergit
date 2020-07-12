@@ -15,7 +15,7 @@ interface GitRepoDao {
     fun deleteUser(user: DBUser) : Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertRespositories(user:  List<DBGitRepository>): LongArray
+    fun insertRespositories(repositories:  List<DBGitRepository>): LongArray
 
     @Query("SELECT * FROM DBGitRepository WHERE owner_name =:userName")
     fun getRepositoriesByUser( userName: String):LiveData<List<DBGitRepository>>

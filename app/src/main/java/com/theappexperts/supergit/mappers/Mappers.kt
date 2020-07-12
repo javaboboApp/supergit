@@ -21,17 +21,18 @@ fun List<DBUser>.asDomainModel(): List<GitUser> {
     }
 
 }
+
 fun GitUser.asDbMoodel(): DBUser {
     var avatarUrl = ""
-    var tokenAux =""
-    photo?.let { avatarUrl = photo.toString()}
+    var tokenAux = ""
+    photo?.let { avatarUrl = photo.toString() }
     token?.let { tokenAux = token }
-    return DBUser(name, avatarUrl, tokenAux )
+    return DBUser(name, avatarUrl, tokenAux)
 }
 
-fun SearchGitUsersContainer.asListUserTransfer() : List<GitUser> {
-    return   users.map {
-         it.asDomainModel()
+fun SearchGitUsersContainer.asListUserTransfer(): List<GitUser> {
+    return users.map {
+        it.asDomainModel()
     }
 }
 
@@ -43,58 +44,69 @@ fun List<UserTransfer>.asGitUserModel(): List<GitUser> {
     return map { it.asDomainModel() }
 }
 
-fun GitRepositoryTransfer.asDomainModel(): GitRepository{
+fun GitRepositoryTransfer.asDomainModel(): GitRepository {
     return GitRepository(
         id = id?.toLong() ?: 0,
-        name = name?: "" ,
-        full_name = full_name?: "",
+        name = name ?: "",
+        full_name = full_name ?: "",
         owner = owner?.asDomainModel(),
-        private = private?: false,
-        description = description?: ""
+        private = private!!,
+        description = description ?: ""
     )
 }
 
-fun List<GitRepositoryTransfer>.asGitRepositoryModel(): List<GitRepository>{
-    return  map {it.asDomainModel() }
+fun List<GitRepositoryTransfer>.asGitRepositoryModel(): List<GitRepository> {
+    return map { it.asDomainModel() }
 }
 
-fun List<GitRepositoryTransfer>.asDatabaseModel(userName: String): List<DBGitRepository>{
+fun List<GitRepositoryTransfer>.asDatabaseModel(userName: String): List<DBGitRepository> {
+
     return map {
-        DBGitRepository(
-             id= it.id?.toLong()?: 0,
-            name = it.name?: "",
-            full_name = it.full_name?: "",
-            owner_name = userName,
-            private = it.private!!,
-            description = it.description?: "")
-    }
-}
+        val isPrivate:String = if (it.private == false) "public" else "private"
 
-fun List<DBGitRepository>.asListDomainModel(): List<GitRepository>{
-    return map{
-        GitRepository(
-            id= it.id,
-            name = it.name,
-            full_name = it.full_name,
-            private = it.private,
-            description = it.description,
-            owner = GitUser(it.name)
+        DBGitRepository(
+            it.id?.toLong() ?: 0,
+            it.full_name ?: "",
+            userName,
+            isPrivate,
+            it.name ?: "",
+            it.description ?: ""
         )
     }
 }
 
-fun List<CommitsContainerTransfer>.asListDBCommits(repoId: Long):List<DBCommit>{
+fun List<DBGitRepository>.asListDomainModel(): List<GitRepository> {
+    val list = map {
+        GitRepository(
+            id = it.id,
+            name = it.name,
+            full_name = it.full_name,
+            private = it.private_repo.equals("private"),
+            description = it.description,
+            owner = GitUser(it.name)
+        )
+    }
+    return list
+}
+
+fun List<CommitsContainerTransfer>.asListDBCommits(repoId: Long): List<DBCommit> {
     return map {
-        DBCommit(timestamp = it.commit.author.date.convertToDate() ?: -1,
-        authorName = it.commit.author.name,
-        message = it.commit.message,
-        repoId = repoId)
+        DBCommit(
+            timestamp = it.commit.author.date.convertToDate() ?: -1,
+            authorName = it.commit.author.name,
+            message = it.commit.message,
+            repoId = repoId
+        )
     }
 }
 
-fun List<DBCommit>.asListCommitDomainModel():List<Commit>{
-    return map { Commit(timestamp = it.timestamp,
-    repoId = it.repoId,
-    message = it.message,
-    authorName = it.authorName) }
+fun List<DBCommit>.asListCommitDomainModel(): List<Commit> {
+    return map {
+        Commit(
+            timestamp = it.timestamp,
+            repoId = it.repoId,
+            message = it.message,
+            authorName = it.authorName
+        )
+    }
 }

@@ -158,7 +158,7 @@ class SearchGitRepoRepository(
                 val user = item.asDatabaseModel(userName)
 
                 //running in a thread...
-                database.gitRepoDao.insertRespositories(item.asDatabaseModel(userName))
+                database.gitRepoDao.insertRespositories(user)
             }
 
             override fun shouldFetch(data: List<GitRepository>?): Boolean {
@@ -167,7 +167,11 @@ class SearchGitRepoRepository(
             }
 
             override fun loadFromDb(): LiveData<List<GitRepository>> =
-                Transformations.map(database.gitRepoDao.getRepositories()) { listDBRepo -> listDBRepo.asListDomainModel() }
+                Transformations.map(database.gitRepoDao.getRepositories()) {
+                        listDBRepo ->
+                        listDBRepo.asListDomainModel()
+
+                }
 
 
             override fun createCall(): LiveData<ApiResponse<List<GitRepositoryTransfer>>> {
