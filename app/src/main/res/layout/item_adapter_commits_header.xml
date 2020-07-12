@@ -30,4 +30,5 @@
         app:layout_constraintStart_toEndOf="@+id/point_header"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="commited 10/04/2019" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

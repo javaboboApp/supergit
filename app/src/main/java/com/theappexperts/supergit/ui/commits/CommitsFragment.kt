@@ -99,7 +99,7 @@ class CommitsFragment : BaseFragment() {
                                                 hideNoData()
 
                                             uiCommunicatorInterface?.hideProgressBar()
-                                            setCommitAdapter(result)
+                                            setCommitAdapter(result.toMutableList())
                                         }
                                         Resource.Status.LOADING -> {
                                             uiCommunicatorInterface?.showProgressBar()
@@ -107,7 +107,7 @@ class CommitsFragment : BaseFragment() {
                                         }
                                         Resource.Status.ERROR -> {
                                             resource.data?.peekContent().let {
-                                                setCommitAdapter(result)
+                                                setCommitAdapter(result.toMutableList())
                                             }
 
                                             uiCommunicatorInterface?.hideProgressBar()
@@ -128,7 +128,7 @@ class CommitsFragment : BaseFragment() {
         no_data_msg.visibility = View.VISIBLE
     }
 
-    private fun setCommitAdapter(list: List<Commit>) {
+    private fun setCommitAdapter(list: MutableList<Commit>) {
         commitsAdapter.list = list
     }
 }

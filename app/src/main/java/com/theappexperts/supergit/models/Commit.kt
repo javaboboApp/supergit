@@ -10,4 +10,6 @@ data class Commit(
     val repoId: Long = -1,
     val authorName: String = "",
     val message: String = ""
-)
+){
+
+}

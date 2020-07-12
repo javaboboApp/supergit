@@ -14,22 +14,38 @@ import kotlinx.android.synthetic.main.item_adapter_commits_header.view.*
 
 class CommitsAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var list: List<Commit> = listOf()
+    var list: MutableList<Commit> = mutableListOf()
         set(value) {
             field = setInitList(value)
             notifyDataSetChanged()
         }
 
 
-    fun setInitList(field: List<Commit>): List<Commit> {
+    fun setInitList(field: MutableList<Commit>): MutableList<Commit> {
+
         val _cacheHeader = HashMap<Long, Boolean>()
-        field.forEach { commit ->
+        val iterator = field.listIterator()
+
+        while (iterator.hasNext()) {
+            val commit = iterator.next()
+
             val headerId = getDateAsHeaderId(commit.timestamp)
             if (_cacheHeader[headerId] == null) {
                 _cacheHeader[headerId] = true
                 commit.isHeader = true
+
+                iterator.add(
+                    Commit(
+                        timestamp = commit.timestamp,
+                        isHeader = false,
+                        repoId = commit.repoId,
+                        authorName = commit.authorName,
+                        message = commit.message
+                    )
+                )
             }
         }
+
 
         return field
 
@@ -95,8 +111,6 @@ class CommitsAdapter :
         }
 
         fun bindHeader(commit: Commit) = with(normalView) {
-            val fullName: TextView = findViewById(R.id.header_date_textview)
-            fullName.text = "header"
             header_date_textview.text = getDate(commit.timestamp)
 
         }
