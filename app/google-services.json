@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "703316149984-vhfuehsik5qr1ap6q6be2t9gupjo39ec.apps.googleusercontent.com",
+          "client_id": "703316149984-jv4gt7rqgv5ssbfq7j9vf4uo878de8s4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.theappexperts.supergit",
-            "certificate_hash": "5dc5aa5ad6713af31245a27135be9cc874e62acd"
+            "certificate_hash": "2e37d6277d8d5c883651d6d6f877f7a89de571f8"
+          }
+        },
+        {
+          "client_id": "703316149984-gr0324d8uk31sdgr5lij116g22ifhs3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theappexperts.supergit",
+            "certificate_hash": "90efd298d32f3cc6e2745b7a510b5163ae27b216"
           }
         },
         {

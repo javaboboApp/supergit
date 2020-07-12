@@ -1,10 +1,14 @@
 package com.theappexperts.supergit.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -15,7 +19,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
+import com.theappexperts.supergit.models.GitUser
 import com.theappexperts.supergit.ui.BaseFragment
+import com.theappexperts.supergit.ui.addUser.AddUserRepositoryGithubViewModel
+import com.theappexperts.supergit.utils.Resource
 import com.theappexperts.supergit.utils.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
@@ -31,6 +38,7 @@ class HomeActivity : AppCompatActivity(),
     private var currentNavController: LiveData<NavController>? = null
 
     val firebaseAuth: FirebaseAuth by inject()
+    val addUserRepositoryGithubViewModel: AddUserRepositoryGithubViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,18 +111,53 @@ class HomeActivity : AppCompatActivity(),
 
     }
 
-    override fun showGithubLogin() {
+    override fun startActivityFromFragment(
+        fragment: Fragment,
+        intent: Intent?,
+        requestCode: Int,
+        options: Bundle?
+    ) {
+        super.startActivityFromFragment(fragment, intent, requestCode, options)
+        Log.i(TAG, "startActivityFromFragment: ")
 
+    }
+
+    override fun showGithubLogin() {
         val provider: OAuthProvider.Builder = OAuthProvider.newBuilder("github.com")
-        FirebaseAuth.getInstance()
+        firebaseAuth
             .startActivityForSignInWithProvider(this, provider.build())
             .addOnSuccessListener {
                 Log.i(TAG, "startActivityForSignInWithGithub: ${(it.credential as OAuthCredential).accessToken}")
+                val name = it.user?.displayName ?: ""
+                val photo:Uri = it.user?.photoUrl ?: Uri.Builder().build()
+                val token = (it.credential as OAuthCredential).accessToken
 
+                addUserRepositoryGithubViewModel.insertUser(GitUser(name, photo, token)).observe(this, Observer {
+                    when(it.status){
+                        Resource.Status.SUCCESS -> {
+                            Log.i(TAG, "showGithubLogin: success")
+                            navigateToGraph(R.id.home)
+                        }
+                        Resource.Status.ERROR ->{
+                            Log.i(TAG, "showGithubLogin: error")
+                            showErrorGithub()
+                        }
+                    }
+                })
+                firebaseAuth.signOut()
             }
             .addOnFailureListener { exeption ->
                 Log.i(TAG, "startActivityForSignInWithGithub: $exeption")
+                showErrorGithub()
+
             }
 
+
     }
+
+    private fun showErrorGithub() {
+
+        Toast.makeText(this, getString(R.string.error_login_github_process_msg), Toast.LENGTH_LONG).show()
+    }
+
 }

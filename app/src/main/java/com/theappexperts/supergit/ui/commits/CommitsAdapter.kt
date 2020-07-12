@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.theappexperts.supergit.R
 import com.theappexperts.supergit.models.Commit
-import com.theappexperts.supergit.utils.Utitlites.getDate
-import com.theappexperts.supergit.utils.Utitlites.getDateAsHeaderId
+import com.theappexperts.supergit.utils.DateUtils.getDate
+import com.theappexperts.supergit.utils.DateUtils.getDateAsHeaderId
 import kotlinx.android.synthetic.main.item_adapter_commits_header.view.*
 
 class CommitsAdapter :

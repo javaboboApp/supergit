@@ -11,7 +11,7 @@ import com.theappexperts.supergit.network.TransferModel.UserTransfer
 import com.theappexperts.supergit.persistence.DBCommit
 import com.theappexperts.supergit.persistence.DBGitRepository
 import com.theappexperts.supergit.persistence.DBUser
-import com.theappexperts.supergit.utils.Utitlites.convertToDate
+import com.theappexperts.supergit.utils.DateUtils.convertToDate
 
 fun List<DBUser>.asDomainModel(): List<GitUser> {
     return map {
