@@ -12,8 +12,8 @@ private const val TAG = "CommitViewModel"
 class CommitsViewModel(private val iSearchGitRepo: ISearchGitRepo) : ViewModel() {
 
 
-    fun getCommit(username: String, gitRepository: GitRepository): LiveData<Resource<List<Commit>>> {
+    fun getCommit(gitRepository: GitRepository, token:String? = null): LiveData<Resource<List<Commit>>> {
         Log.d(TAG, "getCommit: ${gitRepository.name}")
-        return iSearchGitRepo.getCommits(username,gitRepository)
+        return iSearchGitRepo.getCommits(gitRepository,token)
     }
 }

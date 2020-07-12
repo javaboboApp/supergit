@@ -79,8 +79,6 @@ class CommitsAdapter :
         } else {
             holder.bindNormal(list[position])
         }
-
-
     }
 
     //CommiViewHolder
@@ -94,7 +92,6 @@ class CommitsAdapter :
                     getDate(this.timestamp)
                 )
             }
-
         }
 
         fun bindHeader(commit: Commit) = with(normalView) {
