@@ -1,11 +1,10 @@
 package com.theappexperts.supergit.ui.repo
 
-import android.graphics.Color
 import android.os.Build
-import com.theappexperts.supergit.models.GitUser
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
@@ -40,6 +39,11 @@ class RepoItemAdapter(val listener: RepositoryListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(list[position], listener)
+    }
+
+    override fun onViewRecycled(holder: ItemViewHolder) {
+        super.onViewRecycled(holder)
+        holder.itemView.findViewById<TextView>(R.id.repo_item_visibility_textView).text = null
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

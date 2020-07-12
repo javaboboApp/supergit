@@ -65,7 +65,7 @@ fun List<GitRepositoryTransfer>.asDatabaseModel(userName: String): List<DBGitRep
             name = it.name?: "",
             full_name = it.full_name?: "",
             owner_name = userName,
-            private = it.private?: false,
+            private = it.private!!,
             description = it.description?: "")
     }
 }
