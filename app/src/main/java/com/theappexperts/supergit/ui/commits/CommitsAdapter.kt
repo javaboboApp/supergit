@@ -86,7 +86,7 @@ class CommitsAdapter :
 
     }
 
-
+//CommiViewHolder
     inner class CommitViewHolder(var normalView: View) : RecyclerView.ViewHolder(normalView) {
         fun bindNormal(commit: Commit) = with(normalView) {
             commit.apply {
