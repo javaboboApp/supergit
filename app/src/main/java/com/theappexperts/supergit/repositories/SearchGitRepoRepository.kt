@@ -16,18 +16,27 @@ import com.theappexperts.supergit.persistence.AppDatabase
 import com.theappexperts.supergit.utils.*
 import com.theappexperts.supergit.utils.Utitlites.runDelayForTesting
 import java.lang.Exception
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit.*
 
 private const val TAG = "SearchGitRepoRepository"
 
 interface ISearchGitRepo {
     fun getPublicRepositoriesByUser(username: String): LiveData<Resource<List<GitRepository>>>
-    fun getPublicAndPrivateRepositories(username: String,token: String): LiveData<Resource<List<GitRepository>>>
+    fun getPublicAndPrivateRepositories(
+        username: String,
+        token: String
+    ): LiveData<Resource<List<GitRepository>>>
 
     fun searchUser(userName: String): LiveData<Resource<List<GitUser>>>
     fun getCurrentUsers(): LiveData<Resource<List<GitUser>>>
     fun insertUser(user: GitUser): LiveData<Resource<GitUser>>
     fun deleteUser(user: GitUser): LiveData<Resource<GitUser>>
-    fun getCommits(userName : String,gitRepository: GitRepository, token:String? = null): LiveData<Resource<List<Commit>>>
+    fun getCommits(
+        userName: String,
+        gitRepository: GitRepository,
+        token: String? = null
+    ): LiveData<Resource<List<Commit>>>
 }
 
 class SearchGitRepoRepository(
@@ -134,7 +143,7 @@ class SearchGitRepoRepository(
 
             override fun shouldFetch(data: List<GitRepository>?): Boolean {
                 //TODO  24 H make a request
-                return true
+                return shouldFecthCondiction(data)
             }
 
             override fun loadFromDb(): LiveData<List<GitRepository>> =
@@ -151,7 +160,22 @@ class SearchGitRepoRepository(
         }.asLiveData()
     }
 
-    override fun getPublicAndPrivateRepositories(userName: String,token: String): LiveData<Resource<List<GitRepository>>> {
+    private fun shouldFecthCondiction(data: List<GitRepository>?): Boolean {
+        if (data == null || data.size == 0)
+            return true
+        val first_repo = data.get(0).date
+        if (first_repo == null) return true
+
+        val currentTim = System.currentTimeMillis()
+        val diffMili = currentTim - first_repo
+        val diffHour = MILLISECONDS.toHours(diffMili)
+        return diffHour > MAX_HOURS_UPDATED
+    }
+
+    override fun getPublicAndPrivateRepositories(
+        userName: String,
+        token: String
+    ): LiveData<Resource<List<GitRepository>>> {
         return object :
             NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(appExecutors = AppExecutors.instance!!) {
             override fun saveCallResult(item: List<GitRepositoryTransfer>) {
@@ -163,13 +187,12 @@ class SearchGitRepoRepository(
 
             override fun shouldFetch(data: List<GitRepository>?): Boolean {
                 //TODO  24 H make a request
-                return true
+                return shouldFetch(data)
             }
 
             override fun loadFromDb(): LiveData<List<GitRepository>> =
-                Transformations.map(database.gitRepoDao.getRepositories()) {
-                        listDBRepo ->
-                        listDBRepo.asListDomainModel()
+                Transformations.map(database.gitRepoDao.getRepositories()) { listDBRepo ->
+                    listDBRepo.asListDomainModel()
 
                 }
 
@@ -182,7 +205,11 @@ class SearchGitRepoRepository(
     }
 
 
-    override fun getCommits(userName: String,gitRepository: GitRepository,token:String?): LiveData<Resource<List<Commit>>> {
+    override fun getCommits(
+        userName: String,
+        gitRepository: GitRepository,
+        token: String?
+    ): LiveData<Resource<List<Commit>>> {
         return object :
             NetworkBoundResource<List<Commit>, List<CommitsContainerTransfer>>(appExecutors = AppExecutors.instance!!) {
             override fun saveCallResult(item: List<CommitsContainerTransfer>) {
@@ -200,8 +227,13 @@ class SearchGitRepoRepository(
             override fun createCall(): LiveData<ApiResponse<List<CommitsContainerTransfer>>> {
 
 
-                return token?.let { gitRepoService.getCommit(userName,gitRepository.name, "token $token")} ?:
-                gitRepoService.getCommit(userName,gitRepository.name)
+                return token?.let {
+                    gitRepoService.getCommit(
+                        userName,
+                        gitRepository.name,
+                        "token $token"
+                    )
+                } ?: gitRepoService.getCommit(userName, gitRepository.name)
             }
         }.asLiveData()
     }

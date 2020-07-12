@@ -51,7 +51,8 @@ fun GitRepositoryTransfer.asDomainModel(): GitRepository {
         full_name = full_name ?: "",
         owner = owner?.asDomainModel(),
         private = private!!,
-        description = description ?: ""
+        description = description ?: "",
+        date = System.currentTimeMillis()
     )
 }
 
@@ -62,7 +63,7 @@ fun List<GitRepositoryTransfer>.asGitRepositoryModel(): List<GitRepository> {
 fun List<GitRepositoryTransfer>.asDatabaseModel(userName: String): List<DBGitRepository> {
 
     return map {
-        val isPrivate:String = if (it.private == false) "public" else "private"
+        val isPrivate: String = if (it.private == false) "public" else "private"
 
         DBGitRepository(
             it.id?.toLong() ?: 0,
@@ -70,7 +71,8 @@ fun List<GitRepositoryTransfer>.asDatabaseModel(userName: String): List<DBGitRep
             userName,
             isPrivate,
             it.name ?: "",
-            it.description ?: ""
+            it.description ?: "",
+            System.currentTimeMillis()
         )
     }
 }
@@ -83,7 +85,9 @@ fun List<DBGitRepository>.asListDomainModel(): List<GitRepository> {
             full_name = it.full_name,
             private = it.private_repo.equals("private"),
             description = it.description,
-            owner = GitUser(it.name)
+            owner = GitUser(it.name),
+            date = it.date_modif
+
         )
     }
     return list

@@ -1,4 +1,4 @@
-package com.theappexperts.supergit.ui.repo
+package com.theappexperts.supergit.ui.favorites
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

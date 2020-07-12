@@ -29,12 +29,15 @@ class DBGitRepository {
     @ColumnInfo(name = "name")
     var name: String = ""
 
+    @ColumnInfo(name = "date_modif")
+    var date_modif: Long? = 0
+
     @ColumnInfo(name = "description")
     var description: String = ""
 
 
     constructor() {
-      //do nothing
+        //do nothing
     }
 
     constructor(
@@ -43,14 +46,16 @@ class DBGitRepository {
         owner_name: String,
         private: String,
         name: String,
-        description: String
-    )  {
+        description: String,
+        dateMof: Long?
+    ) {
         this.id = id
         this.full_name = full_name
         this.owner_name = owner_name
         this.private_repo = private
         this.name = name
         this.description = description
+        date_modif = dateMof
     }
 }
 

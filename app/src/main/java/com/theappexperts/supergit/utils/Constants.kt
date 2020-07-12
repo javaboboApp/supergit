@@ -15,5 +15,7 @@ const val SEARCH_USER_ENDPOINT = "search/users"
 
 const val ERROR_INSERTING = "ERROR INSERTING"
 
+const val MAX_HOURS_UPDATED = 24
+
 
 

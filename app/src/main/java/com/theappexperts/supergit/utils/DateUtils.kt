@@ -40,7 +40,7 @@ object DateUtils {
         return dateFormat.format(Date(milliseconds))
     }
     fun parseStringToDate(stringDate: String?): Date? {
-        val formatter = SimpleDateFormat("dd MMMM yyyy hh:mm")
+            val formatter = SimpleDateFormat("dd MMMM yyyy hh:mm")
         var date: Date? = null
         date = try {
             formatter.parse(stringDate)
@@ -49,6 +49,13 @@ object DateUtils {
         }
         return date
     }
+
+    fun getDay(milliseconds: Long): Long {
+        val dateFormat = SimpleDateFormat("dd", Locale.getDefault())
+        return dateFormat.format(Date(milliseconds)).toLong()
+    }
+
+
     fun parseStringToMillis(stringDate: String?): Long {
         val date: Date = parseStringToDate(stringDate) ?: return 0
         return date.time
