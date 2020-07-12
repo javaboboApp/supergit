@@ -21,7 +21,7 @@ private const val TAG = "SearchGitRepoRepository"
 
 interface ISearchGitRepo {
     fun getPublicRepositoriesByUser(username: String): LiveData<Resource<List<GitRepository>>>
-    fun getPublicAndPrivateRepositories(token: String): LiveData<Resource<List<GitRepository>>>
+    fun getPublicAndPrivateRepositories(username: String,token: String): LiveData<Resource<List<GitRepository>>>
 
     fun searchUser(userName: String): LiveData<Resource<List<GitUser>>>
     fun getCurrentUsers(): LiveData<Resource<List<GitUser>>>
@@ -129,7 +129,7 @@ class SearchGitRepoRepository(
             NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(appExecutors = AppExecutors.instance!!) {
             override fun saveCallResult(item: List<GitRepositoryTransfer>) {
                 //running in a thread...
-                database.gitRepoDao.insertRespositories(item.asDatabaseModel())
+                database.gitRepoDao.insertRespositories(item.asDatabaseModel(userName))
             }
 
             override fun shouldFetch(data: List<GitRepository>?): Boolean {
@@ -151,12 +151,14 @@ class SearchGitRepoRepository(
         }.asLiveData()
     }
 
-    override fun getPublicAndPrivateRepositories(token: String): LiveData<Resource<List<GitRepository>>> {
+    override fun getPublicAndPrivateRepositories(userName: String,token: String): LiveData<Resource<List<GitRepository>>> {
         return object :
             NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(appExecutors = AppExecutors.instance!!) {
             override fun saveCallResult(item: List<GitRepositoryTransfer>) {
+                val user = item.asDatabaseModel(userName)
+
                 //running in a thread...
-                database.gitRepoDao.insertRespositories(item.asDatabaseModel())
+                database.gitRepoDao.insertRespositories(item.asDatabaseModel(userName))
             }
 
             override fun shouldFetch(data: List<GitRepository>?): Boolean {
