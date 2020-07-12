@@ -13,6 +13,7 @@ import com.theappexperts.supergit.R
 import com.theappexperts.supergit.ui.addUser.BaseAuthFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
 import com.theappexperts.supergit.ui.BaseFragment
 import com.theappexperts.supergit.utils.setupWithNavController
@@ -108,6 +109,7 @@ class HomeActivity : AppCompatActivity(),
         FirebaseAuth.getInstance()
             .startActivityForSignInWithProvider(this, provider.build())
             .addOnSuccessListener {
+                Log.i(TAG, "startActivityForSignInWithGithub: ${(it.credential as OAuthCredential).accessToken}")
 
             }
             .addOnFailureListener { exeption ->

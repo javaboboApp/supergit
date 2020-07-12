@@ -32,6 +32,7 @@ class CommitsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
+        subscribeUserSelected()
 
     }
 
@@ -75,6 +76,7 @@ class CommitsFragment : BaseFragment() {
     private fun subscribeRepositorySelected(userName: String) {
         sharedHomeViewModel.gitRepoSelectedLiveData.observe(viewLifecycleOwner,
             Observer { repositorySelected ->
+
                 repositorySelected?.let {
                     commitsViewModel.getCommit(userName, repositorySelected)
                         .observe(
