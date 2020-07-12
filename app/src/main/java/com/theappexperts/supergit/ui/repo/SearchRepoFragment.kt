@@ -57,9 +57,14 @@ class SearchRepoFragment : BaseFragment() {
                 repo_username_textView.text = it.name
                 Glide.with(requireContext()).load(it.photo).into(repo_logo_imageview)
                 //get public or get everything(user private)...
-                it.token?.let { token ->
-                    getAllRepositories(it.name, token)
-                } ?: getPublicRepositories(it)
+
+                if (it.token?.isNotEmpty() == true){
+
+                    getAllRepositories(it.name, it.token!!)
+                } else{
+                    getPublicRepositories(it)
+                }
+
 
 
             } ?: goUserFragment()

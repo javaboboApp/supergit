@@ -8,7 +8,7 @@
     <dimen name="no_user_dimen">100dp</dimen>
     <dimen name="no_user_text_size">20sp</dimen>
     <dimen name="picture_size">150dp</dimen>
-    <dimen name="repo_description_text_size">20sp</dimen>
+    <dimen name="repo_description_text_size">18sp</dimen>
     <dimen name="repo_user_avatar_size">50dp</dimen>
 
 </resources>

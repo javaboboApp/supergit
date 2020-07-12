@@ -4,98 +4,84 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
 
     >
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <View
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/blue_link"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-
-        <View
-            android:layout_width="4dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="@dimen/dimen16dp"
-            android:background="@color/blue_link"
-            android:orientation="vertical"
-
-            />
-    </RelativeLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
+        android:layout_marginRight="8dp"
+
+        android:layout_marginTop="2dp"
         android:background="?android:attr/selectableItemBackground"
-
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="@dimen/dimen8dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardBackgroundColor="@android:color/white"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_cnt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/main_cnt"
-                android:layout_width="match_parent"
+            android:padding="@dimen/dimen16dp">
+
+
+            <TextView
+                android:id="@+id/commit_item_author"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_below="@id/commit_item_message_textview"
+                android:layout_marginTop="8dp"
+                android:textSize="@dimen/repo_description_text_size"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/commit_item_message_textview"
+                tools:text="Author" />
 
-                android:padding="@dimen/dimen16dp">
+            <TextView
+                android:id="@+id/commit_item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/commit_item_author"
+                android:layout_marginStart="16dp"
+                android:textColor="#005A00"
+                app:layout_constraintBaseline_toBaselineOf="@+id/commit_item_author"
+                app:layout_constraintStart_toEndOf="@+id/commit_item_author"
+                tools:text="committed 13 minutes ago" />
 
-
-                <TextView
-                    android:id="@+id/repo_item_fullname_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="NORMAL"
-                    android:textColor="@color/blue_link"
-                    android:textSize="@dimen/dimen24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/repo_item_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/repo_item_fullname_textview"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginTop="56dp"
-                    android:text="descipfsfsdfsdftion"
-                    android:textSize="@dimen/repo_description_text_size"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/repo_item_fullname_textview" />
-
-                <TextView
-                    android:id="@+id/repo_item_visibility_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/repo_item_description"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/repo_item_description"
-                    tools:text="public"
-                    tools:textColor="@color/visibility_public_text_color" />
+            <TextView
+                android:id="@+id/commit_item_message_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000090"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Commit Message" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

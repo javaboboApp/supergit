@@ -24,7 +24,7 @@ object DateUtils {
         var timestamp: Long? = null
         try {
             val dateFormat =
-                SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS", Locale.getDefault())
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
             timestamp = dateFormat.parse(this)?.time
         } catch (e: IOException) {
             Log.e(TAG, "convertToDate: ", e)
