@@ -107,7 +107,12 @@ class CommitsFragment : BaseFragment() {
                                         }
                                         Resource.Status.ERROR -> {
                                             resource.data?.peekContent().let {
+                                                if (result.isEmpty()){
+                                                    showNoData()
+                                                }else
+                                                    hideNoData()
                                                 setCommitAdapter(result.toMutableList())
+
                                             }
 
                                             uiCommunicatorInterface?.hideProgressBar()
