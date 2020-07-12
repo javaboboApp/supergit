@@ -24,13 +24,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
+        android:layout_marginRight="8dp"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:background="?android:attr/selectableItemBackground"
         android:foreground="?android:attr/selectableItemBackground"
 
         app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="@dimen/dimen8dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -72,8 +73,8 @@
                 android:id="@+id/commit_item_message_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/blue_link"
-                android:textSize="@dimen/dimen24sp"
+                android:textColor="#000090"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
