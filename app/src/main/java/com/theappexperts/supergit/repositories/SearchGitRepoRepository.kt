@@ -138,7 +138,7 @@ class SearchGitRepoRepository(
             }
 
             override fun loadFromDb(): LiveData<List<GitRepository>> =
-                Transformations.map(database.gitRepoDao.getRepositoriesByUser(userName)) { listDBRepo -> listDBRepo.asListDomainModel() }
+                Transformations.map(database.gitRepoDao.getPublicRepositoriesByUser(userName)) { listDBRepo -> listDBRepo.asListDomainModel() }
 
 
             override fun createCall(): LiveData<ApiResponse<List<GitRepositoryTransfer>>> {
@@ -167,7 +167,7 @@ class SearchGitRepoRepository(
             }
 
             override fun loadFromDb(): LiveData<List<GitRepository>> =
-                Transformations.map(database.gitRepoDao.getRepositories()) {
+                Transformations.map(database.gitRepoDao.getPrivateRepositories(userName)) {
                         listDBRepo ->
                         listDBRepo.asListDomainModel()
 

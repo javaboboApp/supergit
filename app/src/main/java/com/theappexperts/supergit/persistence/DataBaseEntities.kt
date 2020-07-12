@@ -23,7 +23,7 @@ class DBGitRepository {
     @ColumnInfo(name = "owner_name")
     var owner_name: String = ""
 
-    @ColumnInfo(name = "private")
+    @ColumnInfo(name = "private_repo")
     var private_repo: String = ""
 
     @ColumnInfo(name = "name")
