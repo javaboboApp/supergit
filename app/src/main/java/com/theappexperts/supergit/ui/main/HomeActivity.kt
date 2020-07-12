@@ -125,7 +125,9 @@ class HomeActivity : AppCompatActivity(),
 
     override fun showGithubLogin() {
 
+
         val provider: OAuthProvider.Builder = OAuthProvider.newBuilder("github.com")
+
         val scopes: List<String> = listOf("repo")
         provider.scopes = scopes;
 

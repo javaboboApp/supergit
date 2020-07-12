@@ -13,16 +13,15 @@ import kotlinx.android.synthetic.main.item_adapter_commits.view.*
 import kotlinx.android.synthetic.main.item_adapter_commits_header.view.*
 
 class CommitsAdapter :
-    RecyclerView.Adapter<RecyclerView.ViewHolder >() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var list: List<Commit> = listOf()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = setInitList(value)
+            notifyDataSetChanged()
+        }
 
 
-
-     fun setInitList(field: List<Commit>) {
+    fun setInitList(field: List<Commit>): List<Commit> {
         val _cacheHeader = HashMap<Long, Boolean>()
         field.forEach { commit ->
             val headerId = getDateAsHeaderId(commit.timestamp)
@@ -32,14 +31,12 @@ class CommitsAdapter :
             }
         }
 
-         list = field
-         notifyDataSetChanged()
-
+        return field
 
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(list[position].isHeader){
+        if (list[position].isHeader) {
             return 0
         }
         return 1
@@ -86,14 +83,16 @@ class CommitsAdapter :
 
     }
 
-//CommiViewHolder
+    //CommiViewHolder
     inner class CommitViewHolder(var normalView: View) : RecyclerView.ViewHolder(normalView) {
         fun bindNormal(commit: Commit) = with(normalView) {
             commit.apply {
                 commit_item_message_textview.text = this.message
                 commit_item_author.text = this.authorName
-                commit_item_date.text = context.getString(R.string.commit_item_date_text,
-                    getDate(this.timestamp))
+                commit_item_date.text = context.getString(
+                    R.string.commit_item_date_text,
+                    getDate(this.timestamp)
+                )
             }
 
         }

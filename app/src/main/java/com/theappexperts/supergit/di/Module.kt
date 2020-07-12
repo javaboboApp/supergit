@@ -36,5 +36,5 @@ val viewModelModule = module {
     viewModel { AddUserRepositoryGithubViewModel(get(),get()) }
     viewModel { UserViewModel(get()) }
     viewModel { SearchRepoViewModel(get()) }
-    viewModel { CommitsViewModel(get()) }
+    viewModel  { CommitsViewModel(get()) }
 }

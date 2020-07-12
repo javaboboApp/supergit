@@ -9,8 +9,10 @@ interface GitRepoDao {
 
     @Query("SELECT * FROM DBUser")
     fun getLocalUsers():LiveData<List<DBUser>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUser(user: DBUser): Long
+
     @Delete
     fun deleteUser(user: DBUser) : Int
 
@@ -19,17 +21,15 @@ interface GitRepoDao {
 
     @Query("SELECT * FROM DBGitRepository WHERE owner_name =:userName")
     fun getRepositoriesByUser( userName: String):LiveData<List<DBGitRepository>>
+
     @Query("SELECT * FROM DBGitRepository ")
     fun getRepositories():LiveData<List<DBGitRepository>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCommits(commits: List<DBCommit>): LongArray
+
     @Query("SELECT * FROM DBCommit WHERE repo_id =:repoId ORDER BY timestamp DESC")
     fun getCommitsByRepoId( repoId: Long):LiveData<List<DBCommit>>
-
-
-
-
 
 
 }

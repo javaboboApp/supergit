@@ -11,7 +11,7 @@
     <string name="user_not_found">User Not Found</string>
     <string name="or">OR</string>
     <string name="type_an_username">Type an Username...</string>
-    <string name="error_msg_to_get_current_user">Something was wrong :(</string>
+    <string name="error_msg_to_get_current_user">Something was wrong :(, Do you have internet connection?</string>
     <string name="add_user_text">Let\'s begin by adding a Git User !</string>
     <string name="add_user_button">Add User</string>
     <string name="error_removing_user_msg">Error Occurred during suppression</string>

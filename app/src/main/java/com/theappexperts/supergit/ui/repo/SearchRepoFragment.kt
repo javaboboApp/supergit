@@ -16,6 +16,7 @@ import com.theappexperts.supergit.ui.BaseFragment
 import com.theappexperts.supergit.ui.main.SharedHomeViewModel
 import com.theappexperts.supergit.utils.Resource
 import kotlinx.android.synthetic.main.fragment_search_repo.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -58,13 +59,12 @@ class SearchRepoFragment : BaseFragment() {
                 Glide.with(requireContext()).load(it.photo).into(repo_logo_imageview)
                 //get public or get everything(user private)...
 
-                if (it.token?.isNotEmpty() == true){
+                if (it.token?.isNotEmpty() == true) {
 
                     getAllRepositories(it.name, it.token!!)
-                } else{
+                } else {
                     getPublicRepositories(it)
                 }
-
 
 
             } ?: goUserFragment()
@@ -72,27 +72,30 @@ class SearchRepoFragment : BaseFragment() {
     }
 
     private fun getAllRepositories(userName: String, token: String) {
-        searchRepoViewModel.getPrivateAndPublicRepositories(userName,token).observe(viewLifecycleOwner,
-            Observer { resource ->
-                when (resource.status) {
-                    Resource.Status.SUCCESS -> {
-                        uiCommunicatorInterface?.hideProgressBar()
-                        setRepoAdapter(resource.data!!.peekContent())
-                    }
-                    Resource.Status.LOADING -> {
-                        uiCommunicatorInterface?.showProgressBar()
+        searchRepoViewModel.getPrivateAndPublicRepositories(userName, token)
+            .observe(viewLifecycleOwner,
+                Observer { resource ->
+                    resource.data?.getContentIfNotHandled()?.let {
+                        when (resource.status) {
+                            Resource.Status.SUCCESS -> {
+                                uiCommunicatorInterface?.hideProgressBar()
+                                setRepoAdapter(resource.data!!.peekContent())
+                            }
+                            Resource.Status.LOADING -> {
+                                uiCommunicatorInterface?.showProgressBar()
 
-                    }
-                    Resource.Status.ERROR -> {
-                        resource.data?.peekContent().let {
-                            setRepoAdapter(resource.data!!.peekContent())
+                            }
+                            Resource.Status.ERROR -> {
+                                resource.data?.peekContent().let {
+                                    setRepoAdapter(resource.data!!.peekContent())
+                                }
+                                showError()
+                                uiCommunicatorInterface?.hideProgressBar()
+                            }
+
                         }
-                      showError()
-                        uiCommunicatorInterface?.hideProgressBar()
                     }
-
-                }
-            })
+                })
 
     }
 
@@ -103,23 +106,24 @@ class SearchRepoFragment : BaseFragment() {
     private fun getPublicRepositories(it: GitUser) {
         searchRepoViewModel.getPublicRepositoriesByUser(it.name).observe(viewLifecycleOwner,
             Observer { resource ->
-                when (resource.status) {
-                    Resource.Status.SUCCESS -> {
-                        uiCommunicatorInterface?.hideProgressBar()
-                        setRepoAdapter(resource.data!!.peekContent())
-                    }
-                    Resource.Status.LOADING -> {
-                        uiCommunicatorInterface?.showProgressBar()
+                resource.data?.getContentIfNotHandled()?.let {
 
-                    }
-                    Resource.Status.ERROR -> {
-                        resource.data?.peekContent().let {
+                    when (resource.status) {
+                        Resource.Status.SUCCESS -> {
+                            uiCommunicatorInterface?.hideProgressBar()
                             setRepoAdapter(resource.data!!.peekContent())
                         }
+                        Resource.Status.LOADING -> {
+                            uiCommunicatorInterface?.showProgressBar()
 
-                        uiCommunicatorInterface?.hideProgressBar()
+                        }
+                        Resource.Status.ERROR -> {
+                            resource.data?.peekContent().let {
+                                setRepoAdapter(resource.data!!.peekContent())
+                            }
+                            uiCommunicatorInterface?.hideProgressBar()
+                        }
                     }
-
                 }
             })
     }

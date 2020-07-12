@@ -10,5 +10,10 @@
         android:id="@+id/add"
         android:name="com.theappexperts.supergit.ui.addUser.AddUserRepositoryGithubFragment"
         android:label="fragment_login_github"
-        tools:layout="@layout/fragment_add_user_repository" />
+        tools:layout="@layout/fragment_add_user_repository"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        />
 </navigation>
