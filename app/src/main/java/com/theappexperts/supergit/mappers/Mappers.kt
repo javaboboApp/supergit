@@ -16,16 +16,17 @@ import com.theappexperts.supergit.utils.DateUtils.convertToDate
 fun List<DBUser>.asDomainModel(): List<GitUser> {
     return map {
         GitUser(
-            name = it.username, photo = Uri.parse(it.avatar_url)
+            name = it.username, photo = Uri.parse(it.avatar_url), token = it.token
         )
     }
 
 }
 fun GitUser.asDbMoodel(): DBUser {
     var avatarUrl = ""
+    var tokenAux =""
     photo?.let { avatarUrl = photo.toString()}
-
-    return DBUser(name, avatarUrl )
+    token?.let { tokenAux = token }
+    return DBUser(name, avatarUrl, tokenAux )
 }
 
 fun SearchGitUsersContainer.asListUserTransfer() : List<GitUser> {

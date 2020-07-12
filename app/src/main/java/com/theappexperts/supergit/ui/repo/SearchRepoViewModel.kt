@@ -15,4 +15,8 @@ class SearchRepoViewModel(private val iSearchGitRepo: ISearchGitRepo) : ViewMode
         Log.d(TAG, "getPublicRepositoriesByUser: ${username}")
         return iSearchGitRepo.getPublicRepositoriesByUser(username)
     }
+
+    fun getPrivateAndPublicRepositories(token: String): LiveData<Resource<List<GitRepository>>> {
+        return  iSearchGitRepo.getPublicAndPrivateRepositories(token)
+    }
 }

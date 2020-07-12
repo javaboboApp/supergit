@@ -62,7 +62,7 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
                     it.data?.peekContent()?.let {
                         if (it.isEmpty()) {
                             showUserEmptyLayout()
-                        }else
+                        } else
                             hideNotUserLayout()
 
                         setCurrentUsers(it)
@@ -124,7 +124,10 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
                     userViewModel.removeUser(user).observe(viewLifecycleOwner, Observer { result ->
                         when (result.status) {
                             SUCCESS -> {
-                                firebaseAuth.signOut()
+                                result.data?.peekContent()?.token.let {
+                                    firebaseAuth.signOut()
+                                }
+
                             }
                             ERROR -> {
                                 showMsgRemoving()

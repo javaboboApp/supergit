@@ -36,7 +36,8 @@ class DBGitRepository(
 data class DBUser(
     @PrimaryKey()
     val username: String = "",
-    val avatar_url: String = ""
+    val avatar_url: String = "",
+    val token : String =""
 )
 
 

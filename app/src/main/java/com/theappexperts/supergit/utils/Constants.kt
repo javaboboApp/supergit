@@ -7,7 +7,7 @@ const val PATH_REPO = "repo"
 const val GET_REPOSITORIES_ENDPOINT ="users/{"+PATH_USER_NAME+"}/repos"
 const val GET_COMMIT_ENDPOINT = "/repos/{"+PATH_USER_NAME+"}/{"+ PATH_REPO+"}/commits"
 
-
+const val GET_PRIVATE_REPOST = "user/repos"
 
 const val GET_REPOSITORIES_PARAM_TYPE ="owner"
 

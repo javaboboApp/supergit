@@ -16,6 +16,7 @@ interface GitRepoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRespositories(user:  List<DBGitRepository>): LongArray
+
     @Query("SELECT * FROM DBGitRepository WHERE owner_name =:userName")
     fun getRepositoriesByUser( userName: String):LiveData<List<DBGitRepository>>
     @Query("SELECT * FROM DBGitRepository ")

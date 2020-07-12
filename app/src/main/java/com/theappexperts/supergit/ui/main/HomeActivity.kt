@@ -145,11 +145,12 @@ class HomeActivity : AppCompatActivity(),
     }
 
     private fun insertUserAndMoveToHomePage(it: AuthResult) {
+        val name2 :String = it.additionalUserInfo?.profile?.get("login").toString()
         val name = it.user?.displayName ?: ""
         val photo: Uri = it.user?.photoUrl ?: Uri.Builder().build()
         val token = (it.credential as OAuthCredential).accessToken
 
-        addUserRepositoryGithubViewModel.insertUser(GitUser(name, photo, token))
+        addUserRepositoryGithubViewModel.insertUser(GitUser(name2, photo, token))
             .observe(this, Observer {
                 when (it.status) {
                     Resource.Status.SUCCESS -> {

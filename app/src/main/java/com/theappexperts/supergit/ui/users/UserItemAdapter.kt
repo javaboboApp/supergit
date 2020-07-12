@@ -38,9 +38,7 @@ class UserItemAdapter(val listener: UserItemsListener) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(user = list[position], listener = listener)
     }
-    fun removeUser(itemPosition: Int) {
-        notifyItemRemoved(itemPosition)
-    }
+
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: GitUser, listener: UserItemsListener) = with(itemView) {

@@ -10,7 +10,6 @@ import com.theappexperts.supergit.mappers.*
 import com.theappexperts.supergit.models.Commit
 import com.theappexperts.supergit.models.GitRepository
 import com.theappexperts.supergit.network.*
-import com.theappexperts.supergit.network.TransferModel.CommitTransfer
 import com.theappexperts.supergit.network.TransferModel.CommitsContainerTransfer
 import com.theappexperts.supergit.network.TransferModel.GitRepositoryTransfer
 import com.theappexperts.supergit.persistence.AppDatabase
@@ -22,6 +21,8 @@ private const val TAG = "SearchGitRepoRepository"
 
 interface ISearchGitRepo {
     fun getPublicRepositoriesByUser(username: String): LiveData<Resource<List<GitRepository>>>
+    fun getPublicAndPrivateRepositories(token: String): LiveData<Resource<List<GitRepository>>>
+
     fun searchUser(userName: String): LiveData<Resource<List<GitUser>>>
     fun getCurrentUsers(): LiveData<Resource<List<GitUser>>>
     fun insertUser(user: GitUser): LiveData<Resource<GitUser>>
@@ -124,7 +125,8 @@ class SearchGitRepoRepository(
 
 
     override fun getPublicRepositoriesByUser(userName: String): LiveData<Resource<List<GitRepository>>> {
-        return object : NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(appExecutors = AppExecutors.instance!!) {
+        return object :
+            NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(appExecutors = AppExecutors.instance!!) {
             override fun saveCallResult(item: List<GitRepositoryTransfer>) {
                 //running in a thread...
                 database.gitRepoDao.insertRespositories(item.asDatabaseModel())
@@ -136,20 +138,50 @@ class SearchGitRepoRepository(
             }
 
             override fun loadFromDb(): LiveData<List<GitRepository>> =
-                Transformations.map(database.gitRepoDao.getRepositoriesByUser(userName)) { listDBRepo -> listDBRepo.asListDomainModel()  }
+                Transformations.map(database.gitRepoDao.getRepositoriesByUser(userName)) { listDBRepo -> listDBRepo.asListDomainModel() }
 
 
             override fun createCall(): LiveData<ApiResponse<List<GitRepositoryTransfer>>> {
-                return gitRepoService.getPublicRepositoriesByUser(userName, GET_REPOSITORIES_PARAM_TYPE)
+                return gitRepoService.getPublicRepositoriesByUser(
+                    userName,
+                    GET_REPOSITORIES_PARAM_TYPE
+                )
+            }
+
+        }.asLiveData()
+    }
+
+    override fun getPublicAndPrivateRepositories(token: String): LiveData<Resource<List<GitRepository>>> {
+        return object :
+            NetworkBoundResource<List<GitRepository>, List<GitRepositoryTransfer>>(appExecutors = AppExecutors.instance!!) {
+            override fun saveCallResult(item: List<GitRepositoryTransfer>) {
+                //running in a thread...
+                database.gitRepoDao.insertRespositories(item.asDatabaseModel())
+            }
+
+            override fun shouldFetch(data: List<GitRepository>?): Boolean {
+                //TODO  24 H make a request
+                return true
+            }
+
+            override fun loadFromDb(): LiveData<List<GitRepository>> =
+                Transformations.map(database.gitRepoDao.getRepositories()) { listDBRepo -> listDBRepo.asListDomainModel() }
+
+
+            override fun createCall(): LiveData<ApiResponse<List<GitRepositoryTransfer>>> {
+                return gitRepoService.getPublicAndPrivateRepositories("token " + token)
             }
 
         }.asLiveData()
     }
 
 
-
-    override fun getCommits(userName: String, gitRepository: GitRepository): LiveData<Resource<List<Commit>>> {
-        return object : NetworkBoundResource<List<Commit>, List<CommitsContainerTransfer>>(appExecutors = AppExecutors.instance!!) {
+    override fun getCommits(
+        userName: String,
+        gitRepository: GitRepository
+    ): LiveData<Resource<List<Commit>>> {
+        return object :
+            NetworkBoundResource<List<Commit>, List<CommitsContainerTransfer>>(appExecutors = AppExecutors.instance!!) {
             override fun saveCallResult(item: List<CommitsContainerTransfer>) {
                 database.gitRepoDao.insertCommits(item.asListDBCommits(gitRepository.id))
             }
@@ -160,14 +192,13 @@ class SearchGitRepoRepository(
             }
 
             override fun loadFromDb(): LiveData<List<Commit>> =
-                Transformations.map(database.gitRepoDao.getCommitsByRepoId(gitRepository.id)) { listDBCommit -> listDBCommit.asListCommitDomainModel()  }
+                Transformations.map(database.gitRepoDao.getCommitsByRepoId(gitRepository.id)) { listDBCommit -> listDBCommit.asListCommitDomainModel() }
 
             override fun createCall(): LiveData<ApiResponse<List<CommitsContainerTransfer>>> {
-                return gitRepoService.getCommit(userName,gitRepository.name)
+                return gitRepoService.getCommit(userName, gitRepository.name)
             }
         }.asLiveData()
     }
-
 
 
 }
