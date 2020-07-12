@@ -58,7 +58,7 @@ class SearchRepoFragment : BaseFragment() {
                 Glide.with(requireContext()).load(it.photo).into(repo_logo_imageview)
                 //get public or get everything(user private)...
                 it.token?.let { token ->
-                    getAllRepositories(token)
+                    getAllRepositories(it.name, token)
                 } ?: getPublicRepositories(it)
 
 
@@ -66,8 +66,8 @@ class SearchRepoFragment : BaseFragment() {
         })
     }
 
-    private fun getAllRepositories(token: String) {
-        searchRepoViewModel.getPrivateAndPublicRepositories(token).observe(viewLifecycleOwner,
+    private fun getAllRepositories(userName: String, token: String) {
+        searchRepoViewModel.getPrivateAndPublicRepositories(userName,token).observe(viewLifecycleOwner,
             Observer { resource ->
                 when (resource.status) {
                     Resource.Status.SUCCESS -> {

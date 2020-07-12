@@ -24,7 +24,7 @@ interface GitRepoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCommits(commits: List<DBCommit>): LongArray
-    @Query("SELECT * FROM DBCommit WHERE repo_id =:repoId")
+    @Query("SELECT * FROM DBCommit WHERE repo_id =:repoId ORDER BY timestamp DESC")
     fun getCommitsByRepoId( repoId: Long):LiveData<List<DBCommit>>
 
 

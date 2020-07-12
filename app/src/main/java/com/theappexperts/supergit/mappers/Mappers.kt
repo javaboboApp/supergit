@@ -58,13 +58,13 @@ fun List<GitRepositoryTransfer>.asGitRepositoryModel(): List<GitRepository>{
     return  map {it.asDomainModel() }
 }
 
-fun List<GitRepositoryTransfer>.asDatabaseModel(): List<DBGitRepository>{
+fun List<GitRepositoryTransfer>.asDatabaseModel(userName: String): List<DBGitRepository>{
     return map {
         DBGitRepository(
              id= it.id?.toLong()?: 0,
             name = it.name?: "",
             full_name = it.full_name?: "",
-            owner_name = it.owner?.login ?: "",
+            owner_name = userName,
             private = it.private?: false,
             description = it.description?: "")
     }
