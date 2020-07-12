@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.theappexperts.supergit.R
+import com.theappexperts.supergit.di.firebaseModule
 import com.theappexperts.supergit.models.GitUser
 import com.theappexperts.supergit.ui.BaseFragment
 import com.theappexperts.supergit.ui.main.SharedHomeViewModel
@@ -123,7 +124,7 @@ class UserFragment : BaseFragment(), UserItemAdapter.UserItemsListener {
                     userViewModel.removeUser(user).observe(viewLifecycleOwner, Observer { result ->
                         when (result.status) {
                             SUCCESS -> {
-                                currentUserItemAdapter.notifyItemChanged(itemPosition)
+                                firebaseAuth.signOut()
                             }
                             ERROR -> {
                                 showMsgRemoving()
