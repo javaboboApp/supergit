@@ -16,7 +16,6 @@ import com.theappexperts.supergit.persistence.AppDatabase
 import com.theappexperts.supergit.utils.*
 import com.theappexperts.supergit.utils.Utitlites.runDelayForTesting
 import java.lang.Exception
-import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeUnit.*
 
 private const val TAG = "SearchGitRepoRepository"
@@ -161,13 +160,12 @@ class SearchGitRepoRepository(
     }
 
     private fun shouldFecthCondiction(data: List<GitRepository>?): Boolean {
-        if (data == null || data.size == 0)
+        if (data == null || data.isEmpty())
             return true
-        val first_repo = data.get(0).date
-        if (first_repo == null) return true
+        val firstRepo = data[0].date ?: return true
 
         val currentTim = System.currentTimeMillis()
-        val diffMili = currentTim - first_repo
+        val diffMili = currentTim - firstRepo
         val diffHour = MILLISECONDS.toHours(diffMili)
         return diffHour > MAX_HOURS_UPDATED
     }
