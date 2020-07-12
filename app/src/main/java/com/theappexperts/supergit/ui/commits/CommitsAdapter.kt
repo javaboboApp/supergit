@@ -9,6 +9,7 @@ import com.theappexperts.supergit.R
 import com.theappexperts.supergit.models.Commit
 import com.theappexperts.supergit.utils.DateUtils.getDate
 import com.theappexperts.supergit.utils.DateUtils.getDateAsHeaderId
+import kotlinx.android.synthetic.main.item_adapter_commits.view.*
 import kotlinx.android.synthetic.main.item_adapter_commits_header.view.*
 
 class CommitsAdapter :
@@ -88,15 +89,19 @@ class CommitsAdapter :
 
     inner class CommitViewHolder(var normalView: View) : RecyclerView.ViewHolder(normalView) {
         fun bindNormal(commit: Commit) = with(normalView) {
-            val fullName: TextView = findViewById(R.id.repo_item_fullname_textview)
-            fullName.text = "NORMAL"
+            commit.apply {
+                commit_item_message_textview.text = this.message
+                commit_item_author.text = this.authorName
+                commit_item_date.text = context.getString(R.string.commit_item_date_text,
+                    getDate(this.timestamp))
+            }
 
         }
 
         fun bindHeader(commit: Commit) = with(normalView) {
-            val fullName: TextView = findViewById(R.id.repo_item_fullname_header_textview)
+            val fullName: TextView = findViewById(R.id.header_date_textview)
             fullName.text = "header"
-            date_textview.text = getDate(commit.timestamp)
+            header_date_textview.text = getDate(commit.timestamp)
 
         }
 
