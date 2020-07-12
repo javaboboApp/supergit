@@ -19,12 +19,11 @@ interface IGitRepoService {
 
     @GET(GET_COMMIT_ENDPOINT)
     fun getCommit(
-        @Path(PATH_FULL_NAME_REPO) fullNameRepository: String, @Header("Authorization") token: String
+        @Path(PATH_USER_NAME) userName: String, @Path(PATH_REPO) repository: String, @Header("Authorization") token: String
     ): LiveData<ApiResponse<List<CommitsContainerTransfer>>>
 
     @GET(GET_COMMIT_ENDPOINT)
-    fun getCommit(
-        @Path(PATH_FULL_NAME_REPO) fullNameRepository: String): LiveData<ApiResponse<List<CommitsContainerTransfer>>>
+    fun getCommit(@Path(PATH_USER_NAME) userName: String, @Path(PATH_REPO) repository: String): LiveData<ApiResponse<List<CommitsContainerTransfer>>>
 
     @GET(GET_PRIVATE_REPOST)
     fun getPublicAndPrivateRepositories(@Header("Authorization") token: String): LiveData<ApiResponse<List<GitRepositoryTransfer>>>
