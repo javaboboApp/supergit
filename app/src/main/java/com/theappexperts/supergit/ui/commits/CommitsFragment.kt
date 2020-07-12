@@ -66,9 +66,9 @@ class CommitsFragment : BaseFragment() {
             Observer { userSelected ->
 
                 userSelected?.let {
-                    if (it.token?.isNotEmpty() == true ){
-                    subscribeRepositorySelected(it.token)
-                    }else{
+                    if (it.token?.isNotEmpty() == true) {
+                        subscribeRepositorySelected(it.token)
+                    } else {
                         subscribeRepositorySelected()
                     }
                 }
@@ -82,31 +82,46 @@ class CommitsFragment : BaseFragment() {
             Observer { repositorySelected ->
 
                 repositorySelected?.let {
-                    commitsViewModel.getCommit(repositorySelected,token)
+                    commitsViewModel.getCommit(repositorySelected, token)
                         .observe(
                             viewLifecycleOwner,
                             Observer { resource ->
-                                when (resource.status) {
-                                    Resource.Status.SUCCESS -> {
-                                        uiCommunicatorInterface?.hideProgressBar()
-                                        setCommitAdapter(resource.data!!.peekContent())
-                                    }
-                                    Resource.Status.LOADING -> {
-                                        uiCommunicatorInterface?.showProgressBar()
+                                resource.data?.getContentIfNotHandled()?.let { result ->
+                                    when (resource.status) {
+                                        Resource.Status.SUCCESS -> {
+                                            if (result.isEmpty()){
+                                                showNoData()
+                                            }else
+                                                hideNoData()
 
-                                    }
-                                    Resource.Status.ERROR -> {
-                                        resource.data?.peekContent().let {
-                                            setCommitAdapter(resource.data!!.peekContent())
+                                            uiCommunicatorInterface?.hideProgressBar()
+                                            setCommitAdapter(result)
+                                        }
+                                        Resource.Status.LOADING -> {
+                                            uiCommunicatorInterface?.showProgressBar()
+
+                                        }
+                                        Resource.Status.ERROR -> {
+                                            resource.data?.peekContent().let {
+                                                setCommitAdapter(result)
+                                            }
+
+                                            uiCommunicatorInterface?.hideProgressBar()
                                         }
 
-                                        uiCommunicatorInterface?.hideProgressBar()
                                     }
-
                                 }
                             })
                 }
             })
+    }
+
+    private fun hideNoData() {
+        no_data_msg.visibility = View.INVISIBLE
+    }
+
+    private fun showNoData() {
+        no_data_msg.visibility = View.VISIBLE
     }
 
     private fun setCommitAdapter(list: List<Commit>) {

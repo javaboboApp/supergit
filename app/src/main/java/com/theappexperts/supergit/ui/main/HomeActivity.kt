@@ -3,6 +3,7 @@ package com.theappexperts.supergit.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -37,6 +38,7 @@ class HomeActivity : AppCompatActivity(),
 
     private var bottomNavigationView: BottomNavigationView? = null
     private var currentNavController: LiveData<NavController>? = null
+    val SPLASH_DISPLAY_LENGTH = 3300L
 
     val firebaseAuth: FirebaseAuth by inject()
     val addUserRepositoryGithubViewModel: AddUserRepositoryGithubViewModel by inject()
@@ -48,6 +50,13 @@ class HomeActivity : AppCompatActivity(),
         if (savedInstanceState == null)
             setUpBottomNabView()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Handler().postDelayed({ /* Create an Intent that will start the Menu-Activity. */
+        motionLayout.transitionToEnd()
+        }, SPLASH_DISPLAY_LENGTH)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {

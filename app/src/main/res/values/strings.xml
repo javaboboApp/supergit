@@ -19,5 +19,6 @@
     <string name="visibility_private">private</string>
     <string name="error_login_github_process_msg">There was an error in the login process</string>
     <string name="commit_item_date_text">committed %s</string>
+    <string name="no_data">NO DATA</string>
 
 </resources>
