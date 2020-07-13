@@ -23,12 +23,14 @@ open class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        try {
-            context as CommunicatorsInterface
-            uiCommunicatorInterface = context
-        } catch (exception: ClassCastException) {
-            Log.i(TAG, "$context must implement CommunicatorsInterface ")
-        }
+            try {
+
+                uiCommunicatorInterface = provideComunicatorInterface(context)
+            } catch (exception: ClassCastException) {
+                Log.i(TAG, "$context must implement CommunicatorsInterface ")
+            }
     }
+
+    fun provideComunicatorInterface(context: Context) = context as CommunicatorsInterface
 
 }

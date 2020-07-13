@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_app"
-
+    android:id="@+id/fragment_user"
     tools:context=".ui.users.UserFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout

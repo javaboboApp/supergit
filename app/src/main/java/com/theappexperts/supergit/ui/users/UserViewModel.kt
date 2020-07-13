@@ -5,10 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.theappexperts.supergit.repositories.ISearchGitRepo
+import com.theappexperts.supergit.utils.OpenForTesting
 import com.theappexperts.supergit.utils.Resource
 
 private const val TAG = "UserViewModel"
-
+@OpenForTesting
 class UserViewModel(private val searchGitRepo: ISearchGitRepo) : ViewModel() {
 
 
