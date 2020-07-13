@@ -97,15 +97,11 @@ class UserFragmentTest : KoinTest {
         Mockito.verify(uiComunicator).hideProgressBar()
     }
 
-    @Test
-    fun test_hide_progress_bar_is_called_when_get_users_returned_succes() {
-        repoLiveData?.postValue(Resource.success(Event.dataEvent(listOf())))
-        //verify uiComunicator.hideProgressBar has been called
-        Mockito.verify(uiComunicator).hideProgressBar()
-    }
-
+  
     @Test
     fun test_verify_user_fragment_is_visible() {
+        fragmentScenerio.moveToState(State.RESUMED)
+
         Espresso.onView(withId(R.id.fragment_user))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
