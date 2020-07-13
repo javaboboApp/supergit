@@ -97,7 +97,7 @@ class UserFragmentTest : KoinTest {
         Mockito.verify(uiComunicator).hideProgressBar()
     }
 
-  
+
     @Test
     fun test_verify_user_fragment_is_visible() {
         fragmentScenerio.moveToState(State.RESUMED)
