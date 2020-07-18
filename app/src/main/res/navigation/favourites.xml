@@ -7,7 +7,7 @@
     >
     <fragment
         android:id="@+id/favourites"
-        android:name="com.theappexperts.supergit.ui.favorites.FavoritesFragment"
+        android:name="com.javabobo.supergit.ui.favorites.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
 </navigation>

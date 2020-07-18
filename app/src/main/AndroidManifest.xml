@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="com.theappexperts.supergit">
+    package="com.javabobo.supergit">
 <uses-permission android:name="android.permission.INTERNET"/>
     <application
 
-        android:name="com.theappexperts.supergit.App"
+        android:name="com.javabobo.supergit.App"
         android:icon="@drawable/ic_github_launcher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_github_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.theappexperts.supergit.ui.main.HomeActivity"
+        <activity android:name="com.javabobo.supergit.ui.main.HomeActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             >

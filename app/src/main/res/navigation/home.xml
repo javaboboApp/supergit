@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/user"
-        android:name="com.theappexperts.supergit.ui.users.UserFragment"
+        android:name="com.javabobo.supergit.ui.users.UserFragment"
         android:label="UserFragment"
         tools:layout="@layout/fragment_user">
         <action
@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/searchRepoFragment"
-        android:name="com.theappexperts.supergit.ui.repo.SearchRepoFragment"
+        android:name="com.javabobo.supergit.ui.repo.SearchRepoFragment"
         android:label="fragment_search_repo"
         tools:layout="@layout/fragment_search_repo" >
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/commitsFragment"
-        android:name="com.theappexperts.supergit.ui.commits.CommitsFragment"
+        android:name="com.javabobo.supergit.ui.commits.CommitsFragment"
         android:label="fragment_commits"
         tools:layout="@layout/fragment_commits"
         app:popEnterAnim="@anim/slide_in_left"
